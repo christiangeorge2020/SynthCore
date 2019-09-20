@@ -1,0 +1,47 @@
+LFO1 GUI Controls
+
+LFO1 Wave: Option Menu
+Name: LFO1 Wave
+variable: lfo1Waveform
+
+enum list: Triangle,Sin,Saw,RSH,QRSH,Noise,QRNoise
+default: Triangle
+
+
+
+LFO1 Mode: Option Menu
+Name: LFO1 Mode
+variable: lfo1Mode
+
+enum list: Sync, One_Shot, Free_Run
+default: sync
+
+
+LFO1 Fo: Continuous Knob Control, double datatype
+Name: LFO1 fo
+Units: Hz
+variable: lfo1Frequency_Hz
+low: 0.02
+high: 20.0
+init: 0.5
+
+Transfer to the LFO via the engine and voice parameters.
+
+For the in-class coding funtime, here are the two controls to add:
+
+LFO1 Delay Time: Continuous Knob Control, double datatype
+Name: LFO1 Dly
+Units: mSec
+variable: lfo1DelayTime_mSec
+low: 0.0
+high: 2000.0  (or whatever you want)
+init: 0.0
+
+
+LFO1 Ramp Time: Continuous Knob Control, double datatype
+Name: LFO1 Ramp
+Units: mSec
+variable: lfo1RampTime_mSec
+low: 0.0
+high: 2000.0  (or whatever you want)
+init: 0.0

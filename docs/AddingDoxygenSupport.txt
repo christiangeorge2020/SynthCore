@@ -1,0 +1,47 @@
+1. add a /docs folder to your project folder, in parallel with the others (PluginObjects, etc...) - you can name it whatever you like, but it will become part of the repository and public.
+
+Add the doxy.zip stuff to this folder. There will be the following files:
+
+- this text file
+- doxyfile
+- mainpage.txt
+- oscillator.txt
+- documentation.html (this is the final link you will leave for the user)
+
+html folder with 3 image files in it. You will replace these ASAP.
+
+2. Add this chunk of code to any of the files; we will use the synthdefs.h file, but you could use any of the source code. 
+
+// --------------------------- DOXYGEN GROUPS --------------------------- //
+/** \defgroup SynthClasses
+
+Synth Classes are C++ objects that encapsulate synth components including modulators, renderers, procecessors and others.
+\brief
+
+**/
+
+/** \defgroup SynthStructures
+
+Structures for synth objects.
+\brief
+
+**/
+
+/** \defgroup SynthFunctions
+
+Specitalty functions for synth plugins.
+\brief
+
+**/
+
+/** \defgroup SynthDefs
+
+Definitions for synth components.
+\brief
+
+**/
+
+// --------------------------- DOXYGEN GROUPS --------------------------- //
+
+3. Run the Doxywizard and open the doxyfile, then Run tab and Run Doxygen; the output button is at the bottom. 
+

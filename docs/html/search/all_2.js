@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['beta_26',['beta',['../class_z_v_a_filter.html#ac4d747eca29e19b406a441ab9563f573',1,'ZVAFilter']]],
+  ['bipolarinttomidi14_5fbit_27',['bipolarIntToMIDI14_bit',['../structbipolar_int_to_m_i_d_i14__bit.html',1,'']]],
+  ['bipolartounipolar_28',['bipolarToUnipolar',['../fxobjects_8h.html#aab2c42bb666e6eb47a67c84d7dd58d10',1,'fxobjects.h']]],
+  ['biquad_29',['Biquad',['../class_biquad.html',1,'Biquad'],['../class_audio_filter.html#a99dc2584ab0c9696f9e677cf1a2037a0',1,'AudioFilter::biquad()']]],
+  ['biquadalgorithm_30',['biquadAlgorithm',['../fxobjects_8h.html#ab9cf6793cb7c9fc762d7e36bb34171ee',1,'fxobjects.h']]],
+  ['biquadcalctype_31',['biquadCalcType',['../struct_biquad_parameters.html#a6296aef864bd91053406ac1335f25dac',1,'BiquadParameters']]],
+  ['biquadparameters_32',['BiquadParameters',['../struct_biquad_parameters.html',1,'']]],
+  ['bitcrusher_33',['BitCrusher',['../class_bit_crusher.html',1,'']]],
+  ['bitcrusherparameters_34',['BitCrusherParameters',['../struct_bit_crusher_parameters.html',1,'']]],
+  ['boostcut_5fdb_35',['boostCut_dB',['../struct_audio_filter_parameters.html#a8d761ca792a81370cf96a6da6d55292a',1,'AudioFilterParameters::boostCut_dB()'],['../struct_w_d_f_parameters.html#a3edbde6db85fc07561b84f429bd771e2',1,'WDFParameters::boostCut_dB()']]],
+  ['boundintvalue_36',['boundIntValue',['../structbound_int_value.html',1,'']]],
+  ['boundmidivaluebyte_37',['boundMIDIValueByte',['../structbound_m_i_d_i_value_byte.html',1,'']]],
+  ['boundmidivaluedoublebyte_38',['boundMIDIValueDoubleByte',['../structbound_m_i_d_i_value_double_byte.html',1,'']]],
+  ['boundvalue_39',['boundValue',['../fxobjects_8h.html#a31b0ee40892be258b8f6c08a57eb6b55',1,'fxobjects.h']]],
+  ['brickwallfilter_40',['brickwallFilter',['../fxobjects_8h.html#ac7db6d5459b79579476acb4bbfd2ef4e',1,'fxobjects.h']]],
+  ['brickwallmagdata_41',['BrickwallMagData',['../struct_brickwall_mag_data.html',1,'']]],
+  ['bufferlength_5fmsec_42',['bufferLength_mSec',['../class_delay_a_p_f.html#a9a8b6ce09469c832330d1fef4c4ef8cd',1,'DelayAPF']]]
+];

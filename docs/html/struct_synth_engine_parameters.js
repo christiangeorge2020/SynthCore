@@ -1,0 +1,25 @@
+var struct_synth_engine_parameters =
+[
+    [ "SynthEngineParameters", "struct_synth_engine_parameters.html#a3ef8ffbb54875d8a54ccd4e1b7a33ca6", null ],
+    [ "operator=", "struct_synth_engine_parameters.html#a7c026528cd338f0ba4c58e0dd3ba31e5", null ],
+    [ "setMM_ChannelEnable", "struct_synth_engine_parameters.html#ab4fd759eef872ba12de2229d0c736b94", null ],
+    [ "setMM_ChannelIntensity", "struct_synth_engine_parameters.html#a51f5414d7f29a5c579abb048b41d2ac6", null ],
+    [ "setMM_DestDefaultValue", "struct_synth_engine_parameters.html#ab1b03a99d6a56e7d920a02ef947e37a6", null ],
+    [ "setMM_DestHardwireIntensity", "struct_synth_engine_parameters.html#a8b459cc826c006a3844291fccbe31dd9", null ],
+    [ "setMM_DestHighPriority", "struct_synth_engine_parameters.html#a8923fead203cbcd18eb9024c5aa7354f", null ],
+    [ "setMM_DestMasterIntensity", "struct_synth_engine_parameters.html#ab18b84839cc01e1a5a8de631e66b47db", null ],
+    [ "setMM_HardwiredRouting", "struct_synth_engine_parameters.html#a845014f63e21432000ededaf30d4c627", null ],
+    [ "setMM_HardwireEnable", "struct_synth_engine_parameters.html#a084eaba738d53255afddfb09655527a0", null ],
+    [ "setMM_SourceMasterIntensity", "struct_synth_engine_parameters.html#a478a625af728420fceccf84f08a7ace8", null ],
+    [ "enableMIDINoteEvents", "struct_synth_engine_parameters.html#a7b3a5d68236986146a4e8399e848e1da", null ],
+    [ "masterPitchBendSensCoarse", "struct_synth_engine_parameters.html#a4735c7603aef80d6e13e5954d090fe39", null ],
+    [ "masterPitchBendSensFine", "struct_synth_engine_parameters.html#a1cc1ba935c61bc4b0a364413e29da3e9", null ],
+    [ "masterTuningCoarse", "struct_synth_engine_parameters.html#a1cc5dc8af6305810b3469df9e7334876", null ],
+    [ "masterTuningFine", "struct_synth_engine_parameters.html#a6e794b363e888f46157c8f9c550c7a17", null ],
+    [ "masterUnisonDetune_Cents", "struct_synth_engine_parameters.html#a0a9cb36ade37013b7faf2e06c016f2f5", null ],
+    [ "masterVolume_dB", "struct_synth_engine_parameters.html#af01f9f89f74903e01117b177fd622a39", null ],
+    [ "modDestinationData", "struct_synth_engine_parameters.html#af347fcb2296ef9c5837677d63f1b3d55", null ],
+    [ "mode", "struct_synth_engine_parameters.html#a360d0072a8181ad5ef21120d2722ec37", null ],
+    [ "modSourceData", "struct_synth_engine_parameters.html#aaa8765c8fa208519b5c578e0e8dc8909", null ],
+    [ "voiceParameters", "struct_synth_engine_parameters.html#adc09e7d470d3fb3ab846332572f19ca7", null ]
+];

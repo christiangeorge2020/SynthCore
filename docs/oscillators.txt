@@ -1,0 +1,24 @@
+/** \page wavetableOscillators Wavetable Oscillators
+<strong>Block Diagrams</strong><br>
+Place the block diagram here, describe it, yadda yadda ...<br>
+
+<br>
+\image html puppy.jpeg
+<br>
+<br>
+Blah blah blah blah
+
+*/
+
+/** \page morphingOscillators Morphing Wavetable Oscillators
+<strong>Block Diagrams</strong><br>
+Write stuff here about your cool morphing oscillators...<br>
+
+<br>
+\image html kitten.jpg
+<br>
+<br>
+Blah blah blah blah, describe the pics...
+
+*/
+

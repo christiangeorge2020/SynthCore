@@ -1,0 +1,36 @@
+/** \mainpage SynthCore
+ *
+ <br>
+  \image html synthengine.png
+  <br>
+ * Describe your synth plugin here: discuss the overview and architecture, interesting and unique features, etc... Sell the plugin here. 
+ <br>
+ <br>
+ * <strong>Synth Sub Components</strong>
+ * - \subpage pitchedOscillators "Synth Oscillators"
+ * - \subpage LFOs "LFOs"
+
+*/
+
+ /** \page pitchedOscillators Synth Oscillators
+<strong>Synth Oscillators</strong><br>
+Describe the different oscillators in your synth here. <br>
+Note that this page has sub-sub-page links to show you how to embed pages.
+<br>
+<br>
+Add more stuff here - notice how you use the html line break code "<br>"
+<br>
+<br>
+ * <strong>Oscillator Objects</strong><br>
+ * - \subpage wavetableOscillators "Wavetable Oscillators"
+ * - \subpage morphingOscillators "Morphing Wavetable Oscillators"
+<br>
+<br>
+*/
+
+/** \page LFOs Low Frequency Oscillators
+<strong>SynthLFO Object</strong><br>
+Describe the LFO object here... you get the idea now.
+<br>
+<br>
+*/
