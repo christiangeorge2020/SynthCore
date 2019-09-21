@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['smoothingmethod_2346',['smoothingMethod',['../group___constants-_enums.html#ga4cfbd15c3638e96f0b1b5527f6bb6fa8',1,'guiconstants.h']]],
-  ['statereg_2347',['stateReg',['../group___constants-_enums.html#gab3f859e245006f8ba73ea52308128fac',1,'fxobjects.h']]]
+  ['wdfcomponent_1075',['wdfComponent',['../fxobjects_8h.html#a4b0d74f75dc2ba108009a072b2b4ad33',1,'fxobjects.h']]],
+  ['windowtype_1076',['windowType',['../fxobjects_8h.html#a5ba5998a4b763cca3f33e544f93973ce',1,'fxobjects.h']]]
 ];

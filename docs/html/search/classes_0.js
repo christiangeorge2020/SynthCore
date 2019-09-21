@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5fwave_5fsample_535',['_wave_sample',['../struct__wave__sample.html',1,'']]]
+  ['_5fwave_5fsample_537',['_wave_sample',['../struct__wave__sample.html',1,'']]]
 ];

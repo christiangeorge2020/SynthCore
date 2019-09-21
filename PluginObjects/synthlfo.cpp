@@ -20,6 +20,14 @@ const ModOutputData SynthLFO::renderModulatorOutput()
 	ModOutputData lfoOutputData; // should auto-zero on instantiation
 	lfoOutputData.clear();
 
+	double rampScaling = 1;
+	if (!rampTimer.timerExpired()) {
+		rampTimer.advanceTimer();
+		double ticks = rampTimer.getTick();
+		double targetValue = rampTimer.getTargetValueInSamples();
+		rampScaling = ticks / targetValue;
+	}
+
 	if (!delayTimer.timerExpired()) {
 		delayTimer.advanceTimer();
 		if (!(parameters->mode == LFOMode::kFreeRun))
@@ -121,10 +129,11 @@ const ModOutputData SynthLFO::renderModulatorOutput()
 		lfoOutputData.modulationOutputs[kLFOQuadPhaseOutput] = randomSHValue;
 	}
 
+	// Ramp Time Amplitude Modulation
 
 	// --- scale by amplitude
-	lfoOutputData.modulationOutputs[kLFONormalOutput] *= parameters->outputAmplitude;
-	lfoOutputData.modulationOutputs[kLFOQuadPhaseOutput] *= parameters->outputAmplitude;
+	lfoOutputData.modulationOutputs[kLFONormalOutput] *= rampScaling * parameters->outputAmplitude;
+	lfoOutputData.modulationOutputs[kLFOQuadPhaseOutput] *= rampScaling * parameters->outputAmplitude;
 
 	// --- invert two main outputs to make the opposite versions, scaling carries over
 	lfoOutputData.modulationOutputs[kLFONormalOutputInverted] = -lfoOutputData.modulationOutputs[kLFONormalOutput];

@@ -116,6 +116,13 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&lfo1DelayTime_mSec, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
+	// --- continuous control: LFO1 Ramp Time
+	piParam = new PluginParameter(controlID::lfo1RampTime_mSec, "LFO1 Ramp Time", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&lfo1RampTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -154,6 +161,11 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::lfo1DelayTime_mSec, auxAttribute);
+
+	// --- controlID::lfo1RampTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::lfo1RampTime_mSec, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -253,6 +265,7 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->lfo1Parameters->mode = convertIntToEnum(lfo1Mode, LFOMode);
 
 	engineParams.voiceParameters->lfo1Parameters->lfoDelay_mSec = lfo1DelayTime_mSec;
+	engineParams.voiceParameters->lfo1Parameters->lfoRamp_mSec = lfo1RampTime_mSec;
 
 	// --- THE update - this trickles all param updates
 	// via the setParameters( ) of each
@@ -559,6 +572,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::masterTune, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::masterVolume_dB, 3.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo1DelayTime_mSec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1RampTime_mSec, 0.000000);
 	addPreset(preset);
 
 

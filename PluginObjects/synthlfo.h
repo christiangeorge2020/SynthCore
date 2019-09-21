@@ -3,11 +3,36 @@
 #include "synthdefs.h"
 #include "guiconstants.h"
 
-// --- LFO may have very diff waveforms from pitched output
+
+/**
+\enum LFOWaveform
+\ingroup SynthStructures
+\brief Enumeration for selecting LFO waveform 
+ - Triangle
+ - Sin
+ - Saw
+ - Random Sample and Hold
+ - Quasi-Random Sample and Hold
+ - Noise
+ - Quasi-Random Noise
+*/
 enum class LFOWaveform { kTriangle, kSin, kSaw, kRSH, kQRSH, kNoise, kQRNoise };
+
+/**
+\enum LFOMode
+\ingroup SynthStructures
+\brief Enumeration for selecting the LFO mode
+- kSync: LFO restarts with each new note on
+- kOneShot: LFO runs once
+- kFreeRun: LFO begins running upon initialization, does not reset with a new note on
+*/
 enum class LFOMode { kSync, kOneShot, kFreeRun };
 
-// --- indexes in OscillatorOutputData::outputs array
+/**
+\enum LFOOutput
+\ingroup SynthDefs
+\brief Enumerations determing the output swing
+*/
 enum {
 	kLFONormalOutput,			// 0
 	kLFONormalOutputInverted,	// 1 etc...
@@ -17,7 +42,11 @@ enum {
 	kUnipolarOutputFromMin		/* this mimics an EG going from 0.0 -> MAX */
 };
 
-// ---
+/**
+\struct SynthLFOParameters
+\ingroup SynthStructures
+\brief LFO Parameter Structure for Recieving GUI and User Data
+*/
 struct SynthLFOParameters
 {
 	SynthLFOParameters() {}
@@ -33,6 +62,7 @@ struct SynthLFOParameters
 		outputAmplitude = params.outputAmplitude;
 
 		lfoDelay_mSec = params.lfoDelay_mSec;
+		lfoRamp_mSec = params.lfoRamp_mSec;
 
 		return *this;
 	}
@@ -44,11 +74,15 @@ struct SynthLFOParameters
 	double frequency_Hz = 0.0;
 	double outputAmplitude = 1.0;
 	double lfoDelay_mSec = 0.0;
+	double lfoRamp_mSec = 0.0;
 };
 
 
-
-// --- LFO object, note ISynthOscillator
+/**
+\class SynthLFO
+\ingroup SynthClasses
+\brief Synth LFO
+*/
 class SynthLFO : public ISynthModulator//ISynthOscillator
 {
 public:
@@ -69,11 +103,13 @@ public:
 		sampleRate = _sampleRate;
 		phaseInc = parameters->frequency_Hz / sampleRate;
 
+		// --- Delay and Ramp Reset
 		delayTimer.resetTimer();
+		rampTimer.resetTimer();
 
 		// --- timebase variables
-		modCounter = 0.0;			///< modulo counter [0.0, +1.0] test
-		modCounterQP = 0.25;		///<Quad Phase modulo counter [0.0, +1.0]
+		modCounter = 0.0;			///< Modulo counter [0.0, +1.0]
+		modCounterQP = 0.25;		///< Quad Phase modulo counter [0.0, +1.0]
 
 		return true;
 	}
@@ -84,10 +120,14 @@ public:
 	{ 
 		renderComplete = false;
 
-		// --- LFO Delay Timer
-		int delay_Samples = msecToSamples(sampleRate, parameters->lfoDelay_mSec);
-		delayTimer.resetTimer();
-		delayTimer.setTargetValueInSamples(delay_Samples);
+		/// Delay and Ramp Timers activate upon NoteOn Message
+		int delay_Samples = msecToSamples(sampleRate, parameters->lfoDelay_mSec); ///< Convert mseconds to sample
+		delayTimer.resetTimer(); ///< Reset
+		delayTimer.setTargetValueInSamples(delay_Samples); ///< Set target delay
+
+		int ramp_Samples = msecToSamples(sampleRate, parameters->lfoRamp_mSec);
+		rampTimer.resetTimer();
+		rampTimer.setTargetValueInSamples(ramp_Samples);
 
 		if (parameters->mode == LFOMode::kSync || parameters->mode == LFOMode::kOneShot)
 		{
@@ -130,7 +170,9 @@ protected:
 	// --- sample rate
 	double sampleRate = 0.0;			///< sample rate
 
-	Timer delayTimer;
+	Timer delayTimer;			///< timer object for setting lfo starting delay
+	Timer rampTimer;			///< timer object for lfo ramp onset time
+	double rampIncrement;
 
 	// --- timebase variables
 	double modCounter = 0.0;			///< modulo counter [0.0, +1.0]

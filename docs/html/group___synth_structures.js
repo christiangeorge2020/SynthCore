@@ -129,6 +129,16 @@ var group___synth_structures =
       [ "pulseWidth_Pct", "struct_synth_osc_parameters.html#af30c53848a2c97b3ffd67ccda825c827", null ],
       [ "unisonDetuneCents", "struct_synth_osc_parameters.html#a13a7f0e62db9e20b5a4df2184f3e00d4", null ]
     ] ],
+    [ "SynthLFOParameters", "struct_synth_l_f_o_parameters.html", [
+      [ "SynthLFOParameters", "struct_synth_l_f_o_parameters.html#af158d3ed7ab7a4b6bd648c2a75fb62d6", null ],
+      [ "operator=", "struct_synth_l_f_o_parameters.html#a5fda954e9982b492fbed5a36a5afaf09", null ],
+      [ "frequency_Hz", "struct_synth_l_f_o_parameters.html#a9d2133de2c0584c0e0fa7a69e7d8df68", null ],
+      [ "lfoDelay_mSec", "struct_synth_l_f_o_parameters.html#ab4a176226831a743895cfa5bda801a2c", null ],
+      [ "lfoRamp_mSec", "struct_synth_l_f_o_parameters.html#a3a7f35de1d417865f8ee585dac6ec555", null ],
+      [ "mode", "struct_synth_l_f_o_parameters.html#a83dc065749b9e918f85b5c6b01bdab50", null ],
+      [ "outputAmplitude", "struct_synth_l_f_o_parameters.html#aaeaf4fcc48cb487d6e7d51752e22d97d", null ],
+      [ "waveform", "struct_synth_l_f_o_parameters.html#a3ab62599bd03bf6a054f647daefb9cdb", null ]
+    ] ],
     [ "WindowEGParameters", "struct_window_e_g_parameters.html", [
       [ "WindowEGParameters", "struct_window_e_g_parameters.html#ae34fc62353ed8aa8472843a0a9eca64a", null ],
       [ "operator=", "struct_window_e_g_parameters.html#ad71ce420072f94d71ef9ce48c886502e", null ],
@@ -138,6 +148,8 @@ var group___synth_structures =
       [ "windowWidth_mSec", "struct_window_e_g_parameters.html#a6cd931a33131ff20e2bf6fa5128e8940", null ],
       [ "windowWidth_Samples", "struct_window_e_g_parameters.html#a583651f4fafce8fef846b10c1695850a", null ]
     ] ],
+    [ "LFOMode", "group___synth_structures.html#gaadbf13b83da6671a966d276d1534770d", null ],
+    [ "LFOWaveform", "group___synth_structures.html#ga628fd1e84950d0e47366bfbfc745a4e7", null ],
     [ "modDestination", "group___synth_structures.html#gac9b467f36004f7052b40bc87592e6042", null ],
     [ "modSource", "group___synth_structures.html#ga40a739c227862ad95da1da1b2fcf38c1", null ]
 ];

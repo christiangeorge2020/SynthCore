@@ -9,6 +9,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(initResizable);
+/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -45,6 +53,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('synthcore_8h_source.html','');});
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -59,11 +84,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_316b726d19e600d6b65444cab43e39fd.html">PluginObjects</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">synthcore.h</div>  </div>
@@ -565,6 +585,7 @@ $(function() {
 <div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160; </div>
 <div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* defined(__synthCore_h__) */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <div class="ttc" id="aclass_synth_voice_html_a3f1457ee680315bafe1e390ecc9b20a2"><div class="ttname"><a href="class_synth_voice.html#a3f1457ee680315bafe1e390ecc9b20a2">SynthVoice::updateGranularity</a></div><div class="ttdeci">uint32_t updateGranularity</div><div class="ttdoc">number of sample invervals to wait between component updates</div><div class="ttdef"><b>Definition:</b> synthcore.h:341</div></div>
 <div class="ttc" id="astruct_mod_source_html"><div class="ttname"><a href="struct_mod_source.html">ModSource</a></div><div class="ttdef"><b>Definition:</b> synthcore.h:128</div></div>
 <div class="ttc" id="astruct_synth_render_data_html"><div class="ttname"><a href="struct_synth_render_data.html">SynthRenderData</a></div><div class="ttdoc">Structure for rendering audio in an ISynthComponent.</div><div class="ttdef"><b>Definition:</b> synthdefs.h:1065</div></div>
@@ -584,14 +605,17 @@ $(function() {
 <div class="ttc" id="aclass_synth_voice_html_a82c2838fa30a9671c88504f6478b62ec"><div class="ttname"><a href="class_synth_voice.html#a82c2838fa30a9671c88504f6478b62ec">SynthVoice::incrementTimestamp</a></div><div class="ttdeci">void incrementTimestamp()</div><div class="ttdoc">increment timestamp when a new note is triggered</div><div class="ttdef"><b>Definition:</b> synthcore.h:239</div></div>
 <div class="ttc" id="aclass_synth_voice_html"><div class="ttname"><a href="class_synth_voice.html">SynthVoice</a></div><div class="ttdoc">Encapsulates one voice: a set of components and a modulation matrix to connect them and all updating/...</div><div class="ttdef"><b>Definition:</b> synthcore.h:211</div></div>
 <div class="ttc" id="astruct_synth_voice_parameters_html"><div class="ttname"><a href="struct_synth_voice_parameters.html">SynthVoiceParameters</a></div><div class="ttdoc">Contains voice-level modifiers and component modifer pointers that are shared across all voices....</div><div class="ttdef"><b>Definition:</b> synthcore.h:75</div></div>
-<div class="ttc" id="aclass_synth_engine_html_a0d7582a7d0c4fa555d9d012d33b5bacd"><div class="ttname"><a href="class_synth_engine.html#a0d7582a7d0c4fa555d9d012d33b5bacd">SynthEngine::~SynthEngine</a></div><div class="ttdeci">virtual ~SynthEngine()</div><div class="ttdoc">Destroy all modifiers and voices that were allocated in constructor.</div><div class="ttdef"><b>Definition:</b> synthcore.cpp:339</div></div>
+<div class="ttc" id="aclass_synth_engine_html_a0d7582a7d0c4fa555d9d012d33b5bacd"><div class="ttname"><a href="class_synth_engine.html#a0d7582a7d0c4fa555d9d012d33b5bacd">SynthEngine::~SynthEngine</a></div><div class="ttdeci">virtual ~SynthEngine()</div><div class="ttdoc">Destroy all modifiers and voices that were allocated in constructor.</div><div class="ttdef"><b>Definition:</b> synthcore.cpp:340</div></div>
 <div class="ttc" id="aclass_synth_engine_html"><div class="ttname"><a href="class_synth_engine.html">SynthEngine</a></div><div class="ttdoc">Encapsulates an entire synth engine, producing one type of sysnthesizer set of voices (e....</div><div class="ttdef"><b>Definition:</b> synthcore.h:501</div></div>
-<div class="ttc" id="aclass_synth_engine_html_a6f5d89239768e67e4de057ba4098e636"><div class="ttname"><a href="class_synth_engine.html#a6f5d89239768e67e4de057ba4098e636">SynthEngine::processMIDIEvent</a></div><div class="ttdeci">virtual bool processMIDIEvent(midiEvent &amp;event)</div><div class="ttdoc">The MIDI event handler function; for note on/off messages it finds the voices to turn on/off....</div><div class="ttdef"><b>Definition:</b> synthcore.cpp:433</div></div>
+<div class="ttc" id="aclass_synth_engine_html_a6f5d89239768e67e4de057ba4098e636"><div class="ttname"><a href="class_synth_engine.html#a6f5d89239768e67e4de057ba4098e636">SynthEngine::processMIDIEvent</a></div><div class="ttdeci">virtual bool processMIDIEvent(midiEvent &amp;event)</div><div class="ttdoc">The MIDI event handler function; for note on/off messages it finds the voices to turn on/off....</div><div class="ttdef"><b>Definition:</b> synthcore.cpp:434</div></div>
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.16
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_316b726d19e600d6b65444cab43e39fd.html">PluginObjects</a></li><li class="navelem"><b>synthcore.h</b></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.16 </li>
+  </ul>
+</div>
 </body>
 </html>

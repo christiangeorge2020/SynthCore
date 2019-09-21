@@ -27,7 +27,8 @@ enum controlID {
 	masterPitchBend = 9,
 	masterTune = 19,
 	masterVolume_dB = 29,
-	lfo1DelayTime_mSec = 43
+	lfo1DelayTime_mSec = 43,
+	lfo1RampTime_mSec = 44
 };
 
 	// **--0x0F1F--**
@@ -125,6 +126,7 @@ private:
 	double masterTune = 0.0;
 	double masterVolume_dB = 0.0;
 	double lfo1DelayTime_mSec = 0.0;
+	double lfo1RampTime_mSec = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['wdfcomponent_1071',['wdfComponent',['../fxobjects_8h.html#a4b0d74f75dc2ba108009a072b2b4ad33',1,'fxobjects.h']]],
-  ['windowtype_1072',['windowType',['../fxobjects_8h.html#a5ba5998a4b763cca3f33e544f93973ce',1,'fxobjects.h']]]
+  ['vafilteralgorithm_1074',['vaFilterAlgorithm',['../fxobjects_8h.html#aa5c1591d0c2e1f1f2fba4a3be94dddd3',1,'fxobjects.h']]]
 ];

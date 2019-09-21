@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vafilteralgorithm_1070',['vaFilterAlgorithm',['../fxobjects_8h.html#aa5c1591d0c2e1f1f2fba4a3be94dddd3',1,'fxobjects.h']]]
+  ['statereg_1073',['stateReg',['../fxobjects_8h.html#ab3f859e245006f8ba73ea52308128fac',1,'fxobjects.h']]]
 ];
