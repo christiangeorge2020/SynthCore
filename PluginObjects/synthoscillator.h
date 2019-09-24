@@ -28,6 +28,7 @@ public:
 	virtual bool update(bool updateAllModRoutings = true);
 	virtual bool doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
 	virtual bool doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
+	virtual std::vector<std::string> getWaveformNames(uint32_t bankIndex);
 
 	// --- could also place glide mod on this object and share it?
 	virtual bool setGlideModulation(uint32_t _startMIDINote, uint32_t _endMIDINote, double glideTime_mSec)
@@ -66,11 +67,8 @@ protected:
 	// --- our output
 	OscillatorOutputData oscillatorAudioData;
 
-	// --- smart pointers to the oscillator objects
+	// --- smart pointers to the oscillator object
 	std::unique_ptr<WaveTableOsc> wavetableOscillator = nullptr;
-
-	// --- add more oscillators here
-
 };
 
 

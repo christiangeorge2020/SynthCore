@@ -52,14 +52,14 @@ bool SynthOsc::doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_t mi
 	return true;
 }
 
+std::vector<std::string> SynthOsc::getWaveformNames(uint32_t bankIndex)
+{
+	return wavetableOscillator->getWaveformNames(bankIndex);
+}
+
 bool SynthOsc::update(bool updateAllModRoutings)
 {
-	if (parameters->oscillatorWaveform == SynthOscWaveform::kSin ||
-		parameters->oscillatorWaveform == SynthOscWaveform::kAnalogSaw_WT ||
-		parameters->oscillatorWaveform == SynthOscWaveform::kParabola)
-		wavetableOscillator->update(updateAllModRoutings);
-	// --- add more else statements here
-
+	wavetableOscillator->update(updateAllModRoutings);
 
 	return true;
 }
@@ -70,14 +70,8 @@ const OscillatorOutputData SynthOsc::renderAudioOutput()
 	oscillatorAudioData.outputs[0] = 0.0;
 	oscillatorAudioData.outputs[1] = 0.0;
 
-	if(parameters->oscillatorWaveform == SynthOscWaveform::kSin ||
-		parameters->oscillatorWaveform == SynthOscWaveform::kAnalogSaw_WT ||
-		parameters->oscillatorWaveform == SynthOscWaveform::kParabola)
-		oscillatorAudioData = wavetableOscillator->renderAudioOutput();
+	oscillatorAudioData = wavetableOscillator->renderAudioOutput();
 	
-	// --- add more else statements here to render other oscillators
-
-
 	return oscillatorAudioData;
 }
 

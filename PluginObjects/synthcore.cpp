@@ -30,10 +30,17 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 	ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
 
 	dca.reset(new DCA(midiInputData, parameters->dcaParameters));
+
 }
 
 SynthVoice::~SynthVoice()
 {
+
+}
+
+std::vector<std::string> SynthVoice::getWaveformNames(uint32_t bankIndex, uint32_t oscIndex)
+{
+	return osc1->getWaveformNames(bankIndex);
 
 }
 
@@ -309,11 +316,13 @@ SynthEngine::SynthEngine()
 	midiInputData->ccMIDIData[PAN_CC10] = 64;		// --- MIDI PAN; default this to CENTER
 
 	// --- HARDWIRED MOD ROUTINGS --- //
-	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
 	//
 	// --- kEG1_Normal -> kDCA_EGMod
 	parameters.setMM_HardwiredRouting(kEG1_Normal, kDCA_EGMod);
-	
+
+	// --- example of another hardwired routing
+	//parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
+
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 
 	// --- EG3 -> Wave Morph??
@@ -344,7 +353,7 @@ SynthEngine::~SynthEngine()
 bool SynthEngine::reset(double _sampleRate)
 {
 	// --- set new table data
-	waveTableData->resetWaveTables(_sampleRate);
+	waveTableData->resetWaveBanks(_sampleRate);
 
 	// --- reset array of voices
 	for (unsigned int i = 0; i < MAX_VOICES; i++)
@@ -375,6 +384,16 @@ bool SynthEngine::initialize(PluginInfo pluginInfo)
 	}
 
 	return true;
+}
+
+std::vector<std::string> SynthEngine::getOscWaveformNames(uint32_t voiceIndex, uint32_t bankIndex, uint32_t oscillatorIndex)
+{
+	std::vector<std::string> emptyVector;
+	//  voiceIndex is usually just 0, unless you have mixed-mode voices
+	if (voiceIndex >= MAX_VOICES)
+		return emptyVector;
+
+	return synthVoices[voiceIndex]->getWaveformNames(bankIndex, oscillatorIndex);
 }
 
 const SynthRenderData SynthEngine::renderAudioOutput()

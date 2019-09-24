@@ -224,6 +224,11 @@ public:
 	virtual bool processMIDIEvent(midiEvent& event);
 	virtual bool initialize(PluginInfo pluginInfo);
 
+	// --- function to populate waveform name GUI fields
+	//     oscIndex is [0, 31]
+	//     bankIndex is variable; can have as many banks as you want (for now)
+	std::vector<std::string> getWaveformNames(uint32_t bankIndex, uint32_t oscIndex);
+
 	// --- local handlers for stealing
 	bool doNoteOn(midiEvent& event);
 	bool doNoteOff(midiEvent& event);
@@ -515,7 +520,7 @@ public:
 
 	// --- set parameters
 	void setParameters(const SynthEngineParameters& _parameters);
-
+	
 	// --- helper function to get the array index of next available voice
 	//     returns -1 if NO more voices are avaialable - time to steal a voice
 	int getFreeVoiceIndex();
@@ -524,6 +529,10 @@ public:
 	// --- get a currently running voice with a specific number
 	int getActiveVoiceIndexInNoteOn(unsigned int midiNoteNumber);
 	int getStealingVoiceIndexInNoteOn(unsigned int midiNoteNumber);
+
+	// --- helpers for populating oscillator waveform GUI controls
+	//     for synths, these are usually the only dynamic items like this
+	std::vector<std::string> getOscWaveformNames(uint32_t voiceIndex, uint32_t bankIndex, uint32_t oscillatorIndex);
 
 protected:
 	// --- our outputs, same number as synth voice!

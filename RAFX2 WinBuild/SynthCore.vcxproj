@@ -232,6 +232,7 @@
     <ClInclude Include="..\PluginKernel\pluginparameter.h" />
     <ClInclude Include="..\PluginKernel\pluginstructures.h" />
     <ClInclude Include="..\PluginObjects\analogsaw.h" />
+    <ClInclude Include="..\PluginObjects\analog_square_1.h" />
     <ClInclude Include="..\PluginObjects\dca_eg.h" />
     <ClInclude Include="..\PluginObjects\fxobjects.h" />
     <ClInclude Include="..\PluginObjects\filters.h" />
@@ -242,6 +243,7 @@
     <ClInclude Include="..\PluginObjects\trace.h" />
     <ClInclude Include="..\PluginObjects\vafilters.h" />
     <ClInclude Include="..\PluginObjects\wavedata.h" />
+    <ClInclude Include="..\PluginObjects\wavetable.h" />
     <ClInclude Include="..\PluginObjects\wavetableoscillator.h" />
     <ClInclude Include="..\PluginObjects\window_eg.h" />
     <ClInclude Include="..\RAFX2 Source\RackAFXDLL.h" />
@@ -261,6 +263,7 @@
     <Text Include="..\docs\mainpage.txt" />
     <Text Include="..\docs\oscillators.txt" />
     <Text Include="..\LFO1 Controls.txt" />
+    <Text Include="..\PluginObjects\README.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

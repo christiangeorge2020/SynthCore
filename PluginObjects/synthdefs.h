@@ -9,7 +9,7 @@
 /** \defgroup SynthClasses
 
 Synth Classes are C++ objects that encapsulate synth components including modulators, renderers, procecessors and others.
-\brief
+\brief 
 
 **/
 
@@ -36,13 +36,24 @@ Definitions for synth components.
 
 // --------------------------- DOXYGEN GROUPS --------------------------- //
 
+
+
 const unsigned int MAX_VOICES = 4;			// --- in Debug mode, you may only get 2 or 3 for extreme-synths; in Release mode you will easily get 32, even up to 64 depending on algorithms
 const unsigned int MAX_SYNTH_CHANNELS = 32;	// --- VST3 allows for 22.1, so 32 should cover us
 const unsigned int MAX_OSC_CHANNELS = 32;	// --- VST3 allows for 22.1, so 32 should cover us
 const unsigned int MAX_PROCESSOR_CHANNELS = 32;	// --- VST3 allows for 22.1, so 32 should cover us
 
-// --- ALL oscillator waveforms: ADD MORE HERE!
-enum class SynthOscWaveform { kAnalogSaw_WT, kParabola, kSin };
+//// --- ALL oscillator waveforms: ADD MORE HERE!
+//enum class SynthOscWaveform { kAnalogSaw_WT, kParabola, kSin
+//	, kCustom_0		/* 8 user (Custom) slots */
+//	, kCustom_1
+//	, kCustom_2
+//	, kCustomr_3
+//	, kCustom_4
+//	, kCustom_5
+//	, kCustom_6
+//	, kCustom_7		/* add more here (or above) */
+//};
 
 enum class SynthOscMode { kSync, kFreeRun };
 
@@ -372,6 +383,17 @@ struct MidiOutputData
 //	uint32_t globalMIDIData[kNumMIDIGlobals] = { 0 };	///< the global MIDI table that is shared across the voices via the IMIDIData interface
 //	uint32_t ccMIDIData[kNumMIDICCs] = { 0 };			///< the global MIDI CC table that is shared across the voices via the IMIDIData interface
 //};
+
+
+/**
+\struct msecToSamples
+\ingroup SynthDefs
+\brief convert milliseconds to samples
+*/
+inline double msecToSamples(double sampleRate, double timeMSec)
+{
+	return sampleRate*(timeMSec / 1000.0);;
+}
 
 
 /**
@@ -1014,7 +1036,8 @@ struct SynthOscParameters
 		if (this == &params)
 			return *this;
 
-		oscillatorWaveform = params.oscillatorWaveform;
+		oscillatorBankIndex = params.oscillatorBankIndex;
+		oscillatorWaveformIndex = params.oscillatorWaveformIndex;
 
 		detuneOctaves = params.detuneOctaves;
 		detuneSemitones = params.detuneSemitones;
@@ -1033,8 +1056,9 @@ struct SynthOscParameters
 		return *this;
 	}
 
-	// --- default waveform is analog saw
-	SynthOscWaveform oscillatorWaveform = SynthOscWaveform::kAnalogSaw_WT;
+	// --- this is the index in the oscillator data source (for wavetable)
+	int32_t oscillatorBankIndex = 0; // max is up to the bank container
+	int32_t oscillatorWaveformIndex = 0; // max is always 32 for this!!
 
 	// ---  detuning values
 	double detuneOctaves = 0.0;			// 1 = up one octave, -1 = down one octave
@@ -1100,22 +1124,79 @@ public:
 };
 
 
+// --- our oscillators can generate 32 waveforms each
+//     the waveforms can be from ANY kind of synthesis
+//     including morphing types, so there may be far more
+//     tables than just 32, or 32x128 = 4096
+const uint32_t MAX_NUM_OSC_WAVES = 32;
+
+// --- map double on to a UINT 64
+inline uint64_t doubleToUint64(double d)
+{
+	uint64_t retValue = 0;
+	memcpy(&retValue, &d, sizeof(uint64_t));
+	return retValue;
+}
+
+// --- map a UINT 64 on to a double
+inline double uint64ToDouble(uint64_t u)
+{
+	double retValue = 0.0;
+	memcpy(&retValue, &u, sizeof(uint64_t));
+	return retValue;
+}
+
 // --- for wave table data sources so they can be shared
-class IWaveTable
+class IWaveBank
 {
 public:
-	// virtual void addWaveTables(SynthOscWaveform oscillatorWaveform, double sampleRate) = 0;
+	// --- reset/regenerate wave tables
 	virtual bool resetWaveTables(double sampleRate) = 0;
-	virtual const double* selectTable(int oscillatorWaveform, /* selector: note it is *int* so can use with strongly typed enums */
-										uint32_t midiNoteNumber,
-										double sampleRate,
-										uint32_t& tableLength) = 0;
 
-	virtual uint32_t getTableLength(int oscillatorWaveform, uint32_t midiNoteNumber) = 0;
+	// --- select table to read based on MIDI Note number of pitch modulated oscillator
+	virtual uint32_t selectTable(int oscillatorWaveformIndex, uint32_t midiNoteNumber) = 0;
+
+	// --- read the selected wavetable and return a double value
+	//     linear interpolation is engaged by default
+	//     Should add Lagrange interpolation (maybe as class project?)
+	virtual double readWaveTable(double readIndex) = 0;
+
+	// --- get the number of waves for this datasource, must be <= MAX_NUM_OSC_WAVES = 32
+	virtual uint32_t getNumWaveforms() = 0;
+
+	// --- returns the names of the waveforms, which are identical to the indexes of waveform selection on the GUI
+	//     If there is no waveform, returns "" for that
+	virtual std::vector<std::string> getWaveformNames() = 0;
+	
+	// --- bank name
+	virtual std::string getWaveBankName() = 0;
+	virtual void setWaveBankName(std::string _bankName) = 0;
+
 };
 
+
+// --- stores N sets of IWaveBanks 
+class IWaveData
+{
+public:
+	// --- reset/regenerate wave tables
+	virtual bool resetWaveBanks(double sampleRate) = 0;
+
+	//     get a safe interface pointer to a bank
+	virtual IWaveBank* getInterface(uint32_t waveBankIndex) = 0;
+
+	// --- get the number of waves for this datasource, must be <= MAX_NUM_OSC_WAVES = 32
+	virtual uint32_t getNumWaveBanks() = 0;
+
+	// --- returns the names of the waveforms, which are identical to the indexes of waveform selection on the GUI
+	//     If there is no waveform, returns "" for that
+	virtual std::vector<std::string> getWaveBankNames() = 0;
+};
+
+
 // --- for wave table data sources so they can be shared
-class IMorphingWaveTable
+//     NOTE: do not document this yet, it is going to change
+class IMorphingWaveBank
 {
 public:
 	virtual void addMorphingTable(const double** morph_0, uint32_t midiNoteNumber) = 0;
@@ -1185,6 +1266,7 @@ class ISynthOscillator
 	//     Sample rate may or may not be required, but usually is
 	virtual bool reset(double _sampleRate) = 0;
 	virtual bool update(bool updateAllModRoutings = true) = 0;
+	virtual std::vector<std::string> getWaveformNames(uint32_t bankIndex) = 0;
 
 	// --- note event handlers
 	virtual bool doNoteOn(double midiPitch, uint32_t midiNoteNumber, uint32_t midiNoteVelocity) = 0;
