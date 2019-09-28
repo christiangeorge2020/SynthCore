@@ -5,13 +5,14 @@ var class_wave_table_osc =
     [ "doNoteOff", "class_wave_table_osc.html#a106c72e9590ca440b23595e1a861c837", null ],
     [ "doNoteOn", "class_wave_table_osc.html#a7ed4fe79da796cc35d9244f1b4a15b48", null ],
     [ "getModulators", "class_wave_table_osc.html#a3aeb0104cc5dc8ec18f1f81b1611f060", null ],
+    [ "getWaveformNames", "class_wave_table_osc.html#adf780566299e2c53f61f1f6b48605afb", null ],
     [ "readWaveTable", "class_wave_table_osc.html#a50451629fbf4cc17df301c75aad2b1b1", null ],
-    [ "readWaveTable", "class_wave_table_osc.html#a284ca0855ad25e71c486de6f40ef4d11", null ],
     [ "renderAudioOutput", "class_wave_table_osc.html#a2d751a5ab2f181a988889dd29d038cee", null ],
     [ "reset", "class_wave_table_osc.html#a75fbd9a690cfda98e16d2adaadffcc96", null ],
     [ "setGlideModulation", "class_wave_table_osc.html#a4c35bd79974b960334ffb714dbe8c9bd", null ],
     [ "setModulators", "class_wave_table_osc.html#a3974cd403499884cddbf20a324a84b77", null ],
     [ "update", "class_wave_table_osc.html#a73b95444ed8174d65aa4944fa8601968", null ],
+    [ "currentTableLength", "class_wave_table_osc.html#ac554a1b99ce3f51258ee361f1dc86d14", null ],
     [ "glideModulator", "class_wave_table_osc.html#a29d433c46e3cd49feed76d97733637bc", null ],
     [ "midiInputData", "class_wave_table_osc.html#ae28ed7bd262ec4b918bd0dc8b098b117", null ],
     [ "midiNoteNumber", "class_wave_table_osc.html#ad9b714ef3c5c4ceebb8b564e68d76543", null ],
@@ -26,6 +27,7 @@ var class_wave_table_osc =
     [ "phaseInc", "class_wave_table_osc.html#a71cca95f4bd9271201087325568e1a7e", null ],
     [ "renderMidiNoteNumber", "class_wave_table_osc.html#a2f3ae0b45178b349b09b66dc9f56e12b", null ],
     [ "sampleRate", "class_wave_table_osc.html#a3286003b738f7f6e8f26ec7604aa6229", null ],
+    [ "selectedWaveBank", "class_wave_table_osc.html#aa98587259fadbbb5fce97dca345d8640", null ],
     [ "waveTableData", "class_wave_table_osc.html#a817c4579afa6f49e5fd7a8415c41ebd3", null ],
     [ "waveTableReadIndex", "class_wave_table_osc.html#a022bfdd9453f362fbd6adcc1775123b0", null ]
 ];

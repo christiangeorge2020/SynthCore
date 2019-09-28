@@ -98,31 +98,27 @@ Inheritance diagram for WaveTableData:</div>
  <div class="center">
   <img src="class_wave_table_data.png" usemap="#WaveTableData_map" alt=""/>
   <map id="WaveTableData_map" name="WaveTableData_map">
-<area href="class_i_wave_table.html" alt="IWaveTable" shape="rect" coords="0,0,101,24"/>
+<area href="class_i_wave_data.html" alt="IWaveData" shape="rect" coords="0,0,101,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a84b94e52f016e4ed5cb4dbd4c0431a91"><td class="memItemLeft" align="right" valign="top"><a id="a84b94e52f016e4ed5cb4dbd4c0431a91"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>resetWaveTables</b> (double sampleRate)</td></tr>
-<tr class="separator:a84b94e52f016e4ed5cb4dbd4c0431a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af609fdad1119b69cc27a89caa2220ec6"><td class="memItemLeft" align="right" valign="top"><a id="af609fdad1119b69cc27a89caa2220ec6"></a>
-virtual const double *&#160;</td><td class="memItemRight" valign="bottom"><b>selectTable</b> (int oscillatorWaveform, uint32_t midiNoteNumber, double sampleRate, uint32_t &amp;tableLength)</td></tr>
-<tr class="separator:af609fdad1119b69cc27a89caa2220ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7aaee090fb9e65489f8ebc3f157b7c8"><td class="memItemLeft" align="right" valign="top"><a id="aa7aaee090fb9e65489f8ebc3f157b7c8"></a>
-virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getTableLength</b> (int oscillatorWaveform, uint32_t midiNoteNumber)</td></tr>
-<tr class="separator:aa7aaee090fb9e65489f8ebc3f157b7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37dd4d037f4ccfc0284f034a81f01da7"><td class="memItemLeft" align="right" valign="top"><a id="a37dd4d037f4ccfc0284f034a81f01da7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>destroyWaveTables</b> ()</td></tr>
-<tr class="separator:a37dd4d037f4ccfc0284f034a81f01da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52fce39e6eb13bca7456a35f17b65bf3"><td class="memItemLeft" align="right" valign="top"><a id="a52fce39e6eb13bca7456a35f17b65bf3"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getTableIndex</b> (double oscillatorFrequency, SynthOscWaveform oscillatorWaveform)</td></tr>
-<tr class="separator:a52fce39e6eb13bca7456a35f17b65bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52b50ad83a5fc68edfbcc45583220c4d"><td class="memItemLeft" align="right" valign="top"><a id="a52b50ad83a5fc68edfbcc45583220c4d"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>resetWaveBanks</b> (double sampleRate)</td></tr>
+<tr class="separator:a52b50ad83a5fc68edfbcc45583220c4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a850a8a36785b08e6fd843fecb882af"><td class="memItemLeft" align="right" valign="top"><a id="a4a850a8a36785b08e6fd843fecb882af"></a>
+virtual <a class="el" href="class_i_wave_bank.html">IWaveBank</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getInterface</b> (uint32_t waveBankIndex)</td></tr>
+<tr class="separator:a4a850a8a36785b08e6fd843fecb882af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad497d28db7a7e42df1e6288f76646f45"><td class="memItemLeft" align="right" valign="top"><a id="ad497d28db7a7e42df1e6288f76646f45"></a>
+virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getNumWaveBanks</b> ()</td></tr>
+<tr class="separator:ad497d28db7a7e42df1e6288f76646f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2891467a2777f12f08a4c134f571f62"><td class="memItemLeft" align="right" valign="top"><a id="aa2891467a2777f12f08a4c134f571f62"></a>
+virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getWaveBankNames</b> ()</td></tr>
+<tr class="separator:aa2891467a2777f12f08a4c134f571f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>C:/Users/chris/Documents/RAFx Plugins/SynthCore/PluginObjects/<a class="el" href="wavetableoscillator_8h_source.html">wavetableoscillator.h</a></li>
-<li>C:/Users/chris/Documents/RAFx Plugins/SynthCore/PluginObjects/wavetableoscillator.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

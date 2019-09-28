@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['oscillatoroutputdata_618',['OscillatorOutputData',['../struct_oscillator_output_data.html',1,'']]],
-  ['oscillatorparameters_619',['OscillatorParameters',['../struct_oscillator_parameters.html',1,'']]]
+  ['nesteddelayapf_629',['NestedDelayAPF',['../class_nested_delay_a_p_f.html',1,'']]],
+  ['nesteddelayapfparameters_630',['NestedDelayAPFParameters',['../struct_nested_delay_a_p_f_parameters.html',1,'']]]
 ];

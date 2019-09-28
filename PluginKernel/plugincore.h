@@ -28,7 +28,10 @@ enum controlID {
 	masterTune = 19,
 	masterVolume_dB = 29,
 	lfo1DelayTime_mSec = 43,
-	lfo1RampTime_mSec = 44
+	lfo1RampTime_mSec = 44,
+	lfo2Mode = 51,
+	lfo2Waveform = 50,
+	lfo2Frequency_Hz = 52
 };
 
 	// **--0x0F1F--**
@@ -111,7 +114,22 @@ public:
 
 	// --- BEGIN USER VARIABLES AND FUNCTIONS -------------------------------------- //
 	//	   Add your variables and methods here
-	SynthEngine synthEngine;
+
+	/*
+	Projects 1
+	 1) 2 LFOs
+	 2) Cross modulation
+		i) fo modulation
+		ii) shape modulation
+	 3) Shape Control; phase distortion
+	 4) QRSH
+		i) intervals; generates musical pitches quantized to the nearest pitch within the major scale; note the user plays is the root of the scale
+		ii) timing; generates musical timing (breaks) according to the tempo; 
+
+	Rewrite the voice render so the lfo output is on the oscilloscope
+
+	*/
+	SynthEngine synthEngine; ///< 
 	void updateParameters();
 
 
@@ -127,6 +145,7 @@ private:
 	double masterVolume_dB = 0.0;
 	double lfo1DelayTime_mSec = 0.0;
 	double lfo1RampTime_mSec = 0.0;
+	double lfo2Frequency_Hz = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -134,6 +153,12 @@ private:
 
 	int lfo1Mode = 0;
 	enum class lfo1ModeEnum { Sync,One_Shot,Free_Run };	// to compare: if(compareEnumToInt(lfo1ModeEnum::Sync, lfo1Mode)) etc... 
+
+	int lfo2Mode = 0;
+	enum class lfo2ModeEnum { Sync,One_Shot,Free_Run };	// to compare: if(compareEnumToInt(lfo2ModeEnum::Sync, lfo2Mode)) etc... 
+
+	int lfo2Waveform = 0;
+	enum class lfo2WaveformEnum { Triangle,Sin,Saw,RSH,QRSH,Noise,QRNoise };	// to compare: if(compareEnumToInt(lfo2WaveformEnum::Triangle, lfo2Waveform)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

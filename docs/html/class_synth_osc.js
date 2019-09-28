@@ -5,6 +5,7 @@ var class_synth_osc =
     [ "doNoteOff", "class_synth_osc.html#a1f723d3896ea090d947338b832d92280", null ],
     [ "doNoteOn", "class_synth_osc.html#a112f4f852201a1581d9f853d47dee8ed", null ],
     [ "getModulators", "class_synth_osc.html#a1d5e2be7592aa50af911e09f0b317380", null ],
+    [ "getWaveformNames", "class_synth_osc.html#a6ce07c31a4951208c40c28df3b70175d", null ],
     [ "renderAudioOutput", "class_synth_osc.html#a6f7a5550be2773a0b2543830b147b9f2", null ],
     [ "reset", "class_synth_osc.html#ad76832ef5e5117fcb21a6a378a8ed591", null ],
     [ "setGlideModulation", "class_synth_osc.html#a72a8d29360c506eed11623c5bf5e9788", null ],

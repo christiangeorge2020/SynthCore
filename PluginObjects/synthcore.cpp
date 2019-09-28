@@ -26,6 +26,7 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 	osc1.reset(new SynthOsc(midiInputData, parameters->osc1Parameters, _waveTableData));
 	
 	lfo1.reset(new SynthLFO(midiInputData, parameters->lfo1Parameters));
+	lfo2.reset(new SynthLFO(midiInputData, parameters->lfo2Parameters));
 
 	ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
 
@@ -62,18 +63,21 @@ bool SynthVoice::reset(double _sampleRate)
 	// --- reset sub objects
 	osc1->reset(_sampleRate);
 
+	/// LFO Reset
 	lfo1->reset(_sampleRate);
+	lfo2->reset(_sampleRate);
 
 	ampEG->reset(_sampleRate);
 
 	dca->reset(_sampleRate);
 
-	// --- reset grain count
-	updateGranularity = 64; // update every 128 render-cycles
+	/// Reset grain count
+	updateGranularity = 64; ///< update every 128 render-cycles
 	granularityCounter = -1;
 
-	// --- clear modulator output arrays
+	/// Clear modulator output arrays
 	lfo1Output.clear();
+	lfo2Output.clear();
 	ampEGOutput.clear();
 	
 	// --- filter EG goes here (add more)
@@ -136,6 +140,9 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	// --- update/render (add more here)
 	lfo1->update(updateAllModRoutings);
 	lfo1Output = lfo1->renderModulatorOutput();
+
+	lfo2->update(updateAllModRoutings);
+	lfo2Output = lfo2->renderModulatorOutput();
 	
 	// --- update/render (add more here)
 	ampEG->update(updateAllModRoutings);
@@ -198,8 +205,8 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	synthOutputData.channelCount = 2;
 
 	// --- summation for the simple core
-	synthOutputData.synthOutputs[0] = audioData.outputs[0];
-	synthOutputData.synthOutputs[1] = audioData.outputs[1];
+	synthOutputData.synthOutputs[0] = audioData.outputs[0]; //lfo1Output.modulationOutputs[kLFONormalOutput]; //audioData.outputs[0];
+	synthOutputData.synthOutputs[1] = audioData.outputs[1]; //lfo2Output.modulationOutputs[kLFONormalOutput]; //audioData.outputs[1];
 
 	return synthOutputData;
 }
@@ -321,7 +328,10 @@ SynthEngine::SynthEngine()
 	parameters.setMM_HardwiredRouting(kEG1_Normal, kDCA_EGMod);
 
 	// --- example of another hardwired routing
-	//parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
+	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
+
+	/// LFO2 -> LFO1
+	parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_fo);
 
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 
@@ -422,7 +432,7 @@ const SynthRenderData SynthEngine::renderAudioOutput()
 			voiceRender = synthVoices[i]->renderAudioOutput();
 
 			// --- accumulate results
-			synthOutputData.synthOutputs[LEFT_CHANNEL] += gainFactor * voiceRender.synthOutputs[0];
+			synthOutputData.synthOutputs[LEFT_CHANNEL] += gainFactor *  voiceRender.synthOutputs[0];
 			synthOutputData.synthOutputs[RIGHT_CHANNEL] += gainFactor * voiceRender.synthOutputs[1];
 		}
 	}

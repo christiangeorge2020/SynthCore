@@ -4,6 +4,7 @@ var class_synth_engine =
     [ "~SynthEngine", "class_synth_engine.html#a0d7582a7d0c4fa555d9d012d33b5bacd", null ],
     [ "getActiveVoiceIndexInNoteOn", "class_synth_engine.html#a19d9068baf4c29fb27349f4996f6d2fc", null ],
     [ "getFreeVoiceIndex", "class_synth_engine.html#a26ea9ddce36a6fd0d7c9517ae33e81d4", null ],
+    [ "getOscWaveformNames", "class_synth_engine.html#a932d5adce41f855c2e60b93d5956ae39", null ],
     [ "getParameters", "class_synth_engine.html#afa63f16c8fda77f98af82e540b74acf9", null ],
     [ "getStealingVoiceIndexInNoteOn", "class_synth_engine.html#a37fbdc06b11e71b87050bdcdce2616ec", null ],
     [ "getVoiceIndexToSteal", "class_synth_engine.html#a38ee061d1e4decd147426f615d6afb5d", null ],

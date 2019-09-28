@@ -1,5 +1,6 @@
 var group___synth_defs =
 [
+    [ "msecToSamples", "structmsec_to_samples.html", null ],
     [ "boundMIDIValueByte", "structbound_m_i_d_i_value_byte.html", null ],
     [ "boundMIDIValueDoubleByte", "structbound_m_i_d_i_value_double_byte.html", null ],
     [ "boundIntValue", "structbound_int_value.html", null ],

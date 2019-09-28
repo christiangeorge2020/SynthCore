@@ -9,6 +9,13 @@ bool SynthLFO::update(bool updateAllModRoutings)
 	if (!updateAllModRoutings)
 		return true;
 
+	double bipolarFMMod = modulators->modulationInputs[kFrequencyMod];
+	double range = (200.0 - 0.02) / 2.0;
+	double modulationValue = range * bipolarFMMod;
+	boundValue(modulationValue, 0.02, 200);
+
+	parameters->frequency_Hz += modulationValue;
+
 	phaseInc = parameters->frequency_Hz / sampleRate;
 
 	return true;

@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('class_wave_table_osc.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>High_Accuract wavetable oscillator with three waveforms: AK, FM and VS.  
+<p>High_Accuracy wavetable oscillator with three waveforms: AK, FM and VS.  
  <a href="class_wave_table_osc.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="wavetableoscillator_8h_source.html">wavetableoscillator.h</a>&gt;</code></p>
@@ -114,6 +114,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a853bf7dbb6748698d281004056e0cfc2"><td class="memItemLeft" align="right" valign="top"><a id="a853bf7dbb6748698d281004056e0cfc2"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>WaveTableOsc</b> (const std::shared_ptr&lt; <a class="el" href="struct_midi_input_data.html">MidiInputData</a> &gt; _midiInputData, std::shared_ptr&lt; <a class="el" href="struct_synth_osc_parameters.html">SynthOscParameters</a> &gt; _parameters, std::shared_ptr&lt; <a class="el" href="class_wave_table_data.html">WaveTableData</a> &gt; _waveTableData)</td></tr>
 <tr class="separator:a853bf7dbb6748698d281004056e0cfc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf780566299e2c53f61f1f6b48605afb"><td class="memItemLeft" align="right" valign="top"><a id="adf780566299e2c53f61f1f6b48605afb"></a>
+virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getWaveformNames</b> (uint32_t bankIndex)</td></tr>
+<tr class="separator:adf780566299e2c53f61f1f6b48605afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75fbd9a690cfda98e16d2adaadffcc96"><td class="memItemLeft" align="right" valign="top"><a id="a75fbd9a690cfda98e16d2adaadffcc96"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> (double _sampleRate)</td></tr>
 <tr class="separator:a75fbd9a690cfda98e16d2adaadffcc96"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,9 +147,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a50451629fbf4cc17df301c75aad2b1b1"><td class="memItemLeft" align="right" valign="top"><a id="a50451629fbf4cc17df301c75aad2b1b1"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>readWaveTable</b> (double &amp;readIndex, double _phaseInc)</td></tr>
 <tr class="separator:a50451629fbf4cc17df301c75aad2b1b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a284ca0855ad25e71c486de6f40ef4d11"><td class="memItemLeft" align="right" valign="top"><a id="a284ca0855ad25e71c486de6f40ef4d11"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>readWaveTable</b> (double readIndex, const double *currentWaveTable, unsigned int _tableLength)</td></tr>
-<tr class="separator:a284ca0855ad25e71c486de6f40ef4d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -165,6 +165,9 @@ std::shared_ptr&lt; <a class="el" href="struct_synth_osc_parameters.html">SynthO
 <tr class="memitem:a817c4579afa6f49e5fd7a8415c41ebd3"><td class="memItemLeft" align="right" valign="top"><a id="a817c4579afa6f49e5fd7a8415c41ebd3"></a>
 std::shared_ptr&lt; <a class="el" href="class_wave_table_data.html">WaveTableData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>waveTableData</b> = nullptr</td></tr>
 <tr class="separator:a817c4579afa6f49e5fd7a8415c41ebd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa98587259fadbbb5fce97dca345d8640"><td class="memItemLeft" align="right" valign="top"><a id="aa98587259fadbbb5fce97dca345d8640"></a>
+<a class="el" href="class_i_wave_bank.html">IWaveBank</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>selectedWaveBank</b> = nullptr</td></tr>
+<tr class="separator:aa98587259fadbbb5fce97dca345d8640"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1defe08028f4bb032eee7d8c3faee73b"><td class="memItemLeft" align="right" valign="top"><a id="a1defe08028f4bb032eee7d8c3faee73b"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>oscillatorFrequency</b> = 440.0</td></tr>
 <tr class="separator:a1defe08028f4bb032eee7d8c3faee73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,12 +203,15 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_wave_table_osc.html#a022bfdd9453f362fbd6adcc1775123b0">waveTableReadIndex</a> = 0.0</td></tr>
 <tr class="memdesc:a022bfdd9453f362fbd6adcc1775123b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">wavetable read location <br /></td></tr>
 <tr class="separator:a022bfdd9453f362fbd6adcc1775123b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac554a1b99ce3f51258ee361f1dc86d14"><td class="memItemLeft" align="right" valign="top"><a id="ac554a1b99ce3f51258ee361f1dc86d14"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>currentTableLength</b> = kDefaultWaveTableLength</td></tr>
+<tr class="separator:ac554a1b99ce3f51258ee361f1dc86d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefd6e873171e21f7c347c63f90022f4f"><td class="memItemLeft" align="right" valign="top"><a id="aefd6e873171e21f7c347c63f90022f4f"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>noteOn</b> = false</td></tr>
 <tr class="separator:aefd6e873171e21f7c347c63f90022f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>High_Accuract wavetable oscillator with three waveforms: AK, FM and VS. </p>
+<div class="textblock"><p>High_Accuracy wavetable oscillator with three waveforms: AK, FM and VS. </p>
 <dl class="section author"><dt>Author</dt><dd>Will Pirkle </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>Revision : 1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Date : 2018 / 09 / 24 </dd></dl>

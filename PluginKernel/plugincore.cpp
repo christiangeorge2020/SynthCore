@@ -123,6 +123,25 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&lfo1RampTime_mSec, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
+	// --- discrete control: LFO2 Mode
+	piParam = new PluginParameter(controlID::lfo2Mode, "LFO2 Mode", "Sync,One Shot,Free Run", "Sync");
+	piParam->setBoundVariable(&lfo2Mode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO2 Wave
+	piParam = new PluginParameter(controlID::lfo2Waveform, "LFO2 Wave", "Triangle,Sin,Saw,RSH,QRSH,Noise,QRNoise", "Triangle");
+	piParam->setBoundVariable(&lfo2Waveform, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: LFO2 Fo
+	piParam = new PluginParameter(controlID::lfo2Frequency_Hz, "LFO2 Fo", "Hz", controlVariableType::kDouble, 0.000000, 20.000000, 0.020000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&lfo2Frequency_Hz, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -166,6 +185,21 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::lfo1RampTime_mSec, auxAttribute);
+
+	// --- controlID::lfo2Mode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::lfo2Mode, auxAttribute);
+
+	// --- controlID::lfo2Waveform
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::lfo2Waveform, auxAttribute);
+
+	// --- controlID::lfo2Frequency_Hz
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::lfo2Frequency_Hz, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -260,12 +294,17 @@ void PluginCore::updateParameters()
 
 	engineParams.masterVolume_dB = masterVolume_dB;
 
+	// LFO 1
 	engineParams.voiceParameters->lfo1Parameters->frequency_Hz = lfo1Frequency_Hz;
 	engineParams.voiceParameters->lfo1Parameters->waveform = convertIntToEnum(lfo1Waveform, LFOWaveform);
 	engineParams.voiceParameters->lfo1Parameters->mode = convertIntToEnum(lfo1Mode, LFOMode);
-
 	engineParams.voiceParameters->lfo1Parameters->lfoDelay_mSec = lfo1DelayTime_mSec;
 	engineParams.voiceParameters->lfo1Parameters->lfoRamp_mSec = lfo1RampTime_mSec;
+
+	// LFO 2
+	engineParams.voiceParameters->lfo2Parameters->frequency_Hz = lfo2Frequency_Hz;
+	engineParams.voiceParameters->lfo2Parameters->waveform = convertIntToEnum(lfo2Waveform, LFOWaveform);
+	engineParams.voiceParameters->lfo2Parameters->mode = convertIntToEnum(lfo2Mode, LFOMode);
 
 	// --- THE update - this trickles all param updates
 	// via the setParameters( ) of each
@@ -573,6 +612,9 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::masterVolume_dB, 3.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo1DelayTime_mSec, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo1RampTime_mSec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2Mode, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2Waveform, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2Frequency_Hz, 0.020000);
 	addPreset(preset);
 
 

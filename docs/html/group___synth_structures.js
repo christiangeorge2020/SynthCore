@@ -26,6 +26,7 @@ var group___synth_structures =
       [ "freeRunOscMode", "struct_synth_voice_parameters.html#aa3cc087f810c3b192519a371a89f18eb", null ],
       [ "legatoMode", "struct_synth_voice_parameters.html#a091a8c6d21a274a31ea62d39b662a23c", null ],
       [ "lfo1Parameters", "struct_synth_voice_parameters.html#a476e66a48b5d89072d953872a15ad155", null ],
+      [ "lfo2Parameters", "struct_synth_voice_parameters.html#aa0a755ea8ef555d5e9f527b90e33f807", null ],
       [ "osc1Parameters", "struct_synth_voice_parameters.html#a3bba88b8bd524ed24f0160bbf5c5ba06", null ],
       [ "portamentoTime_mSec", "struct_synth_voice_parameters.html#ae783121ac3be9250761747603eb6b437", null ],
       [ "voiceUnisonDetune_Cents", "struct_synth_voice_parameters.html#a7d2480cf4bfbb79240967077ff100749", null ]
@@ -123,8 +124,9 @@ var group___synth_structures =
       [ "enableHardSync", "struct_synth_osc_parameters.html#a2ac67338234e6e69ea810694155760d7", null ],
       [ "fmRatio", "struct_synth_osc_parameters.html#aa492901d88c49dc0dd1f1d1be6890f37", null ],
       [ "hardSyncRatio", "struct_synth_osc_parameters.html#a4124d92856b6f8e021fee71ee5fe1706", null ],
+      [ "oscillatorBankIndex", "struct_synth_osc_parameters.html#ad9660aca9cda805170fa304ed29ca9d3", null ],
       [ "oscillatorShape", "struct_synth_osc_parameters.html#a6c02a8b5874909e452dcea7386b33997", null ],
-      [ "oscillatorWaveform", "struct_synth_osc_parameters.html#af7669caadd7de450c0edf05d3f22a488", null ],
+      [ "oscillatorWaveformIndex", "struct_synth_osc_parameters.html#abc8881bb1a7321ea63e13f89749bfa34", null ],
       [ "outputAmplitude", "struct_synth_osc_parameters.html#a6a882a2d5377da3e969ca374d607d09f", null ],
       [ "pulseWidth_Pct", "struct_synth_osc_parameters.html#af30c53848a2c97b3ffd67ccda825c827", null ],
       [ "unisonDetuneCents", "struct_synth_osc_parameters.html#a13a7f0e62db9e20b5a4df2184f3e00d4", null ]

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['zvafilter_686',['ZVAFilter',['../class_z_v_a_filter.html',1,'']]],
-  ['zvafilterex_687',['ZVAFilterEx',['../class_z_v_a_filter_ex.html',1,'']]],
-  ['zvafilterparameters_688',['ZVAFilterParameters',['../struct_z_v_a_filter_parameters.html',1,'']]]
+  ['xfader_699',['XFader',['../struct_x_fader.html',1,'']]],
+  ['xholdfader_700',['XHoldFader',['../struct_x_hold_fader.html',1,'']]]
 ];

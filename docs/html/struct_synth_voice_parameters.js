@@ -8,6 +8,7 @@ var struct_synth_voice_parameters =
     [ "freeRunOscMode", "struct_synth_voice_parameters.html#aa3cc087f810c3b192519a371a89f18eb", null ],
     [ "legatoMode", "struct_synth_voice_parameters.html#a091a8c6d21a274a31ea62d39b662a23c", null ],
     [ "lfo1Parameters", "struct_synth_voice_parameters.html#a476e66a48b5d89072d953872a15ad155", null ],
+    [ "lfo2Parameters", "struct_synth_voice_parameters.html#aa0a755ea8ef555d5e9f527b90e33f807", null ],
     [ "osc1Parameters", "struct_synth_voice_parameters.html#a3bba88b8bd524ed24f0160bbf5c5ba06", null ],
     [ "portamentoTime_mSec", "struct_synth_voice_parameters.html#ae783121ac3be9250761747603eb6b437", null ],
     [ "voiceUnisonDetune_Cents", "struct_synth_voice_parameters.html#a7d2480cf4bfbb79240967077ff100749", null ]

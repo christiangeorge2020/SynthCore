@@ -14,7 +14,8 @@ var searchData=
   ['boundmidivaluebyte_37',['boundMIDIValueByte',['../structbound_m_i_d_i_value_byte.html',1,'']]],
   ['boundmidivaluedoublebyte_38',['boundMIDIValueDoubleByte',['../structbound_m_i_d_i_value_double_byte.html',1,'']]],
   ['boundvalue_39',['boundValue',['../fxobjects_8h.html#a31b0ee40892be258b8f6c08a57eb6b55',1,'fxobjects.h']]],
-  ['brickwallfilter_40',['brickwallFilter',['../fxobjects_8h.html#ac7db6d5459b79579476acb4bbfd2ef4e',1,'fxobjects.h']]],
-  ['brickwallmagdata_41',['BrickwallMagData',['../struct_brickwall_mag_data.html',1,'']]],
-  ['bufferlength_5fmsec_42',['bufferLength_mSec',['../class_delay_a_p_f.html#a9a8b6ce09469c832330d1fef4c4ef8cd',1,'DelayAPF']]]
+  ['brickfiledescriptor_40',['BrickFileDescriptor',['../struct_brick_file_descriptor.html',1,'']]],
+  ['brickwallfilter_41',['brickwallFilter',['../fxobjects_8h.html#ac7db6d5459b79579476acb4bbfd2ef4e',1,'fxobjects.h']]],
+  ['brickwallmagdata_42',['BrickwallMagData',['../struct_brickwall_mag_data.html',1,'']]],
+  ['bufferlength_5fmsec_43',['bufferLength_mSec',['../class_delay_a_p_f.html#a9a8b6ce09469c832330d1fef4c4ef8cd',1,'DelayAPF']]]
 ];

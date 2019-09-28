@@ -12,6 +12,7 @@ var hierarchy =
     [ "boundIntValue", "structbound_int_value.html", null ],
     [ "boundMIDIValueByte", "structbound_m_i_d_i_value_byte.html", null ],
     [ "boundMIDIValueDoubleByte", "structbound_m_i_d_i_value_double_byte.html", null ],
+    [ "BrickFileDescriptor", "struct_brick_file_descriptor.html", null ],
     [ "BrickwallMagData", "struct_brickwall_mag_data.html", null ],
     [ "checkAndWrapModulo", "structcheck_and_wrap_modulo.html", null ],
     [ "checkAndWrapModulo", "structcheck_and_wrap_modulo.html", null ],
@@ -27,6 +28,7 @@ var hierarchy =
     [ "EnvelopeFollowerParameters", "struct_envelope_follower_parameters.html", null ],
     [ "FilterBankOutput", "struct_filter_bank_output.html", null ],
     [ "GlideModulator", "struct_glide_modulator.html", null ],
+    [ "HiResWTSet", "struct_hi_res_w_t_set.html", null ],
     [ "IAudioSignalGenerator", "class_i_audio_signal_generator.html", [
       [ "DFOscillator", "class_d_f_oscillator.html", null ],
       [ "LFO", "class_l_f_o.html", null ]
@@ -85,7 +87,7 @@ var hierarchy =
       [ "WdfSeriesRC", "class_wdf_series_r_c.html", null ],
       [ "WdfSeriesRL", "class_wdf_series_r_l.html", null ]
     ] ],
-    [ "IMorphingWaveTable", "class_i_morphing_wave_table.html", null ],
+    [ "IMorphingWaveBank", "class_i_morphing_wave_bank.html", null ],
     [ "ISynthComponent", "class_i_synth_component.html", [
       [ "SynthEngine", "class_synth_engine.html", null ],
       [ "SynthVoice", "class_synth_voice.html", null ]
@@ -103,10 +105,13 @@ var hierarchy =
       [ "DCA", "class_d_c_a.html", null ],
       [ "TwinMoogFilters", "class_twin_moog_filters.html", null ]
     ] ],
-    [ "IWaveSample", "class_i_wave_sample.html", null ],
-    [ "IWaveTable", "class_i_wave_table.html", [
+    [ "IWaveBank", "class_i_wave_bank.html", [
+      [ "WaveTableBank", "class_wave_table_bank.html", null ]
+    ] ],
+    [ "IWaveData", "class_i_wave_data.html", [
       [ "WaveTableData", "class_wave_table_data.html", null ]
     ] ],
+    [ "IWaveSample", "class_i_wave_sample.html", null ],
     [ "LinearBuffer< T >", "class_linear_buffer.html", null ],
     [ "LinearBuffer< double >", "class_linear_buffer.html", null ],
     [ "LRFilterBankParameters", "struct_l_r_filter_bank_parameters.html", null ],
@@ -131,6 +136,7 @@ var hierarchy =
     [ "ModSource", "struct_mod_source.html", null ],
     [ "ModulatedDelayParameters", "struct_modulated_delay_parameters.html", null ],
     [ "MoogFilterParameters", "struct_moog_filter_parameters.html", null ],
+    [ "msecToSamples", "structmsec_to_samples.html", null ],
     [ "NestedDelayAPFParameters", "struct_nested_delay_a_p_f_parameters.html", null ],
     [ "OscillatorOutputData", "struct_oscillator_output_data.html", null ],
     [ "OscillatorParameters", "struct_oscillator_parameters.html", null ],
@@ -158,6 +164,7 @@ var hierarchy =
     [ "WAVE_FILE_HEADER", "struct_w_a_v_e___f_i_l_e___h_e_a_d_e_r.html", null ],
     [ "WaveData", "class_wave_data.html", null ],
     [ "WAVEFORMATEX", "struct_w_a_v_e_f_o_r_m_a_t_e_x.html", null ],
+    [ "Wavetable", "class_wavetable.html", null ],
     [ "WdfComponentInfo", "struct_wdf_component_info.html", null ],
     [ "WDFParameters", "struct_w_d_f_parameters.html", null ],
     [ "WindowEGParameters", "struct_window_e_g_parameters.html", null ],

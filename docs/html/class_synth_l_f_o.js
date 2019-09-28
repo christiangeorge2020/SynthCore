@@ -25,6 +25,8 @@ var class_synth_l_f_o =
     [ "parameters", "class_synth_l_f_o.html#a2801685377e47c33cd273eafa2c43c5a", null ],
     [ "phaseInc", "class_synth_l_f_o.html#af9d8c77ab8453f4c056f02e23ce627d6", null ],
     [ "pnRegister", "class_synth_l_f_o.html#aa044aa80e6eea46c6eb78d743b0a6143", null ],
+    [ "rampIncrement", "class_synth_l_f_o.html#a8c332a4813fe3faa4e93c227248d2bbc", null ],
+    [ "rampTimer", "class_synth_l_f_o.html#ac1057cfc7ebf4eabf2d7f393ba43450e", null ],
     [ "randomSHCounter", "class_synth_l_f_o.html#a6dee222e4bfd46a9af1166f339652422", null ],
     [ "randomSHValue", "class_synth_l_f_o.html#a47bc2e8024dfb7dda79f59cdfa5e0d76", null ],
     [ "renderComplete", "class_synth_l_f_o.html#a26bf4b2de11bfd4234c0dc7d93847afc", null ],

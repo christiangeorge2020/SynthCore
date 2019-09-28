@@ -1,5 +1,6 @@
 var dir_316b726d19e600d6b65444cab43e39fd =
 [
+    [ "analog_square_1.h", "analog__square__1_8h_source.html", null ],
     [ "analogsaw.h", "analogsaw_8h_source.html", null ],
     [ "dca_eg.h", "dca__eg_8h_source.html", null ],
     [ "filters.h", "filters_8h.html", "filters_8h" ],
@@ -12,6 +13,7 @@ var dir_316b726d19e600d6b65444cab43e39fd =
     [ "trace.h", "trace_8h_source.html", null ],
     [ "vafilters.h", "vafilters_8h_source.html", null ],
     [ "wavedata.h", "wavedata_8h_source.html", null ],
+    [ "wavetable.h", "wavetable_8h_source.html", null ],
     [ "wavetableoscillator.h", "wavetableoscillator_8h_source.html", null ],
     [ "window_eg.h", "window__eg_8h_source.html", null ]
 ];

@@ -29,6 +29,9 @@
 		<control-tag name="controlID::masterVolume_dB" tag="29" />
 		<control-tag name="controlID::lfo1DelayTime_mSec" tag="43" />
 		<control-tag name="controlID::lfo1RampTime_mSec" tag="44" />
+		<control-tag name="controlID::lfo2Mode" tag="51" />
+		<control-tag name="controlID::lfo2Waveform" tag="50" />
+		<control-tag name="controlID::lfo2Frequency_Hz" tag="52" />
 		<control-tag name="XY_TRACKPAD" tag="131073" />
 		<control-tag name="VECTOR_JOYSTICK" tag="131074" />
 		<control-tag name="PRESET_NAME" tag="131075" />

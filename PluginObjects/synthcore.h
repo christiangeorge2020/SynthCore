@@ -25,6 +25,9 @@ enum modSource
 	kLFO1_Normal,
 	kLFO1_QuadPhase,
 
+	kLFO2_Normal,
+	kLFO2_QuadPhase,
+
 	// --- EGs here
 	kEG1_Normal,	// EG1 = amp EG
 	kEG1_Biased,
@@ -49,6 +52,9 @@ enum modDestination
 {
 	// --- oscillator pitch (add more here)
 	kOsc1_fo,
+
+	// --- LFO
+	kLFO1_fo,
 
 	// --- FILTER (add more here)
 	kFilter1_fc, // Fc
@@ -111,12 +117,14 @@ struct SynthVoiceParameters
 	// --- unison Detune - each voice will be detuned differently
 	double voiceUnisonDetune_Cents = 0.0;
 
-	// --- GUI CONTROL INTERFACE -------------------------------- //
+	/// --- GUI CONTROL INTERFACE -------------------------------- //
+	// Shared pointers are smart pointers that can only be owned by two objects.
 	// --- pitched oscillators
 	std::shared_ptr<SynthOscParameters> osc1Parameters = std::make_shared<SynthOscParameters>();
 
 	// --- LFO oscillators
 	std::shared_ptr<SynthLFOParameters> lfo1Parameters = std::make_shared<SynthLFOParameters>();
+	std::shared_ptr<SynthLFOParameters> lfo2Parameters = std::make_shared<SynthLFOParameters>();
 
 	// --- EGs
 	std::shared_ptr<EGParameters> ampEGParameters = std::make_shared<EGParameters>();
@@ -291,6 +299,10 @@ protected:
 		modSourceData[kLFO1_QuadPhase] = &lfo1Output.modulationOutputs[kLFOQuadPhaseOutput];
 		modSourceData[kEG1_Normal] = &ampEGOutput.modulationOutputs[kEGNormalOutput];
 		modSourceData[kEG1_Biased] = &ampEGOutput.modulationOutputs[kEGBiasedOutput];
+		
+		// LFO2 -> LFO1
+		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
+		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
 
 		// --- destinations
 		modDestinationData[kOsc1_fo] = &(osc1->getModulators()->modulationInputs[kBipolarMod]);
@@ -304,6 +316,7 @@ protected:
 
 	// --- mod source data: --- modulators ---
 	ModOutputData lfo1Output;
+	ModOutputData lfo2Output;
 	ModOutputData ampEGOutput;
 
 	// --- mod source data: --- filter ---
@@ -326,9 +339,13 @@ protected:
 
 	// --- filters:
 	// add here....
+	// Smart pointers delete themselves when no one is holding a copy of them. Smart pointers use an overloaded equals to increment its
+	// reference count, and an overloaded destructor to decrement. A unique pointer is a smart pointer that can only be owned by one object;
+	// nothing else can point to its value. 
 
 	// --- LFOs
 	std::unique_ptr<SynthLFO> lfo1;
+	std::unique_ptr<SynthLFO> lfo2;
 
 	// --- EGs
 	std::unique_ptr<EnvelopeGenerator> ampEG;
@@ -489,7 +506,7 @@ struct SynthEngineParameters
 /**
 \class SynthEngine
 \ingroup SynthClasses
-\brief Encapsulates an entire synth engine, producing one type of sysnthesizer set of voices (e.g. Virtual Analog, Sample Based, FM, etc...) --
+\brief Encapsulates an entire synth engine, producing one type of synthesizer set of voices (e.g. Virtual Analog, Sample Based, FM, etc...) --
 This object contains an array of SynthVoice objects to render audio and also processes MIDI events.
 
 Outputs: contains 2 outputs

@@ -168,8 +168,16 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="memdesc:a76f9b5464dcdc1715a339dc7379b2ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">sample rate <br /></td></tr>
 <tr class="separator:a76f9b5464dcdc1715a339dc7379b2ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21e44d61161ad1cdade13e3322d05b88"><td class="memItemLeft" align="right" valign="top"><a id="a21e44d61161ad1cdade13e3322d05b88"></a>
-<a class="el" href="struct_timer.html">Timer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>delayTimer</b></td></tr>
+<a class="el" href="struct_timer.html">Timer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_synth_l_f_o.html#a21e44d61161ad1cdade13e3322d05b88">delayTimer</a></td></tr>
+<tr class="memdesc:a21e44d61161ad1cdade13e3322d05b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">timer object for setting lfo starting delay <br /></td></tr>
 <tr class="separator:a21e44d61161ad1cdade13e3322d05b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1057cfc7ebf4eabf2d7f393ba43450e"><td class="memItemLeft" align="right" valign="top"><a id="ac1057cfc7ebf4eabf2d7f393ba43450e"></a>
+<a class="el" href="struct_timer.html">Timer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_synth_l_f_o.html#ac1057cfc7ebf4eabf2d7f393ba43450e">rampTimer</a></td></tr>
+<tr class="memdesc:ac1057cfc7ebf4eabf2d7f393ba43450e"><td class="mdescLeft">&#160;</td><td class="mdescRight">timer object for lfo ramp onset time <br /></td></tr>
+<tr class="separator:ac1057cfc7ebf4eabf2d7f393ba43450e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c332a4813fe3faa4e93c227248d2bbc"><td class="memItemLeft" align="right" valign="top"><a id="a8c332a4813fe3faa4e93c227248d2bbc"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>rampIncrement</b></td></tr>
+<tr class="separator:a8c332a4813fe3faa4e93c227248d2bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f6ef331189bd0960d5c8215afc5ee4d"><td class="memItemLeft" align="right" valign="top"><a id="a0f6ef331189bd0960d5c8215afc5ee4d"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_synth_l_f_o.html#a0f6ef331189bd0960d5c8215afc5ee4d">modCounter</a> = 0.0</td></tr>
 <tr class="memdesc:a0f6ef331189bd0960d5c8215afc5ee4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">modulo counter [0.0, +1.0] <br /></td></tr>
@@ -250,6 +258,10 @@ const double&#160;</td><td class="memItemRight" valign="bottom"><b>P</b> = 0.225
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Delay and Ramp Timers activate upon NoteOn Message</p>
+<p>&lt; Convert mseconds to sample</p>
+<p>&lt; Reset</p>
+<p>&lt; Set target delay</p>
 <p>&lt; modulo counter [0.0, +1.0]</p>
 <p>&lt; Quad Phase modulo counter [0.0, +1.0]</p>
 
@@ -280,8 +292,8 @@ const double&#160;</td><td class="memItemRight" valign="bottom"><b>P</b> = 0.225
   </tr>
 </table>
 </div><div class="memdoc">
-<p>&lt; modulo counter [0.0, +1.0] test</p>
-<p>&lt;Quad Phase modulo counter [0.0, +1.0]</p>
+<p>&lt; Modulo counter [0.0, +1.0]</p>
+<p>&lt; Quad Phase modulo counter [0.0, +1.0]</p>
 
 <p>Implements <a class="el" href="class_i_synth_modulator.html">ISynthModulator</a>.</p>
 

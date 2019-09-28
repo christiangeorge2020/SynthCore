@@ -50,13 +50,13 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_l_f_os.html",
-"class_i_component_adaptor.html",
-"class_synth_voice.html#a1e4eeac46031039d3fac6deb975a614d",
-"class_wdf_adaptor_base.html#a7132e9a411d906619175e171ef61a9a9",
-"class_wdf_series_r_c.html#a3bdd36a9f26b7fee418bb003a4c2d82c",
-"fxobjects_8h.html#a413aa0120b5027ad544cd9ff69271165aa414f647f7673da9cb435b15650decfe",
-"struct_d_c_a_parameters.html#a58030dbce682760be8622505f424a83b",
-"struct_synth_render_data.html#ae3b758dd1ecce5a032aae59251d3cdd4"
+"class_i_audio_signal_processor.html#afa822b27ad197a61b38b71c3b7d232fc",
+"class_synth_osc.html#a72a8d29360c506eed11623c5bf5e9788",
+"class_wave_table_osc.html#a75fbd9a690cfda98e16d2adaadffcc96",
+"class_wdf_resistor.html#af88a2b4c6bb57b05f1fc4fc29263cf2a",
+"fxobjects_8h.html#a081ad5f14d203ceee2631ad4d212423aa0abc6e58df55680f7e3ec6ff7cabb30e",
+"struct_audio_filter_parameters.html#a8d761ca792a81370cf96a6da6d55292a",
+"struct_reverb_tank_parameters.html#af608a937e2f19907f4dbc5a3f4bb8539"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
