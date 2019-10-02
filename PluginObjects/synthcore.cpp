@@ -205,8 +205,8 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	synthOutputData.channelCount = 2;
 
 	// --- summation for the simple core
-	synthOutputData.synthOutputs[0] = audioData.outputs[0]; //lfo1Output.modulationOutputs[kLFONormalOutput]; //audioData.outputs[0];
-	synthOutputData.synthOutputs[1] = audioData.outputs[1]; //lfo2Output.modulationOutputs[kLFONormalOutput]; //audioData.outputs[1];
+	synthOutputData.synthOutputs[0] = audioData.outputs[0]; //lfo1Output.modulationOutputs[kLFONormalOutput]; //
+	synthOutputData.synthOutputs[1] = audioData.outputs[1]; //lfo2Output.modulationOutputs[kLFONormalOutput]; //
 
 	return synthOutputData;
 }
@@ -332,6 +332,9 @@ SynthEngine::SynthEngine()
 
 	/// LFO2 -> LFO1
 	parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_fo);
+
+	/// LFO -> Sample Hold DCA
+	parameters.setMM_HardwiredRouting(kLFO1_Normal, kDCA_SampleHoldMod);
 
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 

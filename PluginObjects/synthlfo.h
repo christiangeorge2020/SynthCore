@@ -64,6 +64,9 @@ struct SynthLFOParameters
 		lfoDelay_mSec = params.lfoDelay_mSec;
 		lfoRamp_mSec = params.lfoRamp_mSec;
 
+		lfoShape = params.lfoShape;
+		shapeSplitpoint = params.shapeSplitpoint;
+
 		return *this;
 	}
 
@@ -75,6 +78,8 @@ struct SynthLFOParameters
 	double outputAmplitude = 1.0;
 	double lfoDelay_mSec = 0.0;
 	double lfoRamp_mSec = 0.0;
+	double lfoShape = 0.5;
+	double shapeSplitpoint = 0.5;
 };
 
 
@@ -107,6 +112,7 @@ public:
 		delayTimer.resetTimer();
 		rampTimer.resetTimer();
 
+
 		// --- timebase variables
 		modCounter = 0.0;			///< Modulo counter [0.0, +1.0]
 		modCounterQP = 0.25;		///< Quad Phase modulo counter [0.0, +1.0]
@@ -128,6 +134,8 @@ public:
 		int ramp_Samples = msecToSamples(sampleRate, parameters->lfoRamp_mSec);
 		rampTimer.resetTimer();
 		rampTimer.setTargetValueInSamples(ramp_Samples);
+
+		
 
 		if (parameters->mode == LFOMode::kSync || parameters->mode == LFOMode::kOneShot)
 		{
@@ -174,6 +182,9 @@ protected:
 	Timer rampTimer;			///< timer object for lfo ramp onset time
 	double rampIncrement;
 
+	double lfoShape_first = 0.5;
+	double lfoShape_second = 0.5;
+	
 	// --- timebase variables
 	double modCounter = 0.0;			///< modulo counter [0.0, +1.0]
 	double phaseInc = 0.0;				///< phase inc = fo/fs

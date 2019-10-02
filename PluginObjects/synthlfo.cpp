@@ -5,18 +5,37 @@ bool SynthLFO::update(bool updateAllModRoutings)
 {
 	// --- Run priority modulators 
 
+	
+
+	/// Calculate fo Modulation Value from LFO1->LFO2
+	double cookedFrequency = parameters->frequency_Hz;
+	double bipolarFMMod = modulators->modulationInputs[kFrequencyMod];
+	double range = (20.0 - 0.02) / 2.0;
+	double modulationValue = range * bipolarFMMod;
+	
+	cookedFrequency += modulationValue;
+
+	boundValue(cookedFrequency, 0.02, 20.0);
+
 	// --- End Priority modulators
 	if (!updateAllModRoutings)
 		return true;
 
-	double bipolarFMMod = modulators->modulationInputs[kFrequencyMod];
-	double range = (200.0 - 0.02) / 2.0;
-	double modulationValue = range * bipolarFMMod;
-	boundValue(modulationValue, 0.02, 200);
+	// Full period frequency of fundamental lfo frequency
+	
+	lfoShape_first = 1 / (2 * parameters->lfoShape);
+	lfoShape_second = 1 / (2 * (1 - parameters->lfoShape));
 
-	parameters->frequency_Hz += modulationValue;
+	if (modCounter <= parameters->shapeSplitpoint)
+		cookedFrequency *= lfoShape_first;
+	else
+		cookedFrequency *= lfoShape_second;
 
-	phaseInc = parameters->frequency_Hz / sampleRate;
+	
+
+	//parameters->frequency_Hz = cookedFrequency;
+
+	phaseInc = (cookedFrequency / sampleRate);
 
 	return true;
 }

@@ -31,7 +31,9 @@ enum controlID {
 	lfo1RampTime_mSec = 44,
 	lfo2Mode = 51,
 	lfo2Waveform = 50,
-	lfo2Frequency_Hz = 52
+	lfo2Frequency_Hz = 52,
+	lfo1Shape = 45,
+	lfo1ShapeSplit = 46
 };
 
 	// **--0x0F1F--**
@@ -146,6 +148,8 @@ private:
 	double lfo1DelayTime_mSec = 0.0;
 	double lfo1RampTime_mSec = 0.0;
 	double lfo2Frequency_Hz = 0.0;
+	double lfo1Shape = 0.0;
+	double lfo1ShapeSplit = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;

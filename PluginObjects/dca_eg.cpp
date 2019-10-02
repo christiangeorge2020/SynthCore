@@ -54,6 +54,10 @@ bool DCA::update(bool updateAllModRoutings)
 	else
 		gainRaw = 0.0; // OFF
 
+	double sampleHoldMod = modulators->modulationInputs[kAuxBipolarMod_1];
+	/*if (sampleHoldMod < 0.0)
+		gainRaw = 0.0;*/
+
 	// --- is mute ON? 0 = OFF, 1 = ON
 	if (parameters->mute) gainRaw = 0.0;
 

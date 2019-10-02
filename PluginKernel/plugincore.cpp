@@ -82,7 +82,7 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- continuous control: LFO1 Fo
-	piParam = new PluginParameter(controlID::lfo1Frequency_Hz, "LFO1 Fo", "Hz", controlVariableType::kDouble, 0.020000, 20.000000, 0.500000, taper::kLinearTaper);
+	piParam = new PluginParameter(controlID::lfo1Frequency_Hz, "LFO1 Fo", "Hz", controlVariableType::kDouble, 0.000000, 20.000000, 0.500000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&lfo1Frequency_Hz, boundVariableType::kDouble);
@@ -140,6 +140,20 @@ bool PluginCore::initPluginParameters()
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&lfo2Frequency_Hz, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: LFO1 Shape
+	piParam = new PluginParameter(controlID::lfo1Shape, "LFO1 Shape", "", controlVariableType::kDouble, 0.020000, 0.980000, 0.500000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&lfo1Shape, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Shape Split
+	piParam = new PluginParameter(controlID::lfo1ShapeSplit, "Shape Split", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.500000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&lfo1ShapeSplit, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
 	// --- Aux Attributes
@@ -200,6 +214,16 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::lfo2Frequency_Hz, auxAttribute);
+
+	// --- controlID::lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::lfo1Shape, auxAttribute);
+
+	// --- controlID::lfo1ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::lfo1ShapeSplit, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -300,6 +324,8 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->lfo1Parameters->mode = convertIntToEnum(lfo1Mode, LFOMode);
 	engineParams.voiceParameters->lfo1Parameters->lfoDelay_mSec = lfo1DelayTime_mSec;
 	engineParams.voiceParameters->lfo1Parameters->lfoRamp_mSec = lfo1RampTime_mSec;
+	engineParams.voiceParameters->lfo1Parameters->lfoShape = lfo1Shape;
+	engineParams.voiceParameters->lfo1Parameters->shapeSplitpoint = lfo1ShapeSplit;
 
 	// LFO 2
 	engineParams.voiceParameters->lfo2Parameters->frequency_Hz = lfo2Frequency_Hz;
@@ -615,6 +641,8 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::lfo2Mode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo2Waveform, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo2Frequency_Hz, 0.020000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1Shape, 0.500000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1ShapeSplit, 0.500000);
 	addPreset(preset);
 
 

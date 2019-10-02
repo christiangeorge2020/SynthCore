@@ -62,6 +62,7 @@ enum modDestination
 	// --- DCA (add more here)
 	kDCA_EGMod, // EG Input
 	kDCA_AmpMod,// Amp Mod Input
+	kDCA_SampleHoldMod, // Bipolar clamping mod input
 
 	// --- remain last, will always be the size of modulator array
 	kNumModDestinations
@@ -302,12 +303,16 @@ protected:
 		
 		// LFO2 -> LFO1
 		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
-		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
+		
 
 		// --- destinations
 		modDestinationData[kOsc1_fo] = &(osc1->getModulators()->modulationInputs[kBipolarMod]);
 		modDestinationData[kDCA_EGMod] = &(dca->getModulators()->modulationInputs[kEGMod]);
 		modDestinationData[kDCA_AmpMod] = &(dca->getModulators()->modulationInputs[kMaxDownAmpMod]);
+
+		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
+
+		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxBipolarMod_1]);
 	}
 
 	// --- arrays to hold source/destination
