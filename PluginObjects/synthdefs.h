@@ -1015,7 +1015,7 @@ protected:
 };
 
 
-
+enum class ScaleMode { kNone, kIonian, kDorian, kPhrygian, kLydian, kMixolydian, kAeolian, kLocrian, kChromatic };
 
 // --- ALL oscillator waveforms
 //enum class SynthOscType { kFourierWaveTable, kVirtualAnalogBLEP, kHighResWaveTable };
@@ -1053,8 +1053,12 @@ struct SynthOscParameters
 		enableHardSync = params.enableHardSync;
 		enableFreeRunMode = params.enableFreeRunMode;
 
+		scale = params.scale;
+
 		return *this;
 	}
+
+	ScaleMode scale = ScaleMode::kNone;
 
 	// --- this is the index in the oscillator data source (for wavetable)
 	int32_t oscillatorBankIndex = 0; // max is up to the bank container

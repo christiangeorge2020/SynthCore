@@ -33,7 +33,12 @@ enum controlID {
 	lfo2Waveform = 50,
 	lfo2Frequency_Hz = 52,
 	lfo1Shape = 45,
-	lfo1ShapeSplit = 46
+	lfo1ShapeSplit = 46,
+	scaleMode = 47,
+	enableRhythmicBreaks = 48,
+	lfo2Shape = 53,
+	lfo2ShapeSplit = 54,
+	lfo2ModTarget = 55
 };
 
 	// **--0x0F1F--**
@@ -150,6 +155,8 @@ private:
 	double lfo2Frequency_Hz = 0.0;
 	double lfo1Shape = 0.0;
 	double lfo1ShapeSplit = 0.0;
+	double lfo2Shape = 0.0;
+	double lfo2ShapeSplit = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -163,6 +170,15 @@ private:
 
 	int lfo2Waveform = 0;
 	enum class lfo2WaveformEnum { Triangle,Sin,Saw,RSH,QRSH,Noise,QRNoise };	// to compare: if(compareEnumToInt(lfo2WaveformEnum::Triangle, lfo2Waveform)) etc... 
+
+	int scaleMode = 0;
+	enum class scaleModeEnum { None,Ionian,Dorian,Phrygian,Lydian,Mixolydian,Aeolian,Locrian,Chromatic };	// to compare: if(compareEnumToInt(scaleModeEnum::None, scaleMode)) etc... 
+
+	int enableRhythmicBreaks = 0;
+	enum class enableRhythmicBreaksEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(enableRhythmicBreaksEnum::SWITCH_OFF, enableRhythmicBreaks)) etc... 
+
+	int lfo2ModTarget = 0;
+	enum class lfo2ModTargetEnum { None,LFO1_Fo,LFO1_Shape,Both };	// to compare: if(compareEnumToInt(lfo2ModTargetEnum::None, lfo2ModTarget)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

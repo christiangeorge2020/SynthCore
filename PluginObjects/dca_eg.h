@@ -91,6 +91,7 @@ public:
 		else if (audioData->numInputChannels == 2 && audioData->numOutputChannels == 2)
 			audioData->outputs[1] = audioData->inputs[1] * gainRaw  * panRightGain;
 
+
 		return true;
 	}
 
@@ -122,6 +123,12 @@ protected:
 
 	// --- pan value is set internally by voice, or via MIDI/MIDI Channel
 	double panValue = 0.0;			///< pan value is set internally by voice, or via MIDI/MIDI Channel
+
+	double bpm = 120.0;
+	double ms_perB = (60.0 / 120.0) * 1000.0;
+	double offTime_ms = 0.0;
+	double onTime_ms = 0.0;
+	double increment = 1.0;
 
 	// --- note on flag
 	bool noteOn = false;

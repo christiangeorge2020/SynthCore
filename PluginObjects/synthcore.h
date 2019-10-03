@@ -394,6 +394,8 @@ protected:
 // --- engine mode: poly, mono or unison
 enum class synthMode { kPoly, kMono, kUnison };
 
+enum class ModRouting { None, LFO1_Fo, LFO1_Shape, Both };
+
 /**
 \struct SynthEngineParameters
 \ingroup SynthStructures
@@ -426,8 +428,12 @@ struct SynthEngineParameters
 		modSourceData = params.modSourceData;
 		modDestinationData = params.modDestinationData;
 
+		//modRoute = params.modRoute;
+
 		return *this;
 	}
+
+	ModRouting modRoute = ModRouting::None;
 
 	// --- enable/disable keyboard (MIDI note event) input; when disabled, synth goes into manual mode (Will's VCS3)
 	bool enableMIDINoteEvents = true;

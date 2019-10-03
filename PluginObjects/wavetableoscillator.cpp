@@ -285,13 +285,22 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	// --- do the portamento
 	double glideMod = glideModulator.getNextGlideModSemitones();
 
+	
+
 	// Major Modes
 	double Ionian[15] = { -12.0, -10.0, -8.0, -7.0, -5.0, -3.0, -1.0, 0.0, 2.0, 4.0, 5.0, 7.0, 9.0, 11.0, 12.0 };
+	double Dorian[15] = { -12.0, -10.0, -9.0, -7.0, -5.0, -3.0, -2.0, 0.0, 2.0, 3.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
+	double Phrygian[15] = { -12.0, -11.0, -9.0, -7.0, -5.0, -3.0, -2.0, 0.0, 1.0, 3.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
+	double Lydian[15] = { -12.0, -10.0, -8.0, -6.0, -5.0, -3.0, -1.0, 0.0, 2.0, 4.0, 6.0, 7.0, 9.0, 11.0, 12.0 };
+	double Mixolydian[15] = { -12.0, -10.0, -8.0, -7.0, -5.0, -3.0, -2.0, 0.0, 2.0, 4.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
+	double Aeolian[15] = { -12.0, -10.0, -9.0, -7.0, -5.0, -4.0, -2.0, 0.0, 2.0, 3.0, 5.0, 7.0, 8.0, 10.0, 12.0 };
+	double Locrian[15] = { -12.0, -11.0, -9.0, -7.0, -6.0, -4.0, -2.0, 0.0, 1.0, 3.0, 5.0, 6.0, 8.0, 10.0, 12.0 };
+	
 	double diff[15] = { 0.0 };
 
 	// Quantize
 	for (int i = 0; i <= 15; i++) {
-		diff[i] = abs(Ionian[i] - fmodInput);
+		diff[i] = abs(Dorian[i] - fmodInput);
 	}
 	
 	double quantFMod; 
@@ -299,7 +308,7 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	for (int i = 1; i <= 15; i++) {
 		if (smallestDiff > diff[i]) {
 			smallestDiff = diff[i];
-			quantFMod = Ionian[i];
+			quantFMod = Dorian[i];
 		}
 	}
 

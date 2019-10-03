@@ -295,6 +295,8 @@ bool SynthVoice::processMIDIEvent(midiEvent& event)
 	return true;
 }
 
+
+
 SynthEngine::SynthEngine()
 {
 	// --- this is recommended by the MIDI Manufacturer's Asssociation to force a reset
@@ -334,7 +336,7 @@ SynthEngine::SynthEngine()
 	parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_fo);
 
 	/// LFO -> Sample Hold DCA
-	parameters.setMM_HardwiredRouting(kLFO1_Normal, kDCA_SampleHoldMod);
+	parameters.setMM_HardwiredRouting(kLFO2_Normal, kDCA_SampleHoldMod);
 
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 

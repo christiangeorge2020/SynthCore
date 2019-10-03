@@ -149,11 +149,43 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&lfo1Shape, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
-	// --- continuous control: Shape Split
-	piParam = new PluginParameter(controlID::lfo1ShapeSplit, "Shape Split", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.500000, taper::kLinearTaper);
+	// --- continuous control: LFO1 ShapeSplit
+	piParam = new PluginParameter(controlID::lfo1ShapeSplit, "LFO1 ShapeSplit", "", controlVariableType::kDouble, 0.020000, 0.980000, 0.500000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&lfo1ShapeSplit, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Scale
+	piParam = new PluginParameter(controlID::scaleMode, "Scale", "None,Ionian,Dorian,Phrygian,Lydian,Mixolydian,Aeolian,Locrian,Chromatic", "None");
+	piParam->setBoundVariable(&scaleMode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Rhythmic Breaks
+	piParam = new PluginParameter(controlID::enableRhythmicBreaks, "Rhythmic Breaks", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&enableRhythmicBreaks, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: LFO2 Shape
+	piParam = new PluginParameter(controlID::lfo2Shape, "LFO2 Shape", "", controlVariableType::kDouble, 0.020000, 0.980000, 0.500000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&lfo2Shape, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: LFO2 ShapeSplit
+	piParam = new PluginParameter(controlID::lfo2ShapeSplit, "LFO2 ShapeSplit", "", controlVariableType::kDouble, 0.020000, 0.980000, 0.500000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&lfo2ShapeSplit, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Modulation Target
+	piParam = new PluginParameter(controlID::lfo2ModTarget, "Modulation Target", "None,LFO1 Fo,LFO1 Shape,Both", "None");
+	piParam->setBoundVariable(&lfo2ModTarget, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
 	// --- Aux Attributes
@@ -224,6 +256,31 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::lfo1ShapeSplit, auxAttribute);
+
+	// --- controlID::scaleMode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::scaleMode, auxAttribute);
+
+	// --- controlID::enableRhythmicBreaks
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741824);
+	setParamAuxAttribute(controlID::enableRhythmicBreaks, auxAttribute);
+
+	// --- controlID::lfo2Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::lfo2Shape, auxAttribute);
+
+	// --- controlID::lfo2ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::lfo2ShapeSplit, auxAttribute);
+
+	// --- controlID::lfo2ModTarget
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::lfo2ModTarget, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -318,7 +375,7 @@ void PluginCore::updateParameters()
 
 	engineParams.masterVolume_dB = masterVolume_dB;
 
-	// LFO 1
+	/// LFO 1 Parameters
 	engineParams.voiceParameters->lfo1Parameters->frequency_Hz = lfo1Frequency_Hz;
 	engineParams.voiceParameters->lfo1Parameters->waveform = convertIntToEnum(lfo1Waveform, LFOWaveform);
 	engineParams.voiceParameters->lfo1Parameters->mode = convertIntToEnum(lfo1Mode, LFOMode);
@@ -327,10 +384,14 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->lfo1Parameters->lfoShape = lfo1Shape;
 	engineParams.voiceParameters->lfo1Parameters->shapeSplitpoint = lfo1ShapeSplit;
 
-	// LFO 2
+	/// LFO 2 Parameters
 	engineParams.voiceParameters->lfo2Parameters->frequency_Hz = lfo2Frequency_Hz;
 	engineParams.voiceParameters->lfo2Parameters->waveform = convertIntToEnum(lfo2Waveform, LFOWaveform);
 	engineParams.voiceParameters->lfo2Parameters->mode = convertIntToEnum(lfo2Mode, LFOMode);
+	engineParams.voiceParameters->lfo2Parameters->lfoShape = lfo2Shape;
+	engineParams.voiceParameters->lfo2Parameters->shapeSplitpoint = lfo2ShapeSplit;
+
+	engineParams.voiceParameters->osc1Parameters->scale = convertIntToEnum(scaleMode, ScaleMode);
 
 	// --- THE update - this trickles all param updates
 	// via the setParameters( ) of each
@@ -643,6 +704,11 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::lfo2Frequency_Hz, 0.020000);
 	setPresetParameter(preset->presetParameters, controlID::lfo1Shape, 0.500000);
 	setPresetParameter(preset->presetParameters, controlID::lfo1ShapeSplit, 0.500000);
+	setPresetParameter(preset->presetParameters, controlID::scaleMode, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::enableRhythmicBreaks, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2Shape, 0.500000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2ShapeSplit, 0.500000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2ModTarget, -0.000000);
 	addPreset(preset);
 
 

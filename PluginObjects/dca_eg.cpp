@@ -55,6 +55,47 @@ bool DCA::update(bool updateAllModRoutings)
 		gainRaw = 0.0; // OFF
 
 	double sampleHoldMod = modulators->modulationInputs[kAuxBipolarMod_1];
+//	HostInfo * hostInfo;
+
+	if (increment >= offTime_ms && increment >= onTime_ms) {
+		if (sampleHoldMod > 0.8)
+			offTime_ms = ms_perB; ///< Whole Note
+		else if (0.6 < sampleHoldMod && sampleHoldMod <= 0.8)
+			offTime_ms = ms_perB; ///< Half Note
+		else if (0.4 < sampleHoldMod && sampleHoldMod <= 0.6)
+			offTime_ms = ms_perB; ///< Quarter Note
+		else if (0.2 < sampleHoldMod && sampleHoldMod <= 0.4)
+			offTime_ms = 0.5 * ms_perB; ///< Sixteenth Note
+		else if (0.0 < sampleHoldMod && sampleHoldMod <= 0.2)
+			offTime_ms = 0.5 * ms_perB * 3; ///< Triplet Eighth
+
+		/*if (-1.0 <= sampleHoldMod && sampleHoldMod <= -0.8)
+			onTime_ms = 4 * ms_perB; ///< Whole Note
+		else if (-0.8 < sampleHoldMod && sampleHoldMod <= -0.6)
+			onTime_ms = 2 * ms_perB; ///< Half Note
+		else if (-0.6 < sampleHoldMod && sampleHoldMod <= -0.4)
+			onTime_ms = ms_perB; ///< Quarter Note
+		else if (-0.4 < sampleHoldMod && sampleHoldMod <= -0.2)
+			onTime_ms = 0.5 * ms_perB; ///< Sixteenth Note
+		else if (-0.2 < sampleHoldMod && sampleHoldMod <= 0.0)
+			onTime_ms = 0.5 * ms_perB * 3; ///< Quarter Triplet*/
+		
+		else if (sampleHoldMod <= 0.0) {
+			onTime_ms = 4 * ms_perB;
+			offTime_ms = 0.0;
+		}
+
+		increment = 0.0;
+	}
+
+	if (increment < offTime_ms) {
+		gainRaw = 0.001;
+		increment++;
+	}
+	else if (increment < onTime_ms) {
+		increment++;
+	}
+
 	/*if (sampleHoldMod < 0.0)
 		gainRaw = 0.0;*/
 
