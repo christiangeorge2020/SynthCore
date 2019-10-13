@@ -22,7 +22,7 @@
     <Filter Include="Plugin Kernel\Plugin Core">
       <UniqueIdentifier>{05B21EBD-438E-4641-B612-B08EF8EA8C1B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PluginObjects">
+    <Filter Include="Plugin Kernel\Plugin GUI\PluginObjects">
       <UniqueIdentifier>{5BA836A0-214B-44B1-8C77-A62043FD6B0A}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -61,31 +61,31 @@
       <Filter>Plugin Kernel\Plugin Core</Filter>
     </ClCompile>
     <ClCompile Include="..\PluginObjects\fxobjects.cpp">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\PluginObjects\dca_eg.cpp">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\PluginObjects\synthcore.cpp">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\PluginObjects\synthlfo.cpp">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\PluginObjects\synthoscillator.cpp">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\PluginObjects\vafilters.cpp">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\PluginObjects\wavedata.cpp">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\PluginObjects\wavetableoscillator.cpp">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\PluginObjects\window_eg.cpp">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,10 +129,10 @@
       <Filter>Plugin Kernel\Plugin Core</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\fxobjects.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\filters.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\CustomControls\atomicops.h">
       <Filter>CustomControls</Filter>
@@ -141,43 +141,55 @@
       <Filter>CustomControls</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\analogsaw.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\dca_eg.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\synthcore.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\synthdefs.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\synthlfo.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\synthoscillator.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\trace.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\vafilters.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\wavedata.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\wavetableoscillator.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\window_eg.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\analog_square_1.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\PluginObjects\wavetable.h">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PluginObjects\wavetablebank.h">
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PluginObjects\wavetabledata.h">
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PluginObjects\wavetables\AKWF_0.h">
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PluginObjects\wavetables\AKWF_1.h">
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -195,7 +207,7 @@
     <Text Include="..\docs\oscillators.txt" />
     <Text Include="..\LFO1 Controls.txt" />
     <Text Include="..\PluginObjects\README.txt">
-      <Filter>PluginObjects</Filter>
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </Text>
   </ItemGroup>
 </Project>

@@ -12,6 +12,7 @@
 // -----------------------------------------------------------------------------
 #include "plugincore.h"
 #include "plugindescription.h"
+#include "bankwaveviews.h"
 
 /**
 \brief PluginCore constructor is launching pad for object initialization
@@ -183,8 +184,20 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: Modulation Target
-	piParam = new PluginParameter(controlID::lfo2ModTarget, "Modulation Target", "None,LFO1 Fo,LFO1 Shape,Both", "None");
+	piParam = new PluginParameter(controlID::lfo2ModTarget, "Modulation Target", "None,LFO1 Fo,LFO1 Shape,Both,Rhythmic Breaks", "None");
 	piParam->setBoundVariable(&lfo2ModTarget, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc1 Wave
+	piParam = new PluginParameter(controlID::osc1Waveform, "Osc1 Wave", "wave0,wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,wave10,wave11,wave12,wave13,wave14,wave15,wave16,wave17,wave18,wave19,wave20,wave21,wave22,wave23,wave24,wave25,wave26,wave27,wave28,wave29,wave30,wave31", "wave0");
+	piParam->setBoundVariable(&osc1Waveform, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc1 Bank
+	piParam = new PluginParameter(controlID::osc1BankIndex, "Osc1 Bank", "Bank 0,Bank 1,Bank 2,Bank 3", "Bank 0");
+	piParam->setBoundVariable(&osc1BankIndex, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -282,6 +295,16 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(805306368);
 	setParamAuxAttribute(controlID::lfo2ModTarget, auxAttribute);
 
+	// --- controlID::osc1Waveform
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc1Waveform, auxAttribute);
+
+	// --- controlID::osc1BankIndex
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc1BankIndex, auxAttribute);
+
 
 	// **--0xEDA5--**
    
@@ -315,6 +338,8 @@ bool PluginCore::reset(ResetInfo& resetInfo)
 
 	// --- reset engine
 	synthEngine.reset(resetInfo.sampleRate);
+
+	
 
     // --- other reset inits
     return PluginBase::reset(resetInfo);
@@ -383,6 +408,7 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->lfo1Parameters->lfoRamp_mSec = lfo1RampTime_mSec;
 	engineParams.voiceParameters->lfo1Parameters->lfoShape = lfo1Shape;
 	engineParams.voiceParameters->lfo1Parameters->shapeSplitpoint = lfo1ShapeSplit;
+	engineParams.voiceParameters->lfo1Parameters->modRoute = convertIntToEnum(lfo2ModTarget, ModRouting);
 
 	/// LFO 2 Parameters
 	engineParams.voiceParameters->lfo2Parameters->frequency_Hz = lfo2Frequency_Hz;
@@ -391,7 +417,14 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->lfo2Parameters->lfoShape = lfo2Shape;
 	engineParams.voiceParameters->lfo2Parameters->shapeSplitpoint = lfo2ShapeSplit;
 
-	engineParams.voiceParameters->osc1Parameters->scale = convertIntToEnum(scaleMode, ScaleMode);
+	//engineParams.voiceParameters->osc1Parameters->scaleSelect = convertIntToEnum(scaleMode, ScaleMode);
+	
+	engineParams.voiceParameters->dcaParameters->bpm = bpm;
+
+	engineParams.voiceParameters->dcaParameters->modRoute = convertIntToEnum(lfo2ModTarget, ModRouting);
+
+	engineParams.voiceParameters->osc1Parameters->oscillatorWaveformIndex = osc1Waveform;
+	engineParams.voiceParameters->osc1Parameters->oscillatorBankIndex = osc1BankIndex;
 
 	// --- THE update - this trickles all param updates
 	// via the setParameters( ) of each
@@ -414,6 +447,8 @@ bool PluginCore::processAudioFrame(ProcessFrameInfo& processFrameInfo)
 {
     // --- fire any MIDI events for this sample interval
     processFrameInfo.midiEventQueue->fireMidiEvents(processFrameInfo.currentFrame);
+
+	bpm = processFrameInfo.hostInfo->dBPM;
 
 	// --- do per-frame updates; VST automation and parameter smoothing
 	doSampleAccurateParameterUpdates();
@@ -594,6 +629,9 @@ bool PluginCore::processMessage(MessageInfo& messageInfo)
 		// --- add customization appearance here
 	case PLUGINGUI_DIDOPEN:
 	{
+		if (bankAndWaveGroup_0)
+			bankAndWaveGroup_0->updateView();
+
 		return false;
 	}
 
@@ -617,6 +655,46 @@ bool PluginCore::processMessage(MessageInfo& messageInfo)
 	}
 
 	case PLUGINGUI_REGISTER_SUBCONTROLLER:
+	{
+		// --- decode name string
+		if (messageInfo.inMessageString.compare("BankWaveController_0") == 0)
+		{
+			// --- (1) get the custom view interface via incoming message data*
+			//         can use it for communication
+
+			if (bankAndWaveGroup_0 != static_cast<ICustomView*>(messageInfo.inMessageData))
+				bankAndWaveGroup_0 = static_cast<ICustomView*>(messageInfo.inMessageData);
+
+			if (!bankAndWaveGroup_0) return false;
+
+
+			// --- need to tell the subcontroller the bank names
+			VSTGUI::BankWaveMessage subcontrollerMessage;
+			subcontrollerMessage.message = VSTGUI::UPDATE_BANK_NAMES;
+
+			subcontrollerMessage.bankNames = synthEngine.getBankNames(0, 0); // voice, voice-oscillator 
+			bankAndWaveGroup_0->sendMessage(&subcontrollerMessage);
+
+			// --- now add the wave names for each bank
+			subcontrollerMessage.message = VSTGUI::ADD_BANK_WAVENAMES;
+
+			// --- bank 0
+			subcontrollerMessage.bankIndex = 0;
+			subcontrollerMessage.waveformNames = synthEngine.getOscWaveformNames(0, 0, 0); // voice, voice-oscillator, bank 
+
+			bankAndWaveGroup_0->sendMessage(&subcontrollerMessage);
+
+			// --- bank 1
+			subcontrollerMessage.bankIndex = 1;
+			subcontrollerMessage.waveformNames = synthEngine.getOscWaveformNames(0, 0, 1); // voice,  voice-oscillator, bank 
+
+			bankAndWaveGroup_0->sendMessage(&subcontrollerMessage);
+
+			// --- registered!
+			return true;
+		}
+	}
+
 	case PLUGINGUI_QUERY_HASUSERCUSTOM:
 	case PLUGINGUI_USER_CUSTOMOPEN:
 	case PLUGINGUI_USER_CUSTOMCLOSE:
@@ -709,6 +787,8 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::lfo2Shape, 0.500000);
 	setPresetParameter(preset->presetParameters, controlID::lfo2ShapeSplit, 0.500000);
 	setPresetParameter(preset->presetParameters, controlID::lfo2ModTarget, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc1Waveform, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc1BankIndex, -0.000000);
 	addPreset(preset);
 
 

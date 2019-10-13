@@ -244,7 +244,11 @@
     <ClInclude Include="..\PluginObjects\vafilters.h" />
     <ClInclude Include="..\PluginObjects\wavedata.h" />
     <ClInclude Include="..\PluginObjects\wavetable.h" />
+    <ClInclude Include="..\PluginObjects\wavetablebank.h" />
+    <ClInclude Include="..\PluginObjects\wavetabledata.h" />
     <ClInclude Include="..\PluginObjects\wavetableoscillator.h" />
+    <ClInclude Include="..\PluginObjects\wavetables\AKWF_0.h" />
+    <ClInclude Include="..\PluginObjects\wavetables\AKWF_1.h" />
     <ClInclude Include="..\PluginObjects\window_eg.h" />
     <ClInclude Include="..\RAFX2 Source\RackAFXDLL.h" />
     <ClInclude Include="..\RAFX2 Source\Rafx2Plugin.h" />

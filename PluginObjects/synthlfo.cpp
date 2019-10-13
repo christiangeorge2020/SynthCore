@@ -5,33 +5,39 @@ bool SynthLFO::update(bool updateAllModRoutings)
 {
 	// --- Run priority modulators 
 
-	
-
-	/// Calculate fo Modulation Value from LFO1->LFO2
-	double cookedFrequency = parameters->frequency_Hz;
-	double bipolarFMMod = modulators->modulationInputs[kFrequencyMod];
-	double range = (20.0 - 0.02) / 2.0;
-	double modulationValue = range * bipolarFMMod;
-	
-	cookedFrequency += modulationValue;
-
-	boundValue(cookedFrequency, 0.02, 20.0);
-
 	// --- End Priority modulators
 	if (!updateAllModRoutings)
 		return true;
 
+	double cookedFrequency = parameters->frequency_Hz;
+
+	/// Calculate fo Modulation Value from LFO1->LFO2
+	double bipolarFMMod = modulators->modulationInputs[kFrequencyMod];
+	double range = (20.0 - 0.02) / 2.0;
+	double modulationValue = range * bipolarFMMod;
+	if (parameters->modRoute == ModRouting::LFO1_Fo || parameters->modRoute == ModRouting::Both)
+		cookedFrequency += modulationValue;
+
+	boundValue(cookedFrequency, 0.01, 20.0);
+
+	double shapeModulation = modulators->modulationInputs[kAuxBipolarMod_2];
+	double shapeRange = (0.98 - 0.01) / 2.0;
+	shapeModulation *= shapeRange;
+	
+	double cookedShape = parameters->lfoShape;
+	if (parameters->modRoute == ModRouting::LFO1_Shape || parameters->modRoute == ModRouting::Both)
+		cookedShape += shapeModulation;
+
+	boundValue(cookedShape, 0.01, 0.98);
+
 	// Full period frequency of fundamental lfo frequency
-	
-	lfoShape_first = 1 / (2 * parameters->lfoShape);
-	lfoShape_second = 1 / (2 * (1 - parameters->lfoShape));
+		lfoShape_first = 1 / (2 * cookedShape);
+		lfoShape_second = 1 / (2 * (1 - cookedShape));
 
-	if (modCounter <= parameters->shapeSplitpoint)
-		cookedFrequency *= lfoShape_first;
-	else
-		cookedFrequency *= lfoShape_second;
-
-	
+		if (modCounter <= parameters->shapeSplitpoint)
+			cookedFrequency *= lfoShape_first;
+		else
+			cookedFrequency *= lfoShape_second;
 
 	//parameters->frequency_Hz = cookedFrequency;
 

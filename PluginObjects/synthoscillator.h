@@ -28,7 +28,12 @@ public:
 	virtual bool update(bool updateAllModRoutings = true);
 	virtual bool doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
 	virtual bool doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
+	
+	// --- **7**
 	virtual std::vector<std::string> getWaveformNames(uint32_t bankIndex);
+	virtual std::vector<std::string> getBankNames();
+	virtual void setBankSet(uint32_t _bankSet);
+	virtual uint32_t getBankSet();
 
 	// --- could also place glide mod on this object and share it?
 	virtual bool setGlideModulation(uint32_t _startMIDINote, uint32_t _endMIDINote, double glideTime_mSec)

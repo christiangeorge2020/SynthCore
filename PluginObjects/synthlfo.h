@@ -42,6 +42,8 @@ enum {
 	kUnipolarOutputFromMin		/* this mimics an EG going from 0.0 -> MAX */
 };
 
+//enum class ModRouting { None, LFO1_Fo, LFO1_Shape, Both, Rhythmic_Breaks };
+
 /**
 \struct SynthLFOParameters
 \ingroup SynthStructures
@@ -67,6 +69,8 @@ struct SynthLFOParameters
 		lfoShape = params.lfoShape;
 		shapeSplitpoint = params.shapeSplitpoint;
 
+		modRoute = params.modRoute;
+
 		return *this;
 	}
 
@@ -80,6 +84,8 @@ struct SynthLFOParameters
 	double lfoRamp_mSec = 0.0;
 	double lfoShape = 0.5;
 	double shapeSplitpoint = 0.5;
+
+	ModRouting modRoute = ModRouting::None;
 };
 
 

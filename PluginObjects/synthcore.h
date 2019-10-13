@@ -59,6 +59,8 @@ enum modDestination
 	// --- FILTER (add more here)
 	kFilter1_fc, // Fc
 
+	kLFO1_Shape,
+
 	// --- DCA (add more here)
 	kDCA_EGMod, // EG Input
 	kDCA_AmpMod,// Amp Mod Input
@@ -237,6 +239,7 @@ public:
 	//     oscIndex is [0, 31]
 	//     bankIndex is variable; can have as many banks as you want (for now)
 	std::vector<std::string> getWaveformNames(uint32_t bankIndex, uint32_t oscIndex);
+	std::vector<std::string> getBankNames(uint32_t oscIndex);
 
 	// --- local handlers for stealing
 	bool doNoteOn(midiEvent& event);
@@ -313,6 +316,7 @@ protected:
 		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
 
 		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxBipolarMod_1]);
+		modDestinationData[kLFO1_Shape] = &(lfo1->getModulators()->modulationInputs[kAuxBipolarMod_2]);
 	}
 
 	// --- arrays to hold source/destination
@@ -394,7 +398,7 @@ protected:
 // --- engine mode: poly, mono or unison
 enum class synthMode { kPoly, kMono, kUnison };
 
-enum class ModRouting { None, LFO1_Fo, LFO1_Shape, Both };
+
 
 /**
 \struct SynthEngineParameters
@@ -428,12 +432,10 @@ struct SynthEngineParameters
 		modSourceData = params.modSourceData;
 		modDestinationData = params.modDestinationData;
 
-		//modRoute = params.modRoute;
-
 		return *this;
 	}
 
-	ModRouting modRoute = ModRouting::None;
+	
 
 	// --- enable/disable keyboard (MIDI note event) input; when disabled, synth goes into manual mode (Will's VCS3)
 	bool enableMIDINoteEvents = true;
@@ -561,6 +563,8 @@ public:
 	// --- helpers for populating oscillator waveform GUI controls
 	//     for synths, these are usually the only dynamic items like this
 	std::vector<std::string> getOscWaveformNames(uint32_t voiceIndex, uint32_t bankIndex, uint32_t oscillatorIndex);
+
+	std::vector<std::string> getBankNames(uint32_t voiceIndex, uint32_t oscillatorIndex);
 
 protected:
 	// --- our outputs, same number as synth voice!

@@ -2,184 +2,6 @@
 //
 #include "wavetableoscillator.h"
 
-// --- datasource
-bool WaveTableBank::createBandLimitedTables(uint32_t waveform, uint32_t tableInterval,
-											double* multiTable128[MAX_WAVE_TABLES], 
-											uint32_t tableLength, double sampleRate)
-{
-	unsigned int numTables = 0;
-	double seedFreq = 0.0;
-	uint32_t seedMIDINote = 0;
-
-	if (tableInterval == wtTableInterval::highRes)
-	{
-		seedFreq = pow(2.0, (-69.0 / 12.0)) * 440.0; // MIDI note 0 = 8.175.....
-		seedMIDINote = 0;
-		numTables = calculateNumTables(seedMIDINote, 1);
-	}
-	else if (tableInterval == wtTableInterval::octave)
-	{
-		seedFreq = 27.5; // --- Note A0, bottom of piano = 27.5Hz
-		seedMIDINote = 21;
-		numTables = calculateNumTables(seedMIDINote, 12);
-	}
-	else if (tableInterval == wtTableInterval::min3rd)
-	{
-		seedFreq = 27.5; // --- Note A0, bottom of piano = 27.5Hz
-		seedMIDINote = 21;
-		numTables = calculateNumTables(seedMIDINote, 3);
-	}
-
-	// --- create the tables
-	for (int j = 0; j < numTables; j++)
-	{
-		// --- create new buffer
-		double* tableAccumulator = new double[tableLength];
-		memset(tableAccumulator, 0, tableLength * sizeof(double));
-
-		int numHarmonics = (int)((sampleRate / 2.0 / seedFreq) - 1.0);
-
-		double maxTableValue = 0;
-		int halfNumHarmonics = (int)((double)numHarmonics / 2.0);
-
-		for (int i = 0; i < tableLength; i++)
-		{
-			// --- for bandlimited tables based on full harmonics
-			for (int g = 0; g <= numHarmonics; g++)
-			{
-				// --- some equations are based on half the total harmonics, such as triangle here
-				//     as it skips harmonics
-				if (waveform == wtWaveFormIndex::TRIANGLE_WAVE && g <= halfNumHarmonics)
-				{
-					// --- triangle
-					tableAccumulator[i] += generateTriangleHarmonic(i, double(g), tableLength);
-				}
-				if(waveform == wtWaveFormIndex::PARABOLIC_WAVE) // --- others are based on all harmonics in sequence
-				{
-					// --- Parabola Waveform
-					tableAccumulator[i] += generateParabolaHarmonic(i, double(g), tableLength);
-				}
-			}
-
-			// --- store the max values
-			if (i == 0)
-			{
-				maxTableValue = tableAccumulator[i];
-			}
-			else
-			{
-				// --- test and store
-				if (tableAccumulator[i] > maxTableValue)
-					maxTableValue = tableAccumulator[i];
-			}
-		}
-
-		// --- normalize
-		for (int i = 0; i < tableLength; i++)
-			tableAccumulator[i] /= maxTableValue;
-
-		// --- store on parabolix table set in one of 128 slots
-		multiTable128[seedMIDINote] = tableAccumulator;
-
-		// --- next table is one octave up
-		if (tableInterval == wtTableInterval::octave)
-		{
-			seedFreq *= 2.0;
-			seedMIDINote += 12;
-		}
-		else if (tableInterval == wtTableInterval::min3rd)
-		{
-			seedFreq *= pow(2.0, (3.0 / 12.0));
-			seedMIDINote += 3;
-		}
-		else if (tableInterval == wtTableInterval::highRes)
-		{
-			seedFreq *= pow(2.0, (1.0 / 12.0));
-			seedMIDINote += 1;
-		}
-	}
-
-	// --- for high-res, we are done!
-	if (tableInterval == wtTableInterval::highRes)
-		return true;
-
-	// --- now replicate the table pointers
-	int nLastIndex = -1;
-	int numWaveTables = 128;
-
-	double* pLastTable = NULL;
-	for (int i = 0; i<128; i++)
-	{
-		if (multiTable128[i])
-		{
-			nLastIndex = i;
-			pLastTable = multiTable128[i];
-		}
-	}
-
-	if (!pLastTable)
-		return false;// no tables : (
-
-	// upper part first
-	for (int i = 127; i >= nLastIndex; i--)
-		multiTable128[i] = pLastTable;
-
-	int index = nLastIndex - 1; // first index already has value in it
-	bool bWorking = index >= 0 ? true : false;
-
-	while (bWorking)
-	{
-		if (!multiTable128[index])
-			multiTable128[index] = pLastTable;
-		else
-			pLastTable = multiTable128[index];
-
-		index--;
-
-		if (index < 0)
-			bWorking = false;
-	}
-
-	return true;
-}
-
-// --- generate tables based on sample rate
-bool WaveTableBank::resetWaveTables(double sampleRate)
-{
-	// --- example of parabolas on octave boundaries
-	bool createdParabolas = createBandLimitedTables(PARABOLIC_WAVE, wtTableInterval::min3rd, 
-													wavetables[PARABOLIC_WAVE]->pdMultiTable128, 
-													wavetables[PARABOLIC_WAVE]->currentWaveTableLen,
-													sampleRate);
-	
-	bool createdTriangles = createBandLimitedTables(TRIANGLE_WAVE, wtTableInterval::min3rd, 
-													wavetables[TRIANGLE_WAVE]->pdMultiTable128,
-													wavetables[TRIANGLE_WAVE]->currentWaveTableLen,
-													sampleRate);
-
-	// --- add more here?
-
-	// --- true if all succeed
-	return createdParabolas && createdTriangles;
-}
-
-
-// --- returns the length of the selected table, but not necessarily used
-uint32_t WaveTableBank::selectTable(int oscillatorWaveformIndex, uint32_t midiNoteNumber)
-{
-	// --- for testing
-	oscillatorWaveformIndex = 2; // for testing remove this.....later.....
-
-	// --- tables are stored with oscillator waveform index
-	selectedWT = wavetables[oscillatorWaveformIndex];
-	
-	// --- access Wavetable structure via vector container as array notation []
-	selectedWT->selectTable(midiNoteNumber);
-	
-	return selectedWT->currentWaveTableLen;
-}
-
-
 // --- oscillator
 WaveTableOsc::WaveTableOsc(const std::shared_ptr<MidiInputData> _midiInputData, 
 							std::shared_ptr<SynthOscParameters> _parameters, 
@@ -195,7 +17,7 @@ WaveTableOsc::WaveTableOsc(const std::shared_ptr<MidiInputData> _midiInputData,
 		waveTableData = std::make_shared<WaveTableData>();
 
 	// --- SIK_TABLES are the default
-	selectedWaveBank = waveTableData->getInterface(SIK_TABLES);
+	selectedWaveBank = waveTableData->getInterface(getBankIndex(bankSet, parameters->oscillatorBankIndex));
 }
 
 WaveTableOsc::~WaveTableOsc()
@@ -221,11 +43,13 @@ std::vector<std::string> WaveTableOsc::getWaveformNames(uint32_t bankIndex)
 	std::vector<std::string> emptyVector;
 
 	// --- decode bank index
-	IWaveBank* bank = waveTableData->getInterface(bankIndex);
+	IWaveBank* bank = waveTableData->getInterface(getBankIndex(bankSet, bankIndex));
+
 	if (bank)
 		return bank->getWaveformNames();
 
 	emptyVector.clear();
+
 	return emptyVector;
 }
 
@@ -282,46 +106,19 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	
 	// --- calculate combined tuning offsets by simply adding values in semitones
 	double fmodInput = modulators->modulationInputs[kBipolarMod] * kOscBipolarModRangeSemitones;
+
 	// --- do the portamento
 	double glideMod = glideModulator.getNextGlideModSemitones();
 
-	
-
-	// Major Modes
-	double Ionian[15] = { -12.0, -10.0, -8.0, -7.0, -5.0, -3.0, -1.0, 0.0, 2.0, 4.0, 5.0, 7.0, 9.0, 11.0, 12.0 };
-	double Dorian[15] = { -12.0, -10.0, -9.0, -7.0, -5.0, -3.0, -2.0, 0.0, 2.0, 3.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
-	double Phrygian[15] = { -12.0, -11.0, -9.0, -7.0, -5.0, -3.0, -2.0, 0.0, 1.0, 3.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
-	double Lydian[15] = { -12.0, -10.0, -8.0, -6.0, -5.0, -3.0, -1.0, 0.0, 2.0, 4.0, 6.0, 7.0, 9.0, 11.0, 12.0 };
-	double Mixolydian[15] = { -12.0, -10.0, -8.0, -7.0, -5.0, -3.0, -2.0, 0.0, 2.0, 4.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
-	double Aeolian[15] = { -12.0, -10.0, -9.0, -7.0, -5.0, -4.0, -2.0, 0.0, 2.0, 3.0, 5.0, 7.0, 8.0, 10.0, 12.0 };
-	double Locrian[15] = { -12.0, -11.0, -9.0, -7.0, -6.0, -4.0, -2.0, 0.0, 1.0, 3.0, 5.0, 6.0, 8.0, 10.0, 12.0 };
-	
-	double diff[15] = { 0.0 };
-
-	// Quantize
-	for (int i = 0; i <= 15; i++) {
-		diff[i] = abs(Dorian[i] - fmodInput);
-	}
-	
-	double quantFMod; 
-	double smallestDiff = diff[0];
-	for (int i = 1; i <= 15; i++) {
-		if (smallestDiff > diff[i]) {
-			smallestDiff = diff[i];
-			quantFMod = Dorian[i];
-		}
-	}
-
-
 	// --- calculate combined tuning offsets by simply adding values in semitones
 	double currentPitchModSemitones = glideMod + 
-		quantFMod +
+		fmodInput +
 		midiPitchBend +
 		masterTuning +
 		(parameters->detuneOctaves * 12) +						/* octave*12 = semitones */
 		(parameters->detuneSemitones) +							/* semitones */
 		(parameters->detuneCents / 100.0) +						/* cents/100 = semitones */
-		(parameters->unisonDetuneCents / 100.0);					/* cents/100 = semitones */
+		(parameters->unisonDetuneCents / 100.0);				/* cents/100 = semitones */
 
 	// --- lookup the pitch shift modifier (fraction)
 	//double pitchShift = pitchShiftTableLookup(currentPitchModSemitones);
@@ -341,7 +138,7 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	renderMidiNoteNumber = midiNoteNumberFromOscFrequency(oscillatorFrequency);
 
 	// --- BANK is set here; can have any number of banks
-	selectedWaveBank = waveTableData->getInterface(parameters->oscillatorBankIndex);
+	selectedWaveBank = waveTableData->getInterface(getBankIndex(bankSet, parameters->oscillatorBankIndex));
 
 	// --- calculate phase inc; this uses FINAL oscFrequency variable above
 	//

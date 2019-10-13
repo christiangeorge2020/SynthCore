@@ -39,11 +39,31 @@ SynthVoice::~SynthVoice()
 
 }
 
-std::vector<std::string> SynthVoice::getWaveformNames(uint32_t bankIndex, uint32_t oscIndex)
+std::vector<std::string> SynthVoice::getWaveformNames(uint32_t oscIndex, uint32_t bankIndex)
 {
-	return osc1->getWaveformNames(bankIndex);
 
+	std::vector<std::string> emptyVector;
+
+	if (oscIndex == 0)
+		return osc1->getWaveformNames(bankIndex);
+
+	emptyVector.clear();
+
+	return emptyVector;
 }
+
+std::vector<std::string> SynthVoice::getBankNames(uint32_t oscIndex)
+{
+	std::vector<std::string> emptyVector;
+
+	if (oscIndex == 0)
+		return osc1->getBankNames();
+
+	emptyVector.clear();
+
+	return emptyVector;
+}
+
 
 // --- NOTE: parameters.dllFolderPath MUST be set before this call!!
 bool SynthVoice::initialize(PluginInfo pluginInfo)
@@ -330,13 +350,15 @@ SynthEngine::SynthEngine()
 	parameters.setMM_HardwiredRouting(kEG1_Normal, kDCA_EGMod);
 
 	// --- example of another hardwired routing
-	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
+	//parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
 
 	/// LFO2 -> LFO1
-	parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_fo);
+	/*parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_fo);
 
 	/// LFO -> Sample Hold DCA
 	parameters.setMM_HardwiredRouting(kLFO2_Normal, kDCA_SampleHoldMod);
+
+	parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_Shape);*/
 
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 
@@ -383,6 +405,28 @@ bool SynthEngine::reset(double _sampleRate)
 	return true;
 }
 
+std::vector<std::string> SynthEngine::getOscWaveformNames(uint32_t voiceIndex, uint32_t oscillatorIndex, uint32_t bankIndex)
+{
+	std::vector<std::string> emptyVector;
+
+	if (voiceIndex >= MAX_VOICES)
+		return emptyVector;
+
+	return synthVoices[voiceIndex]->getWaveformNames(oscillatorIndex, bankIndex);
+}
+
+// --- get the bank names
+
+std::vector<std::string> SynthEngine::getBankNames(uint32_t voiceIndex, uint32_t oscillatorIndex)
+{
+	std::vector<std::string> emptyVector;
+
+	if (voiceIndex >= MAX_VOICES)
+		return emptyVector;
+
+	return synthVoices[voiceIndex]->getBankNames(oscillatorIndex);
+}
+
 bool SynthEngine::initialize(PluginInfo pluginInfo)
 { 
 	// --- parse wavesamples
@@ -401,15 +445,15 @@ bool SynthEngine::initialize(PluginInfo pluginInfo)
 	return true;
 }
 
-std::vector<std::string> SynthEngine::getOscWaveformNames(uint32_t voiceIndex, uint32_t bankIndex, uint32_t oscillatorIndex)
-{
-	std::vector<std::string> emptyVector;
-	//  voiceIndex is usually just 0, unless you have mixed-mode voices
-	if (voiceIndex >= MAX_VOICES)
-		return emptyVector;
-
-	return synthVoices[voiceIndex]->getWaveformNames(bankIndex, oscillatorIndex);
-}
+//std::vector<std::string> SynthEngine::getOscWaveformNames(uint32_t voiceIndex, uint32_t bankIndex, uint32_t oscillatorIndex)
+//{
+//	std::vector<std::string> emptyVector;
+//	//  voiceIndex is usually just 0, unless you have mixed-mode voices
+//	if (voiceIndex >= MAX_VOICES)
+//		return emptyVector;
+//
+//	return synthVoices[voiceIndex]->getWaveformNames(bankIndex, oscillatorIndex);
+//}
 
 const SynthRenderData SynthEngine::renderAudioOutput()
 {

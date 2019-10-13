@@ -1,8 +1,13 @@
 <?xml version="1.0"?>
 <vstgui-ui-description version="1">
 	<fonts />
-	<colors />
-	<template background-color="~ GreyCColor" background-color-draw-style="filled and stroked" class="CViewContainer" maxSize="450, 300" minSize="450, 300" mouse-enabled="true" name="Editor" opacity="1" origin="0, 0" size="450, 300" transparent="false" />
+	<colors>
+		<color name="kLightGreyCColor" rgba="#c8c8c8ff" />
+		<color name="kDarkGreyCColor" rgba="#646464ff" />
+	</colors>
+	<template background-color="~ GreyCColor" background-color-draw-style="filled and stroked" class="CViewContainer" maxSize="593, 260" minSize="593, 260" mouse-enabled="true" name="Editor" opacity="1" origin="0, 0" size="593, 260" transparent="false">
+		<view background-color="~ CyanCColor" background-color-draw-style="filled and stroked" bitmap="" class="CViewContainer" custom-view-name="" mouse-enabled="true" origin="190 ,80" rafxtemplate-type="userViewContainer" size="213 ,100" template="User ViewContainer 0" transparent="false" sub-controller="BankWaveController_0" />
+	</template>
 	<custom>
 		<attributes Path="" name="ASPiKEditor" />
 		<attributes name="FocusDrawing" />
@@ -18,6 +23,8 @@
 		<attributes SelectedRow="0" name="UIViewCreatorDataSource" />
 		<attributes SelectedRow="0" name="UIBitmapsDataSource" />
 		<attributes SelectedRow="0" name="UITagsDataSource" />
+		<attributes Path="C:\Users\chris\Documents\RAFx Plugins\SynthCore\Resources\PluginGUI.uidesc" />
+		<attributes rafx-template-name="User ViewContainer 0" rafxtemplate-type="userViewContainer" />
 	</custom>
 	<bitmaps />
 	<control-tags>
@@ -39,6 +46,8 @@
 		<control-tag name="controlID::lfo2Shape" tag="53" />
 		<control-tag name="controlID::lfo2ShapeSplit" tag="54" />
 		<control-tag name="controlID::lfo2ModTarget" tag="55" />
+		<control-tag name="controlID::osc1Waveform" tag="0" />
+		<control-tag name="controlID::osc1BankIndex" tag="1" />
 		<control-tag name="XY_TRACKPAD" tag="131073" />
 		<control-tag name="VECTOR_JOYSTICK" tag="131074" />
 		<control-tag name="PRESET_NAME" tag="131075" />
@@ -46,4 +55,18 @@
 		<control-tag name="SCALE_GUI_SIZE" tag="131077" />
 	</control-tags>
 	<variables />
+	<gradients>
+		<gradient name="kLightGreyCColor">
+			<color-stop rgba="#c8c8c8ff" start="0" />
+			<color-stop rgba="#c8c8c8ff" start="1" />
+		</gradient>
+		<gradient name="kDarkGreyCColor">
+			<color-stop rgba="#646464ff" start="0" />
+			<color-stop rgba="#646464ff" start="1" />
+		</gradient>
+	</gradients>
+	<template background-color="~ CyanCColor" background-color-draw-style="filled and stroked" bitmap="" class="CViewContainer" custom-view-name="" mouse-enabled="true" name="User ViewContainer 0" origin="0, 0" size="213 ,100" transparent="false" sub-controller="BankWaveController_0">
+		<view back-color="~ BlackCColor" background-offset="0, 0" class="COptionMenu" control-tag="controlID::osc1BankIndex" custom-view-name="BankMenu" default-value="0.5" font="~ NormalFontSmaller" font-antialias="true" font-color="~ WhiteCColor" frame-color="~ BlackCColor" frame-width="1" max-value="" menu-check-style="false" menu-popup-style="false" min-value="0" mouse-enabled="true" origin="30 ,35" round-rect-radius="6" shadow-color="~ RedCColor" size="40 ,20" style-3D-in="false" style-3D-out="false" style-no-draw="false" style-no-frame="false" style-no-text="false" style-round-rect="false" style-shadow-text="false" sub-controller="" text-alignment="" text-inset="0, 0" title="SEL 1" transparent="false" value-precision="2" wheel-inc-value="0.1" />
+		<view back-color="~ BlackCColor" background-offset="0, 0" class="COptionMenu" control-tag="controlID::osc1Waveform" custom-view-name="WaveMenu" default-value="0.5" font="~ NormalFontSmaller" font-antialias="true" font-color="~ WhiteCColor" frame-color="~ BlackCColor" frame-width="1" max-value="" menu-check-style="false" menu-popup-style="false" min-value="0" mouse-enabled="true" origin="120 ,35" round-rect-radius="6" shadow-color="~ RedCColor" size="40 ,20" style-3D-in="false" style-3D-out="false" style-no-draw="false" style-no-frame="false" style-no-text="false" style-round-rect="false" style-shadow-text="false" sub-controller="" text-alignment="" text-inset="0, 0" title="SEL 1" transparent="false" value-precision="2" wheel-inc-value="0.1" />
+	</template>
 </vstgui-ui-description>

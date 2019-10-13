@@ -3,6 +3,7 @@
 
 // --- custom data view example; include more custom views here
 #include "customviews.h"
+#include "bankwaveviews.h"
 
 #if MAC
 #include <CoreFoundation/CoreFoundation.h>
@@ -2443,6 +2444,24 @@ IController* PluginGUI::createSubController(UTF8StringPtr name, const IUIDescrip
 		}
 
 		return knobLinker;
+	}
+
+	findIt = strName.find("BankWaveController");
+
+	if (findIt >= 0)
+	{
+		// --- create the sub-controller
+		BankAndWaveController* bankAndWaveController = new BankAndWaveController(this);
+
+		// --- if the sub-controller has the ICustomView interface,
+		//     we register it with the plugin for updates (unusual for a sub-controller)
+		if (hasICustomView(bankAndWaveController))
+		{
+			if (guiPluginConnector)
+				guiPluginConnector->registerSubcontroller(strName, dynamic_cast<ICustomView*>(bankAndWaveController));
+		}
+
+		return bankAndWaveController;
 	}
 
 	return nullptr;

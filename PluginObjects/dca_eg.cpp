@@ -31,7 +31,6 @@ bool DCA::doNoteOff(double midiPitch, uint32_t midiNoteNumber, uint32_t midiNote
 */
 bool DCA::update(bool updateAllModRoutings)
 {
-	// --- Run priority modulators 
 
 
 	// --- End Priority modulators
@@ -49,51 +48,63 @@ bool DCA::update(bool updateAllModRoutings)
 	gainRaw = midiVelocityGain * modulators->modulationInputs[kEGMod] * ampMod;
 
 	// --- apply final output gain
-	if (parameters->gain_dB > kMinAbsoluteGain_dB) 
+	if (parameters->gain_dB > kMinAbsoluteGain_dB)
 		gainRaw *= pow(10.0, parameters->gain_dB / 20.0);
 	else
 		gainRaw = 0.0; // OFF
 
+	// --- Run priority modulators 
 	double sampleHoldMod = modulators->modulationInputs[kAuxBipolarMod_1];
-//	HostInfo * hostInfo;
+	
+	if (parameters->modRoute == ModRouting::Rhythmic_Breaks || parameters->modRoute == ModRouting::Both) {
+		if (increment >= offTime_ms && increment >= onTime_ms) {
+			if (sampleHoldMod > 0.9)
+				offTime_ms = ms_perB; ///< Whole Note
+			else if (0.8 < sampleHoldMod && sampleHoldMod <= 0.9)
+				offTime_ms = 2 *  ms_perB; ///< Half Note
+			else if (0.5 < sampleHoldMod && sampleHoldMod <= 0.8)
+				offTime_ms = ms_perB; ///< Quarter Note
+			else if (0.2 < sampleHoldMod && sampleHoldMod <= 0.5)
+				offTime_ms = 0.5 * ms_perB; ///< Eighth Note
+			else if (0.0 < sampleHoldMod && sampleHoldMod <= 0.2)
+				offTime_ms = 0.25 * ms_perB; ///< Sizteenth Note
 
-	if (increment >= offTime_ms && increment >= onTime_ms) {
-		if (sampleHoldMod > 0.8)
-			offTime_ms = ms_perB; ///< Whole Note
-		else if (0.6 < sampleHoldMod && sampleHoldMod <= 0.8)
-			offTime_ms = ms_perB; ///< Half Note
-		else if (0.4 < sampleHoldMod && sampleHoldMod <= 0.6)
-			offTime_ms = ms_perB; ///< Quarter Note
-		else if (0.2 < sampleHoldMod && sampleHoldMod <= 0.4)
-			offTime_ms = 0.5 * ms_perB; ///< Sixteenth Note
-		else if (0.0 < sampleHoldMod && sampleHoldMod <= 0.2)
-			offTime_ms = 0.5 * ms_perB * 3; ///< Triplet Eighth
+			if (-1.0 <= sampleHoldMod && sampleHoldMod <= -0.7)
+				onTime_ms = 4 * ms_perB; ///< Whole Note
+			else if (-0.7 < sampleHoldMod && sampleHoldMod <= -0.4)
+				onTime_ms = 2 * ms_perB; ///< Half Note
+			else if (-0.4 < sampleHoldMod && sampleHoldMod <= 0.0)
+				onTime_ms = ms_perB; ///< Quarter Note
 
-		/*if (-1.0 <= sampleHoldMod && sampleHoldMod <= -0.8)
-			onTime_ms = 4 * ms_perB; ///< Whole Note
-		else if (-0.8 < sampleHoldMod && sampleHoldMod <= -0.6)
-			onTime_ms = 2 * ms_perB; ///< Half Note
-		else if (-0.6 < sampleHoldMod && sampleHoldMod <= -0.4)
-			onTime_ms = ms_perB; ///< Quarter Note
-		else if (-0.4 < sampleHoldMod && sampleHoldMod <= -0.2)
-			onTime_ms = 0.5 * ms_perB; ///< Sixteenth Note
-		else if (-0.2 < sampleHoldMod && sampleHoldMod <= 0.0)
-			onTime_ms = 0.5 * ms_perB * 3; ///< Quarter Triplet*/
-		
-		else if (sampleHoldMod <= 0.0) {
-			onTime_ms = 4 * ms_perB;
-			offTime_ms = 0.0;
+			/*if (sampleHoldMod > 0.5) {
+				offTime_ms = ms_perB;
+				onTime_ms = 2 * offTime_ms;
+			} 
+			else if (sampleHoldMod <= 0.5 && sampleHoldMod > 0.0) {
+				offTime_ms = 2 * ms_perB;
+				onTime_ms = 2 * offTime_ms;
+			}
+			else if (sampleHoldMod < 0.0 && sampleHoldMod > -0.5) {
+				offTime_ms = 0.5 * ms_perB;
+				onTime_ms = 2 * offTime_ms;
+			}
+				
+
+			/*else if (sampleHoldMod <= 0.0) {
+				onTime_ms = 4 * ms_perB;
+				offTime_ms = 0.0;
+			}*/
+
+			increment = 0.0;
 		}
 
-		increment = 0.0;
-	}
-
-	if (increment < offTime_ms) {
-		gainRaw = 0.001;
-		increment++;
-	}
-	else if (increment < onTime_ms) {
-		increment++;
+		if (increment < offTime_ms) {
+			gainRaw = 0.001;
+			increment++;
+		}
+		else if (increment < onTime_ms) {
+			increment++;
+		}
 	}
 
 	/*if (sampleHoldMod < 0.0)

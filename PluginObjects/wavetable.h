@@ -88,6 +88,19 @@ struct BrickFileDescriptor
 	uint32_t numStoredTables;
 	uint64_t encryptionKey;
 };
+
+struct BankDescriptor
+{
+	BankDescriptor(unsigned int _tablePtrsCount, HiResWTSet** _tablePtrs, std::string* _tableNames)
+		: tablePtrsCount(_tablePtrsCount)
+		, tablePtrs(_tablePtrs)
+		, tableNames(_tableNames) {}
+
+	unsigned int tablePtrsCount = 32;
+	HiResWTSet** tablePtrs = nullptr;
+
+	std::string* tableNames = nullptr;
+};
 // ------------------------------------------------- 
 class Wavetable
 {

@@ -16,6 +16,8 @@ struct DCAParameters
 		mute = params.mute; 
 		panValue = params.panValue;
 
+		modRoute = params.modRoute;
+
 		return *this;
 	}
 
@@ -23,6 +25,9 @@ struct DCAParameters
 	double gain_dB = 0.0;		// --- for per-voice gain control (not same as master MIDI volume)
 	bool mute = false;
 	double panValue = 0.0;		// --- [-1, +1] --> [left -> right]
+	double bpm = 120;
+
+	ModRouting modRoute = ModRouting::None;
 };
 
 /**
@@ -124,8 +129,7 @@ protected:
 	// --- pan value is set internally by voice, or via MIDI/MIDI Channel
 	double panValue = 0.0;			///< pan value is set internally by voice, or via MIDI/MIDI Channel
 
-	double bpm = 120.0;
-	double ms_perB = (60.0 / 120.0) * 1000.0;
+	double ms_perB = (60.0 / parameters->bpm) * 1000.0;
 	double offTime_ms = 0.0;
 	double onTime_ms = 0.0;
 	double increment = 1.0;

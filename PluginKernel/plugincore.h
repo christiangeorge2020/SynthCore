@@ -38,7 +38,9 @@ enum controlID {
 	enableRhythmicBreaks = 48,
 	lfo2Shape = 53,
 	lfo2ShapeSplit = 54,
-	lfo2ModTarget = 55
+	lfo2ModTarget = 55,
+	osc1Waveform = 0,
+	osc1BankIndex = 1
 };
 
 	// **--0x0F1F--**
@@ -138,7 +140,9 @@ public:
 	*/
 	SynthEngine synthEngine; ///< 
 	void updateParameters();
+	double bpm;
 
+	ICustomView* bankAndWaveGroup_0 = nullptr;
 
 	// --- END USER VARIABLES AND FUNCTIONS -------------------------------------- //
 
@@ -178,7 +182,13 @@ private:
 	enum class enableRhythmicBreaksEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(enableRhythmicBreaksEnum::SWITCH_OFF, enableRhythmicBreaks)) etc... 
 
 	int lfo2ModTarget = 0;
-	enum class lfo2ModTargetEnum { None,LFO1_Fo,LFO1_Shape,Both };	// to compare: if(compareEnumToInt(lfo2ModTargetEnum::None, lfo2ModTarget)) etc... 
+	enum class lfo2ModTargetEnum { None,LFO1_Fo,LFO1_Shape,Both,Rhythmic_Breaks };	// to compare: if(compareEnumToInt(lfo2ModTargetEnum::None, lfo2ModTarget)) etc... 
+
+	int osc1Waveform = 0;
+	enum class osc1WaveformEnum { wave0,wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,wave10,wave11,wave12,wave13,wave14,wave15,wave16,wave17,wave18,wave19,wave20,wave21,wave22,wave23,wave24,wave25,wave26,wave27,wave28,wave29,wave30,wave31 };	// to compare: if(compareEnumToInt(osc1WaveformEnum::wave0, osc1Waveform)) etc... 
+
+	int osc1BankIndex = 0;
+	enum class osc1BankIndexEnum { Bank_0,Bank_1,Bank_2,Bank_3 };	// to compare: if(compareEnumToInt(osc1BankIndexEnum::Bank_0, osc1BankIndex)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables
