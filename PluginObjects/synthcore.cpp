@@ -24,6 +24,9 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 
 	// --- create subcomponents
 	osc1.reset(new SynthOsc(midiInputData, parameters->osc1Parameters, _waveTableData));
+	osc2.reset(new SynthOsc(midiInputData, parameters->osc2Parameters, _waveTableData));
+	osc3.reset(new SynthOsc(midiInputData, parameters->osc3Parameters, _waveTableData));
+	osc4.reset(new SynthOsc(midiInputData, parameters->osc4Parameters, _waveTableData));
 	
 	lfo1.reset(new SynthLFO(midiInputData, parameters->lfo1Parameters));
 	lfo2.reset(new SynthLFO(midiInputData, parameters->lfo2Parameters));
@@ -46,6 +49,12 @@ std::vector<std::string> SynthVoice::getWaveformNames(uint32_t oscIndex, uint32_
 
 	if (oscIndex == 0)
 		return osc1->getWaveformNames(bankIndex);
+	else if (oscIndex == 1)
+		return osc2->getWaveformNames(bankIndex);
+	else if (oscIndex == 2)
+		return osc3->getWaveformNames(bankIndex);
+	else if (oscIndex == 3)
+		return osc4->getWaveformNames(bankIndex);
 
 	emptyVector.clear();
 
@@ -58,6 +67,12 @@ std::vector<std::string> SynthVoice::getBankNames(uint32_t oscIndex)
 
 	if (oscIndex == 0)
 		return osc1->getBankNames();
+	else if (oscIndex == 1)
+		return osc2->getBankNames();
+	else if (oscIndex == 2)
+		return osc3->getBankNames();
+	else if (oscIndex == 3)
+		return osc4->getBankNames();
 
 	emptyVector.clear();
 
@@ -82,6 +97,9 @@ bool SynthVoice::reset(double _sampleRate)
 
 	// --- reset sub objects
 	osc1->reset(_sampleRate);
+	osc2->reset(_sampleRate);
+	osc3->reset(_sampleRate);
+	osc4->reset(_sampleRate);
 
 	/// LFO Reset
 	lfo1->reset(_sampleRate);
@@ -173,14 +191,25 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 
 	// --- update modulate-ees (add more here)
 	osc1->update(updateAllModRoutings);
+	osc2->update(updateAllModRoutings);
+	osc3->update(updateAllModRoutings);
+	osc4->update(updateAllModRoutings);
+
 	dca->update(updateAllModRoutings);
 
 	// --- render Oscillators (add more here)
 	osc1Output = osc1->renderAudioOutput();
+	osc2Output = osc2->renderAudioOutput();
+	osc3Output = osc3->renderAudioOutput();
+	osc4Output = osc4->renderAudioOutput();
 
 	// --- blend oscillator outputs
-	double oscOut = osc1Output.outputs[0]; // +... add more oscillator outputs here
+	//double oscOut = osc2Output.outputs[0];//0.25 * (osc1Output.outputs[0] + osc2Output.outputs[0] + osc3Output.outputs[0] + osc4Output.outputs[0]); // +... add more oscillator outputs here
 
+	double oscOut = parameters->vectorJSData.vectorA * osc1Output.outputs[0]
+		+ parameters->vectorJSData.vectorB * osc2Output.outputs[0]
+		+ parameters->vectorJSData.vectorC * osc3Output.outputs[0]
+		+ parameters->vectorJSData.vectorD * osc4Output.outputs[0];
 	// --- do the filtering
 	// add more here
 
@@ -243,10 +272,16 @@ bool SynthVoice::doNoteOn(midiEvent& event)
 	if (event.auxUintData1 < 128)
 	{
 		osc1->setGlideModulation(event.auxUintData1, event.midiData1, parameters->portamentoTime_mSec);
+		osc2->setGlideModulation(event.auxUintData1, event.midiData1, parameters->portamentoTime_mSec);
+		osc3->setGlideModulation(event.auxUintData1, event.midiData1, parameters->portamentoTime_mSec);
+		osc4->setGlideModulation(event.auxUintData1, event.midiData1, parameters->portamentoTime_mSec);
 	}
 	
 	// --- start oscillator
 	osc1->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+	osc2->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+	osc3->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+	osc4->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
 	// --- send to dca
 	dca->doNoteOn(midiPitch, event.midiData1, event.midiData2);

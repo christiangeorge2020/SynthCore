@@ -71,8 +71,10 @@ protected:
 	// --- currently selected wavetable
 	IWaveBank* selectedWaveBank = nullptr;
 
+	IWaveTable* selectedWaveTable = nullptr;
+
 	// --- for anything
-	double readWaveTable(double& readIndex, double _phaseInc);
+	double readWaveTable(double& readIndex, double _phaseInc); 
 
 	// --- the FINAL frequncy after all modulations
 	double oscillatorFrequency = 440.0;

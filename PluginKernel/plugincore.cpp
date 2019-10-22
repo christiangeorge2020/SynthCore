@@ -201,6 +201,42 @@ bool PluginCore::initPluginParameters()
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
+	// --- discrete control: Osc2 Wave
+	piParam = new PluginParameter(controlID::osc2Waveform, "Osc2 Wave", "wave0,wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,wave10,wave11,wave12,wave13,wave14,wave15,wave16,wave17,wave18,wave19,wave20,wave21,wave22,wave23,wave24,wave25,wave26,wave27,wave28,wave29,wave30,wave31", "wave0");
+	piParam->setBoundVariable(&osc2Waveform, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc3 Wave
+	piParam = new PluginParameter(controlID::osc3Waveform, "Osc3 Wave", "wave0,wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,wave10,wave11,wave12,wave13,wave14,wave15,wave16,wave17,wave18,wave19,wave20,wave21,wave22,wave23,wave24,wave25,wave26,wave27,wave28,wave29,wave30,wave31", "wave0");
+	piParam->setBoundVariable(&osc3Waveform, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc4
+	piParam = new PluginParameter(controlID::osc4Waveform, "Osc4", "wave0,wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,wave10,wave11,wave12,wave13,wave14,wave15,wave16,wave17,wave18,wave19,wave20,wave21,wave22,wave23,wave24,wave25,wave26,wave27,wave28,wave29,wave30,wave31", "wave0");
+	piParam->setBoundVariable(&osc4Waveform, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc2 Bank
+	piParam = new PluginParameter(controlID::osc2BankIndex, "Osc2 Bank", "Bank 0,Bank 1,Bank 2,Bank 3", "Bank 0");
+	piParam->setBoundVariable(&osc2BankIndex, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc3 Bank
+	piParam = new PluginParameter(controlID::osc3BankIndex, "Osc3 Bank", "Bank 0,Bank 1,Bank 2,Bank 3", "Bank 0");
+	piParam->setBoundVariable(&osc3BankIndex, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc4 Bank
+	piParam = new PluginParameter(controlID::osc4BankIndex, "Osc4 Bank", "Bank 0,Bank 1,Bank 2,Bank 3", "Bank 0");
+	piParam->setBoundVariable(&osc4BankIndex, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -304,6 +340,36 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(805306368);
 	setParamAuxAttribute(controlID::osc1BankIndex, auxAttribute);
+
+	// --- controlID::osc2Waveform
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc2Waveform, auxAttribute);
+
+	// --- controlID::osc3Waveform
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc3Waveform, auxAttribute);
+
+	// --- controlID::osc4Waveform
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc4Waveform, auxAttribute);
+
+	// --- controlID::osc2BankIndex
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc2BankIndex, auxAttribute);
+
+	// --- controlID::osc3BankIndex
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc3BankIndex, auxAttribute);
+
+	// --- controlID::osc4BankIndex
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc4BankIndex, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -425,6 +491,13 @@ void PluginCore::updateParameters()
 
 	engineParams.voiceParameters->osc1Parameters->oscillatorWaveformIndex = osc1Waveform;
 	engineParams.voiceParameters->osc1Parameters->oscillatorBankIndex = osc1BankIndex;
+	engineParams.voiceParameters->osc2Parameters->oscillatorWaveformIndex = osc2Waveform;
+	engineParams.voiceParameters->osc2Parameters->oscillatorBankIndex = osc2BankIndex;
+	engineParams.voiceParameters->osc3Parameters->oscillatorWaveformIndex = osc3Waveform;
+	engineParams.voiceParameters->osc3Parameters->oscillatorBankIndex = osc3BankIndex;
+	engineParams.voiceParameters->osc4Parameters->oscillatorWaveformIndex = osc4Waveform;
+	engineParams.voiceParameters->osc4Parameters->oscillatorBankIndex = osc4BankIndex;
+
 
 	// --- THE update - this trickles all param updates
 	// via the setParameters( ) of each
@@ -745,6 +818,9 @@ NOTES:
 */
 bool PluginCore::setVectorJoystickParameters(const VectorJoystickData& vectorJoysickData)
 {
+	SynthEngineParameters engineParams = synthEngine.getParameters();
+	engineParams.voiceParameters->vectorJSData = vectorJoysickData;
+	synthEngine.setParameters(engineParams);
 	return true;
 }
 
@@ -789,6 +865,12 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::lfo2ModTarget, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc1Waveform, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc1BankIndex, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc2Waveform, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc3Waveform, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc4Waveform, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc2BankIndex, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc3BankIndex, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc4BankIndex, 0.000000);
 	addPreset(preset);
 
 

@@ -48,6 +48,12 @@
 		<control-tag name="controlID::lfo2ModTarget" tag="55" />
 		<control-tag name="controlID::osc1Waveform" tag="0" />
 		<control-tag name="controlID::osc1BankIndex" tag="1" />
+		<control-tag name="controlID::osc2Waveform" tag="10" />
+		<control-tag name="controlID::osc3Waveform" tag="20" />
+		<control-tag name="controlID::osc4Waveform" tag="30" />
+		<control-tag name="controlID::osc2BankIndex" tag="11" />
+		<control-tag name="controlID::osc3BankIndex" tag="21" />
+		<control-tag name="controlID::osc4BankIndex" tag="31" />
 		<control-tag name="XY_TRACKPAD" tag="131073" />
 		<control-tag name="VECTOR_JOYSTICK" tag="131074" />
 		<control-tag name="PRESET_NAME" tag="131075" />

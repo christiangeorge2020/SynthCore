@@ -143,7 +143,9 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	// --- calculate phase inc; this uses FINAL oscFrequency variable above
 	//
 	//     NOTE: uses selected bank from line of code above; these must be in pairs.
-	uint32_t tableLen = selectedWaveBank->selectTable(parameters->oscillatorWaveformIndex, renderMidiNoteNumber);
+
+	uint32_t tableLen = kDefaultWaveTableLength;
+	selectedWaveTable = selectedWaveBank->selectTable(parameters->oscillatorWaveformIndex, renderMidiNoteNumber, tableLen);
 	
 	// --- if table size changed, need to reset the current read location
 	//     to be in the same relative location as before
@@ -201,7 +203,7 @@ double WaveTableOsc::readWaveTable(double& readIndex, double _phaseInc)
 		checkAndWrapWaveTableIndex(phaseModReadIndex, currentTableLength);
 
 		// --- do the table read operation
-		output = selectedWaveBank->readWaveTable(phaseModReadIndex);
+		output = selectedWaveBank->readWaveTable(selectedWaveTable, phaseModReadIndex);
 	}
 
 	// --- increment index

@@ -3,7 +3,6 @@
 
 #include <sstream>
 #include <stdint.h>
-//#include <iostream>
 #include <fstream>
 
 // --- constants
@@ -80,13 +79,13 @@ struct HiResWTSet
 struct BrickFileDescriptor
 {
 	char waveName[32];
-	bool isEncrypted;
-	double outputComp;
-	double fs;
+	bool isEncrypted = false;
+	double outputComp = 1.0;
+	double fs = 44100.0;
 	uint32_t lenArray[128];
 	uint32_t tableIndexArray[128];
-	uint32_t numStoredTables;
-	uint64_t encryptionKey;
+	uint32_t numStoredTables = 0;
+	uint64_t encryptionKey = 0;
 };
 
 struct BankDescriptor
@@ -94,15 +93,16 @@ struct BankDescriptor
 	BankDescriptor(unsigned int _tablePtrsCount, HiResWTSet** _tablePtrs, std::string* _tableNames)
 		: tablePtrsCount(_tablePtrsCount)
 		, tablePtrs(_tablePtrs)
-		, tableNames(_tableNames) {}
+		, tableNames(_tableNames){}
 
 	unsigned int tablePtrsCount = 32;
 	HiResWTSet** tablePtrs = nullptr;
-
 	std::string* tableNames = nullptr;
 };
+
+
 // ------------------------------------------------- 
-class Wavetable
+class Wavetable : public IWaveTable
 {
 public:
 	Wavetable() {
@@ -116,7 +116,7 @@ public:
 	}
 
 	// --- set the table cloaked as void*
-	inline void selectTable(uint32_t midiNoteNumber)
+	inline virtual void selectTable(uint32_t midiNoteNumber)
 	{
 		currentWaveTableLen = 0;
 		if (tableType == wtTableType::kHiResWTSet)
@@ -187,7 +187,7 @@ public:
 	}
 
 	// --- read and interpolate: could add lagrange here
-	inline double readWaveTable(double readIndex)
+	inline virtual double readWaveTable(double readIndex)
 	{
 		if (!pvSelectedTable)
 			return 0.0;
@@ -235,6 +235,9 @@ public:
 		return outputComp * output;
 	}
 
+	// --- get len
+	virtual uint32_t getWaveTableLength() { return currentWaveTableLen; }
+
 	inline uint64_t getDecryptionKey()
 	{
 		if (pHiResWTSet)
@@ -252,13 +255,13 @@ public:
 		outputComp = _pHiResWTSet->outputComp;
 	}
 
-	// --- for init with HiResWTSet in a brick file
+	// --- for init with HiResWTSet in a .tbl (table) file
 	inline void initWithBrickFile(std::string filePath)
 	{
-		// --- have shit for writing brick file, name as char[ ] will be required, but it is a CString here
+		// --- path to file
 		const char* filename = filePath.c_str();
 
-		// --- now try to open'
+		// --- now try to open
 		HiResWTSet* pHRWTS = new HiResWTSet;
 		BrickFileDescriptor bfd;
 
@@ -371,7 +374,9 @@ public:
 	// --- name for GUI
 	std::string waveformName;
 
+
 protected:
+
 };
 #endif // definer
 

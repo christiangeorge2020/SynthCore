@@ -191,6 +191,9 @@
     <ClInclude Include="..\PluginObjects\wavetables\AKWF_1.h">
       <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
+    <ClInclude Include="..\PluginObjects\bankwaveviews.h">
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\PluginGUI.uidesc">

@@ -7,28 +7,45 @@
 // --- wavetable objects and structs
 #include "wavetable.h"
 
-// --- .h file examples
-
 // --- max banks per plugin
-const uint32_t MAX_BANKS_PER_PLUGIN = 128;
-
+// const uint32_t MAX_BANKS_PER_PLUGIN = 8;// 128;
+									
 // --- max banks per oscillator
-const uint32_t MAX_BANKS_PER_OSCILLATOR = 4; // --- needs to ba a managable size; this gives 128 waveforms per osc
+const uint32_t MAX_BANKS_PER_OSCILLATOR = 8; // --- 4 factory + 4 user
+
+// --- factory 
+const uint32_t FACTORY_BANK_START = 0;
+const uint32_t NUM_FACTORY_BANKS = 4;
+const uint32_t FACTORY_BANK_END = FACTORY_BANK_START + NUM_FACTORY_BANKS - 1;
+
+// --- user
+const uint32_t USER_BANK_START = NUM_FACTORY_BANKS;
+const uint32_t NUM_USER_BANKS = 4;
+const uint32_t USER_BANK_END = USER_BANK_START + NUM_USER_BANKS - 1;
+
+// --- not sure if needed
+enum bankSet {
+	BANK_SET_0, BANK_SET_1
+};
 
 // --- max tables per bank
 const uint32_t MAX_TABLES_PER_BANK = 32;
 
 // --- 32 sets-of-4
-const uint32_t MAX_NUM_BANK_SETS = MAX_BANKS_PER_PLUGIN / MAX_BANKS_PER_OSCILLATOR;
+// const uint32_t MAX_NUM_BANK_SETS = MAX_BANKS_PER_PLUGIN / MAX_BANKS_PER_OSCILLATOR;
 
 // --- bank sets 0 - 31
 //     Each Bank Set is a group of 4 bank slots
 //     BANK_SET_0 = 0, 1, 2, 3
 //     BANK_SET_1 = 4, 5, 6, 7
 //	   etc...
-enum bankSet { BANK_SET_0, BANK_SET_1, BANK_SET_2, BANK_SET_3, BANK_SET_4, BANK_SET_5, BANK_SET_6, BANK_SET_7, BANK_SET_8, BANK_SET_9, 
-	BANK_SET_20, BANK_SET_21, BANK_SET_22, BANK_SET_23, BANK_SET_24, BANK_SET_25, BANK_SET_26, BANK_SET_27, BANK_SET_28, BANK_SET_29,
-	BANK_SET_30, BANK_SET_31 };
+
+
+//enum bankSet {
+//	BANK_SET_0, BANK_SET_1, BANK_SET_2, BANK_SET_3, BANK_SET_4, BANK_SET_5, BANK_SET_6, BANK_SET_7, BANK_SET_8, BANK_SET_9,
+//	BANK_SET_20, BANK_SET_21, BANK_SET_22, BANK_SET_23, BANK_SET_24, BANK_SET_25, BANK_SET_26, BANK_SET_27, BANK_SET_28, BANK_SET_29,
+//	BANK_SET_30, BANK_SET_31
+//};
 
 // --- for burnt in or on-the-fly calculated tables
 enum wtWaveFormIndex { SINE_WAVE, PARABOLIC_WAVE, TRIANGLE_WAVE };
@@ -47,7 +64,6 @@ public:
 
 	// --- from a .h File
 	//     tableNames can be nullptr -- if so, the name is the default table name
-	//inline void initializeWithHiResWTBank(HiResWTSet** bankOfTables, unsigned int tableCount, std::string* tableNames = nullptr)
 	inline void initializeWithHiResWTBank(BankDescriptor bankDesc)
 	{
 		// --- add to container
@@ -66,6 +82,9 @@ public:
 
 			this->addWaveTable(wt);
 		}
+
+		// --- we are enabled!
+		enabled = true;
 	}
 
 	// ---- have tables destroy themselves
@@ -80,36 +99,46 @@ public:
 	// --- read a wavetable; this can vary considerably depending
 	//     on how you implement the wavetable itself; here I just
 	//     forward to the wavetable structure
-	inline virtual double readWaveTable(double readIndex)
+	inline virtual double readWaveTable(IWaveTable* selectedWT, double readIndex)
 	{
+		if (selectedWT == nullptr) return 0.0;
 		return selectedWT->readWaveTable(readIndex);
 	}
 
 	// --- IWaveTable
 	virtual bool resetWaveTables(double sampleRate)
 	{
+		if (!enabled)
+			return false;
+
 		return true;
 	}
 
 	// --- select a new table based on midi note and waveform
 	//     NOTE: the MIDI note number reflects the pitch-modulated oscillator value and always rounds
 	//           in the direction of NO aliasing (GUARANTEED)
-	virtual uint32_t selectTable(int oscillatorWaveformIndex, uint32_t midiNoteNumber) 
+	virtual IWaveTable* selectTable(int oscillatorWaveformIndex, uint32_t midiNoteNumber, uint32_t& tableLen)
 	{
+		if (getNumWaveforms() <= 0)
+			return 0;
+
 		if (oscillatorWaveformIndex > getNumWaveforms() - 1)
 			oscillatorWaveformIndex = getNumWaveforms() - 1;
 
 		// --- tables are stored with oscillator waveform index
-		selectedWT = wavetables[oscillatorWaveformIndex];
+		IWaveTable* selectedWT = wavetables[oscillatorWaveformIndex];
 
 		// --- access Wavetable structure via vector container as array notation []
 		selectedWT->selectTable(midiNoteNumber);
 
-		return selectedWT->currentWaveTableLen;
+		tableLen = selectedWT->getWaveTableLength();
+
+		return selectedWT;
 	}
 
 	// --- get the number of INITIALIZED waves for this datasource,
 	virtual uint32_t getNumWaveforms() { return wavetables.size(); }
+
 
 	// --- get the list of 32 strings
 	virtual std::vector<std::string> getWaveformNames()
@@ -293,6 +322,11 @@ public:
 
 	// --- add more mathematical table generation
 
+
+	// --- state
+	bool isEnabled() { return enabled; }
+	void setEnabled(bool _enabled) { enabled = _enabled; }
+
 private:
 	// --- name of this bank
 	std::string bankName;
@@ -301,7 +335,10 @@ private:
 	std::vector<Wavetable*> wavetables;
 
 	// --- currently selected wavetable
-	Wavetable* selectedWT = nullptr;
+	//Wavetable* selectedWT = nullptr;
+
+	// --- state (for user loading)
+	bool enabled = false;
 
 	// --- helper
 	inline uint32_t calculateNumTables(uint32_t seedMIDINote, uint32_t tableIntervalSemitones)

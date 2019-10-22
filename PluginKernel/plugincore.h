@@ -40,7 +40,13 @@ enum controlID {
 	lfo2ShapeSplit = 54,
 	lfo2ModTarget = 55,
 	osc1Waveform = 0,
-	osc1BankIndex = 1
+	osc1BankIndex = 1,
+	osc2Waveform = 10,
+	osc3Waveform = 20,
+	osc4Waveform = 30,
+	osc2BankIndex = 11,
+	osc3BankIndex = 21,
+	osc4BankIndex = 31
 };
 
 	// **--0x0F1F--**
@@ -189,6 +195,24 @@ private:
 
 	int osc1BankIndex = 0;
 	enum class osc1BankIndexEnum { Bank_0,Bank_1,Bank_2,Bank_3 };	// to compare: if(compareEnumToInt(osc1BankIndexEnum::Bank_0, osc1BankIndex)) etc... 
+
+	int osc2Waveform = 0;
+	enum class osc2WaveformEnum { wave0,wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,wave10,wave11,wave12,wave13,wave14,wave15,wave16,wave17,wave18,wave19,wave20,wave21,wave22,wave23,wave24,wave25,wave26,wave27,wave28,wave29,wave30,wave31 };	// to compare: if(compareEnumToInt(osc2WaveformEnum::wave0, osc2Waveform)) etc... 
+
+	int osc3Waveform = 0;
+	enum class osc3WaveformEnum { wave0,wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,wave10,wave11,wave12,wave13,wave14,wave15,wave16,wave17,wave18,wave19,wave20,wave21,wave22,wave23,wave24,wave25,wave26,wave27,wave28,wave29,wave30,wave31 };	// to compare: if(compareEnumToInt(osc3WaveformEnum::wave0, osc3Waveform)) etc... 
+
+	int osc4Waveform = 0;
+	enum class osc4WaveformEnum { wave0,wave1,wave2,wave3,wave4,wave5,wave6,wave7,wave8,wave9,wave10,wave11,wave12,wave13,wave14,wave15,wave16,wave17,wave18,wave19,wave20,wave21,wave22,wave23,wave24,wave25,wave26,wave27,wave28,wave29,wave30,wave31 };	// to compare: if(compareEnumToInt(osc4WaveformEnum::wave0, osc4Waveform)) etc... 
+
+	int osc2BankIndex = 0;
+	enum class osc2BankIndexEnum { Bank_0,Bank_1,Bank_2,Bank_3 };	// to compare: if(compareEnumToInt(osc2BankIndexEnum::Bank_0, osc2BankIndex)) etc... 
+
+	int osc3BankIndex = 0;
+	enum class osc3BankIndexEnum { Bank_0,Bank_1,Bank_2,Bank_3 };	// to compare: if(compareEnumToInt(osc3BankIndexEnum::Bank_0, osc3BankIndex)) etc... 
+
+	int osc4BankIndex = 0;
+	enum class osc4BankIndexEnum { Bank_0,Bank_1,Bank_2,Bank_3 };	// to compare: if(compareEnumToInt(osc4BankIndexEnum::Bank_0, osc4BankIndex)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables
