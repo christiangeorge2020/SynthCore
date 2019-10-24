@@ -237,6 +237,13 @@ bool PluginCore::initPluginParameters()
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
+	// --- continuous control: Osc1 Detune
+	piParam = new PluginParameter(controlID::osc1Detune_cents, "Osc1 Detune", "Cents", controlVariableType::kDouble, -100.000000, 100.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&osc1Detune_cents, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -371,6 +378,11 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(805306368);
 	setParamAuxAttribute(controlID::osc4BankIndex, auxAttribute);
 
+	// --- controlID::osc1Detune_cents
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::osc1Detune_cents, auxAttribute);
+
 
 	// **--0xEDA5--**
    
@@ -497,6 +509,8 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->osc3Parameters->oscillatorBankIndex = osc3BankIndex;
 	engineParams.voiceParameters->osc4Parameters->oscillatorWaveformIndex = osc4Waveform;
 	engineParams.voiceParameters->osc4Parameters->oscillatorBankIndex = osc4BankIndex;
+
+	engineParams.voiceParameters->osc1Parameters->detuneCents = osc1Detune_cents;
 
 
 	// --- THE update - this trickles all param updates
@@ -867,10 +881,11 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::osc1BankIndex, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc2Waveform, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc3Waveform, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::osc4Waveform, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::osc2BankIndex, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::osc3BankIndex, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::osc4BankIndex, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc4Waveform, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc2BankIndex, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc3BankIndex, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc4BankIndex, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc1Detune_cents, 0.000000);
 	addPreset(preset);
 
 

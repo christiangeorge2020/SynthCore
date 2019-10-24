@@ -46,7 +46,8 @@ enum controlID {
 	osc4Waveform = 30,
 	osc2BankIndex = 11,
 	osc3BankIndex = 21,
-	osc4BankIndex = 31
+	osc4BankIndex = 31,
+	osc1Detune_cents = 3
 };
 
 	// **--0x0F1F--**
@@ -167,6 +168,7 @@ private:
 	double lfo1ShapeSplit = 0.0;
 	double lfo2Shape = 0.0;
 	double lfo2ShapeSplit = 0.0;
+	double osc1Detune_cents = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;

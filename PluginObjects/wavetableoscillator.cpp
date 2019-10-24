@@ -35,6 +35,9 @@ bool WaveTableOsc::reset(double _sampleRate)
 	phaseInc = 0.0;
 	waveTableReadIndex = 0.0;
 
+	phaseIncDetune = 0.0;
+	modCounterDetune = 0.0;
+
 	return true;
 }
 
@@ -63,10 +66,12 @@ bool WaveTableOsc::doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t
 	if (!parameters->enableFreeRunMode)
 	{
 		modCounter = 0.0;
+		modCounterDetune = 0.0;
 		waveTableReadIndex = 0.0;
 	}
 
 	phaseInc = 0.0;
+	phaseIncDetune = 0.0;
 
 	return true;
 }
@@ -115,27 +120,34 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 		fmodInput +
 		midiPitchBend +
 		masterTuning +
-		(parameters->detuneOctaves * 12) +						/* octave*12 = semitones */
+		(parameters->detuneOctaves* 12) +						/* octave*12 = semitones */
 		(parameters->detuneSemitones) +							/* semitones */
-		(parameters->detuneCents / 100.0) +						/* cents/100 = semitones */
 		(parameters->unisonDetuneCents / 100.0);				/* cents/100 = semitones */
+
+	double detunePitchModSemitones = currentPitchModSemitones + (parameters->detuneCents / 100.0); /* cents/100 = semitones */
 
 	// --- lookup the pitch shift modifier (fraction)
 	//double pitchShift = pitchShiftTableLookup(currentPitchModSemitones);
 
 	// --- direct calculation version 2^(n/12) - note that this is equal temperatment
 	double pitchShift = pow(2.0, currentPitchModSemitones / 12.0);
+	double detunePitchShift = pow(2.0, detunePitchModSemitones / 12.0);
 
 	// --- calculate the moduated pitch value
 	oscillatorFrequency = midiNotePitch*pitchShift*parameters->fmRatio;
 	oscillatorFrequencySlaveOsc = oscillatorFrequency*parameters->hardSyncRatio;
 
+	oscillatorFrequencyDetuned = midiNotePitch * detunePitchShift*parameters->fmRatio;
+
 	// --- BOUND the value to our range - in theory, we would bound this to any NYQUIST
 	boundValue(oscillatorFrequency, 0.0, sampleRate / 2.0);
 	boundValue(oscillatorFrequencySlaveOsc, 0.0, sampleRate / 2.0);
 	
+	boundValue(oscillatorFrequencyDetuned, 0.0, sampleRate / 2.0);
+
 	// --- find the midi note closest to the pitch to select the wavetable
 	renderMidiNoteNumber = midiNoteNumberFromOscFrequency(oscillatorFrequency);
+	renderMidiNoteNumberDetune = midiNoteNumberFromOscFrequency(oscillatorFrequencyDetuned);
 
 	// --- BANK is set here; can have any number of banks
 	selectedWaveBank = waveTableData->getInterface(getBankIndex(bankSet, parameters->oscillatorBankIndex));
@@ -145,7 +157,9 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	//     NOTE: uses selected bank from line of code above; these must be in pairs.
 
 	uint32_t tableLen = kDefaultWaveTableLength;
+	uint32_t tableLenDetune = kDefaultWaveTableLength;
 	selectedWaveTable = selectedWaveBank->selectTable(parameters->oscillatorWaveformIndex, renderMidiNoteNumber, tableLen);
+	selectedWaveTableDetuned = selectedWaveBank->selectTable(parameters->oscillatorWaveformIndex, renderMidiNoteNumberDetune, tableLenDetune);
 	
 	// --- if table size changed, need to reset the current read location
 	//     to be in the same relative location as before
@@ -157,8 +171,11 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 		currentTableLength = tableLen;
 	}
 
+	//pTableLen = &tableLen;
+
 	// --- note that we neex the current table length for this calculation, and we save it
 	phaseInc = calculateWaveTablePhaseInc(oscillatorFrequency, sampleRate, currentTableLength);
+	phaseIncDetune = calculateWaveTablePhaseInc(oscillatorFrequencyDetuned, sampleRate, currentTableLength);
 
 	return true;
 }
@@ -169,8 +186,15 @@ const OscillatorOutputData WaveTableOsc::renderAudioOutput()
 	oscillatorAudioData.outputs[0] = 0.0;
 	oscillatorAudioData.outputs[1] = 0.0;
 
+	//oscillatorAudioData.outputs[0] = readWaveTable(waveTableReadIndex, phaseInc);
+
 	// --- render into left channel
-	oscillatorAudioData.outputs[0] = readWaveTable(waveTableReadIndex, phaseInc);
+	oscillatorAudioData.outputs[0] = 0.5 * readWaveTable(waveTableReadIndex, phaseInc);
+
+	// Change selected wavetable for detuned oscillator to avoid aliasing
+	//selectedWaveTable = selectedWaveBank->selectTable(parameters->oscillatorWaveformIndex, renderMidiNoteNumberDetune, *pTableLen);
+	oscillatorAudioData.outputs[0] += 0.5 * readWaveTable(tableReadIndexDetune, phaseIncDetune);
+	
 
 	// --- scale by output amplitude
 	oscillatorAudioData.outputs[0] *= (parameters->outputAmplitude * modulators->modulationInputs[kAmpMod]);

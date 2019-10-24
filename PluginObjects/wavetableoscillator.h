@@ -72,6 +72,9 @@ protected:
 	IWaveBank* selectedWaveBank = nullptr;
 
 	IWaveTable* selectedWaveTable = nullptr;
+	IWaveTable* selectedWaveTableDetuned = nullptr;
+
+	//uint32_t * pTableLen = nullptr;
 
 	// --- for anything
 	double readWaveTable(double& readIndex, double _phaseInc); 
@@ -80,11 +83,14 @@ protected:
 	double oscillatorFrequency = 440.0;
 	double oscillatorFrequencySlaveOsc = 440.0;
 
+	double oscillatorFrequencyDetuned = 440.0;
+
 	// --- the note number of the playing note
 	uint32_t midiNoteNumber = 0;
 
 	// --- midi note closest to FINAL pitch, but not over
 	uint32_t renderMidiNoteNumber = 0;
+	uint32_t renderMidiNoteNumberDetune = 0;
 
 	// --- the midi pitch, will need to save for portamento
 	double midiNotePitch = 0.0;				///<the midi pitch, will need to save for portamento
@@ -96,10 +102,18 @@ protected:
 	double modCounter = 0.0;						///<  VA modulo counter 0 to 1.0
 	double phaseInc = 0.0;							///<  phase inc = fo/fs
 	double sampleRate = 0.0;						///<  fs
+
+	// --- detuned wavetable oscillator
+	double phaseIncDetune = 0.0;
+	double modCounterDetune = 0.0;
 	
 	// --- WaveRable oscillator variables
-	double waveTableReadIndex = 0.0;		///< wavetable read location
+	double waveTableReadIndex = 0.0;		
+	double tableReadIndexDetune = 0.0;///< wavetable read location
+
 	uint32_t currentTableLength = kDefaultWaveTableLength;
+
+	uint32_t currentTableLengthDetune = kDefaultWaveTableLength;
 
 	// --- flag indicating state (running or not)
 	bool noteOn = false;
