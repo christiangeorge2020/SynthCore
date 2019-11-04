@@ -372,6 +372,8 @@ protected:
 	std::unique_ptr<SynthLFO> lfo1;
 	std::unique_ptr<SynthLFO> lfo2;
 
+
+
 	// --- EGs
 	std::unique_ptr<EnvelopeGenerator> ampEG;
 

@@ -47,7 +47,15 @@ enum controlID {
 	osc2BankIndex = 11,
 	osc3BankIndex = 21,
 	osc4BankIndex = 31,
-	osc1Detune_cents = 3
+	osc1Detune_cents = 3,
+	joystickX_rate = 68,
+	joystickX_amp = 78,
+	joystickY_rate = 69,
+	joystickY_amp = 79,
+	eg1AttackTime_mSec = 82,
+	eg1DecayTime_mSec = 84,
+	eg1SustainLevel = 85,
+	eg1ReleaseTime_mSec = 86
 };
 
 	// **--0x0F1F--**
@@ -169,6 +177,14 @@ private:
 	double lfo2Shape = 0.0;
 	double lfo2ShapeSplit = 0.0;
 	double osc1Detune_cents = 0.0;
+	double joystickX_rate = 0.0;
+	double joystickX_amp = 0.0;
+	double joystickY_rate = 0.0;
+	double joystickY_amp = 0.0;
+	double eg1AttackTime_mSec = 0.0;
+	double eg1DecayTime_mSec = 0.0;
+	double eg1SustainLevel = 0.0;
+	double eg1ReleaseTime_mSec = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;

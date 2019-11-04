@@ -244,6 +244,62 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&osc1Detune_cents, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
+	// --- continuous control: JS X Rate
+	piParam = new PluginParameter(controlID::joystickX_rate, "JS X Rate", "hertz", controlVariableType::kDouble, 0.000000, 20.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&joystickX_rate, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: JS X Amp
+	piParam = new PluginParameter(controlID::joystickX_amp, "JS X Amp", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&joystickX_amp, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: JS Y Rate
+	piParam = new PluginParameter(controlID::joystickY_rate, "JS Y Rate", "hertz", controlVariableType::kDouble, 0.000000, 20.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&joystickY_rate, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: JS Y Amp
+	piParam = new PluginParameter(controlID::joystickY_amp, "JS Y Amp", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&joystickY_amp, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Attack
+	piParam = new PluginParameter(controlID::eg1AttackTime_mSec, "EG1 Attack", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 5.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1AttackTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Decay
+	piParam = new PluginParameter(controlID::eg1DecayTime_mSec, "EG1 Decay", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 100.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1DecayTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Sustain
+	piParam = new PluginParameter(controlID::eg1SustainLevel, "EG1 Sustain", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.707000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1SustainLevel, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Release
+	piParam = new PluginParameter(controlID::eg1ReleaseTime_mSec, "EG1 Release", "mSec", controlVariableType::kDouble, 0.000000, 10000.000000, 1000.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1ReleaseTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -383,6 +439,46 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::osc1Detune_cents, auxAttribute);
 
+	// --- controlID::joystickX_rate
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::joystickX_rate, auxAttribute);
+
+	// --- controlID::joystickX_amp
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::joystickX_amp, auxAttribute);
+
+	// --- controlID::joystickY_rate
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::joystickY_rate, auxAttribute);
+
+	// --- controlID::joystickY_amp
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::joystickY_amp, auxAttribute);
+
+	// --- controlID::eg1AttackTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1AttackTime_mSec, auxAttribute);
+
+	// --- controlID::eg1DecayTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1DecayTime_mSec, auxAttribute);
+
+	// --- controlID::eg1SustainLevel
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1SustainLevel, auxAttribute);
+
+	// --- controlID::eg1ReleaseTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1ReleaseTime_mSec, auxAttribute);
+
 
 	// **--0xEDA5--**
    
@@ -511,6 +607,11 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->osc4Parameters->oscillatorBankIndex = osc4BankIndex;
 
 	engineParams.voiceParameters->osc1Parameters->detuneCents = osc1Detune_cents;
+
+	engineParams.voiceParameters->ampEGParameters->attackTime_mSec = eg1AttackTime_mSec;
+	engineParams.voiceParameters->ampEGParameters->decayTime_mSec = eg1DecayTime_mSec;
+	engineParams.voiceParameters->ampEGParameters->sustainLevel = eg1SustainLevel;
+	engineParams.voiceParameters->ampEGParameters->releaseTime_mSec = eg1ReleaseTime_mSec;
 
 
 	// --- THE update - this trickles all param updates
@@ -886,6 +987,14 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::osc3BankIndex, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc4BankIndex, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc1Detune_cents, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickX_rate, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickX_amp, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickY_rate, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickY_amp, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1AttackTime_mSec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1DecayTime_mSec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1SustainLevel, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1ReleaseTime_mSec, 0.000000);
 	addPreset(preset);
 
 

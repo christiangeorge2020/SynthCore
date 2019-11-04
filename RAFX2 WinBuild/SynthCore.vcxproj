@@ -208,6 +208,7 @@
     <ClCompile Include="..\PluginKernel\pluginparameter.cpp" />
     <ClCompile Include="..\PluginObjects\dca_eg.cpp" />
     <ClCompile Include="..\PluginObjects\fxobjects.cpp" />
+    <ClCompile Include="..\PluginObjects\rotor.cpp" />
     <ClCompile Include="..\PluginObjects\synthcore.cpp" />
     <ClCompile Include="..\PluginObjects\synthlfo.cpp" />
     <ClCompile Include="..\PluginObjects\synthoscillator.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="..\PluginObjects\dca_eg.h" />
     <ClInclude Include="..\PluginObjects\fxobjects.h" />
     <ClInclude Include="..\PluginObjects\filters.h" />
+    <ClInclude Include="..\PluginObjects\rotor.h" />
     <ClInclude Include="..\PluginObjects\synthcore.h" />
     <ClInclude Include="..\PluginObjects\synthdefs.h" />
     <ClInclude Include="..\PluginObjects\synthlfo.h" />
