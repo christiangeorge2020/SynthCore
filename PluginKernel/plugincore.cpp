@@ -300,6 +300,52 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&eg1ReleaseTime_mSec, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
+	// --- continuous control: EG1 Hold
+	piParam = new PluginParameter(controlID::eg1HoldTime_mSec, "EG1 Hold", "msec", controlVariableType::kDouble, 0.000000, 5000.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1HoldTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Delay
+	piParam = new PluginParameter(controlID::eg1DelayTime_mSec, "EG1 Delay", "msec", controlVariableType::kDouble, 0.000000, 100.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1DelayTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG1 Mode
+	piParam = new PluginParameter(controlID::eg1Mode, "EG1 Mode", "ADSR,AHDSR,AHR", "ADSR");
+	piParam->setBoundVariable(&eg1Mode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG1 AutoTrigg
+	piParam = new PluginParameter(controlID::eg1AutoRetrigger, "EG1 AutoTrigg", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1AutoRetrigger, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG1 Trigger
+	piParam = new PluginParameter(controlID::eg1ManualTrigger, "EG1 Trigger", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1ManualTrigger, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: FC 1
+	piParam = new PluginParameter(controlID::fc1_hertz, "FC 1", "Hertz", controlVariableType::kDouble, 20.000000, 18000.000000, 880.000000, taper::kVoltOctaveTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&fc1_hertz, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Q 1
+	piParam = new PluginParameter(controlID::q1Control, "Q 1", "", controlVariableType::kDouble, 1.000000, 10.000000, 1.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&q1Control, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -479,6 +525,41 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::eg1ReleaseTime_mSec, auxAttribute);
 
+	// --- controlID::eg1HoldTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1HoldTime_mSec, auxAttribute);
+
+	// --- controlID::eg1DelayTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1DelayTime_mSec, auxAttribute);
+
+	// --- controlID::eg1Mode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::eg1Mode, auxAttribute);
+
+	// --- controlID::eg1AutoRetrigger
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741824);
+	setParamAuxAttribute(controlID::eg1AutoRetrigger, auxAttribute);
+
+	// --- controlID::eg1ManualTrigger
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1610612738);
+	setParamAuxAttribute(controlID::eg1ManualTrigger, auxAttribute);
+
+	// --- controlID::fc1_hertz
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::fc1_hertz, auxAttribute);
+
+	// --- controlID::q1Control
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::q1Control, auxAttribute);
+
 
 	// **--0xEDA5--**
    
@@ -608,11 +689,20 @@ void PluginCore::updateParameters()
 
 	engineParams.voiceParameters->osc1Parameters->detuneCents = osc1Detune_cents;
 
+	// EG1 Parameters
+	engineParams.voiceParameters->ampEGParameters->delayTime_mSec = eg1DelayTime_mSec;
 	engineParams.voiceParameters->ampEGParameters->attackTime_mSec = eg1AttackTime_mSec;
+	engineParams.voiceParameters->ampEGParameters->holdTime_mSec = eg1HoldTime_mSec;
 	engineParams.voiceParameters->ampEGParameters->decayTime_mSec = eg1DecayTime_mSec;
 	engineParams.voiceParameters->ampEGParameters->sustainLevel = eg1SustainLevel;
 	engineParams.voiceParameters->ampEGParameters->releaseTime_mSec = eg1ReleaseTime_mSec;
+	engineParams.voiceParameters->ampEGParameters->egContourType = convertIntToEnum(eg1Mode, egType);
+	engineParams.voiceParameters->ampEGParameters->autoRetrigger = eg1AutoRetrigger;
+	engineParams.voiceParameters->ampEGParameters->manualRetrigger = eg1ManualTrigger;
 
+	engineParams.voiceParameters->moogFilterParameters->fc = fc1_hertz;
+	engineParams.voiceParameters->moogFilterParameters->Q = q1Control;
+	
 
 	// --- THE update - this trickles all param updates
 	// via the setParameters( ) of each
@@ -991,10 +1081,17 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::joystickX_amp, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::joystickY_rate, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::joystickY_amp, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1AttackTime_mSec, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1DecayTime_mSec, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1SustainLevel, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1ReleaseTime_mSec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1AttackTime_mSec, 5.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1DecayTime_mSec, 100.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1SustainLevel, 0.707000);
+	setPresetParameter(preset->presetParameters, controlID::eg1ReleaseTime_mSec, 1000.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1HoldTime_mSec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1DelayTime_mSec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1Mode, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1AutoRetrigger, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1ManualTrigger, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::fc1_hertz, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::q1Control, 0.000000);
 	addPreset(preset);
 
 

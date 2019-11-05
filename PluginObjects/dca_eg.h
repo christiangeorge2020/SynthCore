@@ -183,6 +183,9 @@ struct EGParameters
 		offTime_mSec = params.offTime_mSec;
 		delayTime_mSec = params.delayTime_mSec;
 
+		autoRetrigger = params.autoRetrigger;
+		manualRetrigger = params.manualRetrigger;
+
 		return *this;
 	}
 
@@ -193,6 +196,9 @@ struct EGParameters
 	bool legatoMode = false;
 	bool velocityToAttackScaling = false;
 	bool noteNumberToDecayScaling = false;
+
+	bool autoRetrigger = false;
+	bool manualRetrigger = false;
 
 	//--- DADSR times from user
 	double attackTime_mSec = 1.0;	// att: is a time duration

@@ -5,6 +5,8 @@
 #include "synthdefs.h"
 
 const int NUM_SUBFILTERS = 4;
+const double freqModLow = 20.0;
+const double freqModHigh = 18000.0;
 
 /**
 \class ZVAFilterEx
@@ -13,7 +15,7 @@ const int NUM_SUBFILTERS = 4;
 
 \author Will Pirkle
 \version Revision : 1.0
-\date Date : 2017 / 09 / 24
+\date Date : 2019 / 11 / 04
 */
 class ZVAFilterEx : public ZVAFilter
 {
@@ -52,6 +54,14 @@ enum class moogFilterAlgorithm {
 
 }; 
 
+/**
+	\struct MoogFilterParameters
+	\ingroup SynthClasses
+	\brief custom parameter structure for a Moog ladder filter
+	\author Will Pirkle
+	\version Revision : 1.0
+	\date Date : 2017 / 09 / 24
+*/
 struct MoogFilterParameters
 {
 	MoogFilterParameters() {}
@@ -86,18 +96,20 @@ struct MoogFilterParameters
 
 \author Will Pirkle
 \version Revision : 1.0
-\date Date : 2017 / 09 / 24
+\date Date : 2019 / 11 / 04
 */
-class MoogFilter : public IAudioSignalProcessor
+class MoogFilter : public ISynthProcessor
 {
 public:
-	MoogFilter()
+	MoogFilter(const std::shared_ptr<MidiInputData> _midiInputData, std::shared_ptr<MoogFilterParameters> _parameters) :
+		midiInputData(_midiInputData)
+		, parameters(_parameters)
 	{
 		// --- setup four identical ZVAFilters as LPF1 types
 		ZVAFilterParameters params = subFilter[0].getParameters();
 		params.filterAlgorithm = vaFilterAlgorithm::kLPF1;
 
-		// --- this does not work because it fucks up the phase response at Nyquist
+		// --- this does not work because it screws up the phase response at Nyquist
 		// params.matchAnalogNyquistLPF = true;
 
 		for (int i = 0; i < NUM_SUBFILTERS; i++)
@@ -107,7 +119,12 @@ public:
 	}		/* C-TOR */
 	~MoogFilter() {}		/* D-TOR */
 
-	// --- IAudioSignalProcessor
+
+	// --- ISynthProcessor
+	virtual bool update(bool updateAllModRoutings = true);
+	virtual bool doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
+	virtual bool doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
+
 	// --- set sample rate, then update coeffs
 	virtual bool reset(double _sampleRate)
 	{
@@ -122,42 +139,19 @@ public:
 		return true;
 	}
 
-	// --- get parameters (note using ZVA params)
-	MoogFilterParameters getParameters()
-	{
-		return moogFilterParameters;
-	}
+	// --- the processor function
+	virtual bool processSynthAudio(SynthProcessorData* audioData);
 
-	// --- set parameters
-	void setParameters(const MoogFilterParameters& params)
-	{
-		// --- if Fc changed, reset it on all subfilters
-		moogFilterParameters = params;
-
-		ZVAFilterParameters zvaParams = subFilter[0].getParameters();
-		zvaParams.fc = params.fc;
-		zvaParams.filterAlgorithm = vaFilterAlgorithm::kLPF1;
-
-		for (int i = 0; i < NUM_SUBFILTERS; i++)
-		{
-			if (i > 1 && params.filterAlgorithm == moogFilterAlgorithm::kLPF2)
-				zvaParams.filterAlgorithm = vaFilterAlgorithm::kAPF1;
-
-			subFilter[i].setParameters(zvaParams);
-		}
-		// --- changing fc on sub-filters requires recalc of Betas
-		calculateFilterCoeffs();
-	}
-
-	// --- calculate MOOG coefficients; the subFilters are updated with subFilter[i].setParameters(params);
+	// --- calculate MOOG coefficients
+	//     
 	void calculateFilterCoeffs()
 	{
-		if (moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kLPF4 ||
-			moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kHPF4 ||
-			moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kHPF2)
+		if (parameters->filterAlgorithm == moogFilterAlgorithm::kLPF4 ||
+			parameters->filterAlgorithm == moogFilterAlgorithm::kHPF4 ||
+			parameters->filterAlgorithm == moogFilterAlgorithm::kHPF2)
 		{
 			// --- Q is 1 -> 10 for my plugins; just map it to 0 -> 4
-			K = (4.0)*(moogFilterParameters.Q - 1.0) / (10.0 - 1.0);
+			K = (4.0)*(parameters->Q - 1.0) / (10.0 - 1.0);
 
 			double G = subFilter[0].getAlpha();
 			double g = subFilter[0].getLittle_g();
@@ -172,11 +166,11 @@ public:
 			// --- alpha0 = 1/(1 + K*G*G*G*G)
 			alpha0 = 1.0 / (1.0 + K*G*G*G*G);
 		}
-		else if (moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kLPF2)
+		else if (parameters->filterAlgorithm == moogFilterAlgorithm::kLPF2)
 		{
 			// --- Q controls always 1 -> 10  kFilterGUI_Q_Range = (10.0 - 1.0)
 			//	   this maps qControl = 1 -> 10   to   K = 0 -> 2
-			K = (2.0)*(moogFilterParameters.Q - 1.0) / (10.0 - 1.0);
+			K = (2.0)*(parameters->Q - 1.0) / (10.0 - 1.0);
 
 			// the allpass G value
 			double G = subFilter[0].getAlpha();
@@ -196,15 +190,13 @@ public:
 		}
 	}
 
-	// --- we just do samples
-	virtual bool canProcessAudioFrame() { return false; }
-
-	// --- process audio: run the filter
-	virtual double processAudioSample(double xn)
+	// --- process audio: run the filter on one sample
+	//     NOTE: this is not a virtual or required function, but may be used for aggregated filters
+	double processAudioSample(double xn)
 	{
 		// --- 4th order MOOG:
 		double sigma = 0.0;
-		if (moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kLPF2)
+		if (parameters->filterAlgorithm == moogFilterAlgorithm::kLPF2)
 		{
 			sigma = beta[0] * subFilter[0].getS0Port() +
 					beta[1] * subFilter[1].getS0Port() +
@@ -219,13 +211,13 @@ public:
 		}
 
 		// --- gain comp is a simple on/off switch LPF ONLY!!!!
-		if(moogFilterParameters.enableGainComp)
+		if(parameters->enableGainComp)
 			xn *= 1.0 + 0.5*K; // --- increase 0.5 for MORE bass
 
 		// --- now figure out u(n) = alpha0*[x(n) - K*sigma]
 		double u = alpha0*(xn - K*sigma);
 
-		if (moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kLPF4)
+		if (parameters->filterAlgorithm == moogFilterAlgorithm::kLPF4)
 		{
 			// --- send u -> LPF1 and then cascade the outputs to form y(n)
 			double y0 = subFilter[0].processAudioSample(u); //< --- NOT x(n), u(n)
@@ -236,7 +228,7 @@ public:
 			// --- done
 			return yn;
 		}
-		else if (moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kLPF2)
+		else if (parameters->filterAlgorithm == moogFilterAlgorithm::kLPF2)
 		{
 			// --- send u -> LPF1 and then cascade the outputs to form y(n)
 			double y0 = subFilter[0].processAudioSample(u); //< --- NOT x(n), u(n)
@@ -246,11 +238,11 @@ public:
 			// --- done
 			return yn;
 		}
-		else if (moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kHPF4 ||
-				 moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kHPF2)
+		else if (parameters->filterAlgorithm == moogFilterAlgorithm::kHPF4 ||
+				 parameters->filterAlgorithm == moogFilterAlgorithm::kHPF2)
 		{
 			double A, B, C, D, E = 0.0;
-			if (moogFilterParameters.filterAlgorithm == moogFilterAlgorithm::kHPF4)
+			if (parameters->filterAlgorithm == moogFilterAlgorithm::kHPF4)
 			{
 				A = 1.0;
 				B = -4.0;
@@ -280,197 +272,6 @@ public:
 		return xn; // should never happen
 	}
 
-protected:
-	MoogFilterParameters moogFilterParameters;			// our copy for fc, Q and filter type
-	ZVAFilterEx subFilter[NUM_SUBFILTERS];				// --- NUM_SUBFILTERS filters
-
-	// --- four beta values
-	double beta[NUM_SUBFILTERS] = { 0.0 };
-	double alpha0 = 1.0;	// --- our delay free loop correction coeffient (different from sub filters which also have their own)
-	double K = 0.0;			// --- this is 0.0 --> 4.0 = Q from 1 --> 10
-};
-
-enum class twinFilterConfig { kBypass, kTWIN_LP4, kTWIN_LP2, kHP_LP4, kHP_LP2 };
-
-// --- Double-moog filters
-struct TwinMoogFilterParameters
-{
-	TwinMoogFilterParameters() {}
-	TwinMoogFilterParameters& operator=(const TwinMoogFilterParameters& params)	// need this override for collections to work
-	{
-		if (this == &params)
-			return *this;
-
-		fc1 = params.fc1;
-		Q1 = params.Q1;
-
-		fc2 = params.fc2;
-		Q2 = params.Q2;
-
-		enableGainComp = params.enableGainComp;
-
-		filterConfiguration = params.filterConfiguration;
-
-		return *this;
-	}
-
-	// --- individual parameters
-	double fc1 = 0.0;
-	double Q1 = 0.707;
-	double fc2 = 0.0;
-	double Q2 = 0.707;
-	bool enableGainComp = false;
-
-	twinFilterConfig filterConfiguration = twinFilterConfig::kTWIN_LP4;
-};
-
-
-/**
-\class MoogFilter
-\ingroup SynthClasses
-\brief Encapsulates a Moog Ladder Filter.
-
-\author Will Pirkle
-\version Revision : 1.0
-\date Date : 2017 / 09 / 24
-*/
-const double freqModLow = 20.0;
-const double freqModHigh = 18000.0;
-
-class TwinMoogFilters : public ISynthProcessor
-{
-public:
-	TwinMoogFilters(const std::shared_ptr<MidiInputData> _midiInputData, std::shared_ptr<TwinMoogFilterParameters> _parameters)
-		: midiInputData(_midiInputData)
-		, parameters(_parameters)
-	{
-		if (!parameters)
-			parameters = std::make_shared<TwinMoogFilterParameters>();
-
-		// --- this is the total range; though we may only use half in the calc
-		freqModSemitoneRange = semitonesBetweenFrequencies(freqModLow, freqModHigh) / 2.0;
-
-		for (int i = 0; i < 2; i++)
-		{
-			limiter[i].setThreshold_dB(0.0);
-		}
-
-	}		/* C-TOR */
-	~TwinMoogFilters() {}		/* D-TOR */
-
-	// --- ISynthProcessor
-	inline virtual bool update(bool updateAllModRoutings = true)
-	{
-		// --- Run priority modulators 
-
-		// --- End Priority modulators
-		if (!updateAllModRoutings)
-			return true;
-
-		MoogFilterParameters zvaParams1 = subFilter[0].getParameters();
-		MoogFilterParameters zvaParams2 = subFilter[1].getParameters();
-
-		if (parameters->filterConfiguration == twinFilterConfig::kHP_LP2)
-		{
-			zvaParams1.filterAlgorithm = moogFilterAlgorithm::kHPF2;
-			zvaParams2.filterAlgorithm = moogFilterAlgorithm::kLPF2;
-		}
-		else if (parameters->filterConfiguration == twinFilterConfig::kHP_LP4)
-		{
-			zvaParams1.filterAlgorithm = moogFilterAlgorithm::kHPF4;
-			zvaParams2.filterAlgorithm = moogFilterAlgorithm::kLPF4;
-		}
-		else if (parameters->filterConfiguration == twinFilterConfig::kTWIN_LP2)
-		{
-			zvaParams1.filterAlgorithm = moogFilterAlgorithm::kLPF2;
-			zvaParams2.filterAlgorithm = moogFilterAlgorithm::kLPF2;
-		}
-		else if (parameters->filterConfiguration == twinFilterConfig::kTWIN_LP4)
-		{
-			zvaParams1.filterAlgorithm = moogFilterAlgorithm::kLPF4;
-			zvaParams2.filterAlgorithm = moogFilterAlgorithm::kLPF4;
-		}
-
-		// --- for freq shifting as semitones
-		double freqModSemitones_fc1 = 0.5*freqModSemitoneRange*modulators->modulationInputs[kBipolarMod];		// k_BipolarMod -> Fc1
-		double freqModSemitones_fc2 = 0.5*freqModSemitoneRange*modulators->modulationInputs[kAuxBipolarMod_1]; // k_AuxBipolarMod_1 -> Fc2
-
-		double fc1 = parameters->fc1 * pitchShiftTableLookup(freqModSemitones_fc1);
-		double fc2 = parameters->fc2 * pitchShiftTableLookup(freqModSemitones_fc2);
-		boundValue(fc1, freqModLow, freqModHigh);
-		boundValue(fc2, freqModLow, freqModHigh);
-
-		if (true)// (fc1 != finalFilter_fc1)
-		{
-			zvaParams1.fc = fc1;
-			zvaParams1.Q = parameters->Q1;
-			zvaParams1.enableGainComp = parameters->enableGainComp;
-			subFilter[0].setParameters(zvaParams1);
-			finalFilter_fc1 = fc1;
-		}
-		if (true)//(fc2 != finalFilter_fc2)
-		{
-			zvaParams2.fc = fc2;
-			zvaParams2.Q = parameters->Q2;
-			zvaParams2.enableGainComp = parameters->enableGainComp;
-			subFilter[1].setParameters(zvaParams2);
-			finalFilter_fc2 = fc2;
-		}
-
-		return true;
-	}
-
-	virtual bool doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity) { return true; }
-	virtual bool doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity) { return true; }
-
-	// --- set sample rate, then update coeffs
-	virtual bool reset(double _sampleRate)
-	{
-		// --- initialize four identical ZVAFilters as LPF1 types
-		for (int i = 0; i < 2; i++)
-		{
-			subFilter[i].reset(_sampleRate);
-			limiter[i].reset(_sampleRate);
-		}
-
-		return true;
-	}
-
-	// --- we just do samples
-	virtual bool canProcessAudioFrame() { return false; }
-
-	// --- process audio: run the filter
-	virtual double processAudioSample(double xn)
-	{
-		if (parameters->filterConfiguration == twinFilterConfig::kBypass)
-			return xn;
-
-		if (parameters->filterConfiguration == twinFilterConfig::kHP_LP2 ||
-			parameters->filterConfiguration == twinFilterConfig::kHP_LP4 )
-		{
-			double y0 = subFilter[0].processAudioSample(xn);
-			double lim0 = limiter[0].processAudioSample(y0);
-
-			double y1 = subFilter[1].processAudioSample(lim0);
-			double lim1 = limiter[1].processAudioSample(y1);
-
-			return lim1;
-		}
-		else if (parameters->filterConfiguration == twinFilterConfig::kTWIN_LP2 ||
-				 parameters->filterConfiguration == twinFilterConfig::kTWIN_LP4)
-		{
-			double y0 = subFilter[0].processAudioSample(xn);
-			double lim0 = limiter[0].processAudioSample(y0);
-
-			double y1 = subFilter[1].processAudioSample(xn);
-			double lim1 = limiter[1].processAudioSample(y1);
-
-			return lim0 + lim1;
-		}
-
-		return xn; // neve rhappen
-	}
-
 	// --- access to modulators
 	// --- get our modulators
 	virtual std::shared_ptr<ModInputData> getModulators() {
@@ -484,23 +285,21 @@ public:
 
 protected:
 	// --- MIDI Data Interface
-	const std::shared_ptr<MidiInputData> midiInputData = nullptr;
+	const const std::shared_ptr<MidiInputData> midiInputData = nullptr;
 
-	// --- modulators
+	// --- we share Parameters with other voice's same-components
+	std::shared_ptr<MoogFilterParameters> parameters = nullptr;
+
+	// --- set of double[MAX_MODULATION_CHANNELS]
 	std::shared_ptr<ModInputData> modulators = std::make_shared<ModInputData>();
 
-	// --- parameters
-	std::shared_ptr<TwinMoogFilterParameters> parameters = nullptr;
-	
-	MoogFilter subFilter[2];	// --- twin filters = 2 of each
-	PeakLimiter limiter[2];
+	// --- 4 subfilters
+	ZVAFilterEx subFilter[NUM_SUBFILTERS];				// --- NUM_SUBFILTERS filters
 
-	double finalFilter_fc1 = 1000.0;
-	double finalFilter_fc2 = 1000.0;
-	double freqModSemitoneRange = 0.0;
+	// --- four beta values
+	double beta[NUM_SUBFILTERS] = { 0.0 };
+	double alpha0 = 1.0;	// --- our delay free loop correction coeffient (different from sub filters which also have their own)
+	double K = 0.0;			// --- this is 0.0 --> 4.0 = Q from 1 --> 10
 };
-
-
-
 
 #endif /* defined(__vaFilters_h__) */

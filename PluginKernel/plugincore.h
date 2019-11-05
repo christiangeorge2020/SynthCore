@@ -55,7 +55,14 @@ enum controlID {
 	eg1AttackTime_mSec = 82,
 	eg1DecayTime_mSec = 84,
 	eg1SustainLevel = 85,
-	eg1ReleaseTime_mSec = 86
+	eg1ReleaseTime_mSec = 86,
+	eg1HoldTime_mSec = 83,
+	eg1DelayTime_mSec = 81,
+	eg1Mode = 80,
+	eg1AutoRetrigger = 87,
+	eg1ManualTrigger = 88,
+	fc1_hertz = 5,
+	q1Control = 6
 };
 
 	// **--0x0F1F--**
@@ -185,6 +192,10 @@ private:
 	double eg1DecayTime_mSec = 0.0;
 	double eg1SustainLevel = 0.0;
 	double eg1ReleaseTime_mSec = 0.0;
+	double eg1HoldTime_mSec = 0.0;
+	double eg1DelayTime_mSec = 0.0;
+	double fc1_hertz = 0.0;
+	double q1Control = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -231,6 +242,15 @@ private:
 
 	int osc4BankIndex = 0;
 	enum class osc4BankIndexEnum { Bank_0,Bank_1,Bank_2,Bank_3 };	// to compare: if(compareEnumToInt(osc4BankIndexEnum::Bank_0, osc4BankIndex)) etc... 
+
+	int eg1Mode = 0;
+	enum class eg1ModeEnum { ADSR,AHDSR,AHR };	// to compare: if(compareEnumToInt(eg1ModeEnum::ADSR, eg1Mode)) etc... 
+
+	int eg1AutoRetrigger = 0;
+	enum class eg1AutoRetriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1AutoRetriggerEnum::SWITCH_OFF, eg1AutoRetrigger)) etc... 
+
+	int eg1ManualTrigger = 0;
+	enum class eg1ManualTriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1ManualTriggerEnum::SWITCH_OFF, eg1ManualTrigger)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

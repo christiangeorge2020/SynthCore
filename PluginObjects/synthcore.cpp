@@ -33,6 +33,9 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 
 	ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
 
+	// **MOOG**
+	moogFilter.reset(new MoogFilter(midiInputData, parameters->moogFilterParameters));
+
 	dca.reset(new DCA(midiInputData, parameters->dcaParameters));
 
 }
@@ -108,6 +111,9 @@ bool SynthVoice::reset(double _sampleRate)
 	ampEG->reset(_sampleRate);
 
 	dca->reset(_sampleRate);
+
+	// **MOOG**
+	moogFilter->reset(_sampleRate);
 
 	/// Reset grain count
 	updateGranularity = 64; ///< update every 128 render-cycles
@@ -186,6 +192,9 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	ampEG->update(updateAllModRoutings);
 	ampEGOutput = ampEG->renderModulatorOutput();
 
+	// --- FILTER **MOOG**	
+	moogFilter->update(updateAllModRoutings);
+
 	// --- do all mods	
 	runModulationMatrix(updateAllModRoutings);
 
@@ -218,7 +227,15 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	audioData.numInputChannels = 1; // mono in
 	audioData.numOutputChannels = 2;// stereo out
 	audioData.inputs[0] = oscOut;
-	
+
+	// **MOOG**
+	// --- run through filter
+	moogFilter->processSynthAudio(&audioData);
+
+	// --- inline, copy MONO output back to input
+	audioData.inputs[0] = audioData.outputs[0];
+	audioData.numOutputChannels = 2;// stereo out
+
 	// --- dca will make stereo and pan
 	dca->processSynthAudio(&audioData);
 
@@ -380,7 +397,8 @@ SynthEngine::SynthEngine()
 	midiInputData->ccMIDIData[PAN_CC10] = 64;		// --- MIDI PAN; default this to CENTER
 
 	// --- HARDWIRED MOD ROUTINGS --- //
-	//
+	
+	parameters.setMM_HardwiredRouting(kEG1_Normal, kFilter1_fc);
 	// --- kEG1_Normal -> kDCA_EGMod
 	parameters.setMM_HardwiredRouting(kEG1_Normal, kDCA_EGMod);
 

@@ -63,6 +63,13 @@
 		<control-tag name="controlID::eg1DecayTime_mSec" tag="84" />
 		<control-tag name="controlID::eg1SustainLevel" tag="85" />
 		<control-tag name="controlID::eg1ReleaseTime_mSec" tag="86" />
+		<control-tag name="controlID::eg1HoldTime_mSec" tag="83" />
+		<control-tag name="controlID::eg1DelayTime_mSec" tag="81" />
+		<control-tag name="controlID::eg1Mode" tag="80" />
+		<control-tag name="controlID::eg1AutoRetrigger" tag="87" />
+		<control-tag name="controlID::eg1ManualTrigger" tag="88" />
+		<control-tag name="controlID::fc1_hertz" tag="5" />
+		<control-tag name="controlID::q1Control" tag="6" />
 		<control-tag name="XY_TRACKPAD" tag="131073" />
 		<control-tag name="VECTOR_JOYSTICK" tag="131074" />
 		<control-tag name="PRESET_NAME" tag="131075" />

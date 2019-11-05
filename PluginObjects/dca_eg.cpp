@@ -208,7 +208,9 @@ bool EnvelopeGenerator::doNoteOff(double midiPitch, uint32_t midiNoteNumber, uin
 	}
 
 	// --- go directly to release state
-	if (envelopeOutput > 0)
+	if (parameters->egContourType == egType::kAHR)
+		return true;
+	else if (envelopeOutput > 0)
 		state = egState::kRelease;
 	else // sustain was already at zero
 		state = egState::kOff;
@@ -398,7 +400,7 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 				envelopeOutput = 1.0;
 				if(parameters->egContourType == egType::kADSR)
 					state = egState::kDecay;	// go to kDecay
-				else if (parameters->egContourType == egType::kAHR)
+				else if (parameters->egContourType == egType::kAHR || parameters->egContourType == egType::kAHDSR)
 					state = egState::kHoldOn;	// go to kHoldOn
 				else
 					state = egState::kDecay;	// go to kDecay
@@ -417,7 +419,7 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 			if (envelopeOutput <= sustainLevel || decayTime_mSec <= 0.0)
 			{
 				envelopeOutput = sustainLevel;
-			//	if (parameters->egContourType == egType::kADSR)
+				if (parameters->egContourType == egType::kADSR)
 					state = egState::kSustain;		// go to next state
 				break;
 			}
@@ -425,6 +427,8 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 		}
 		case egState::kHoldOn:
 		{
+			envelopeOutput = 1.0;
+
 			// --- check expired
 			if (holdTime_mSec == 0.0 || holdTimer.timerExpired())
 			{
@@ -466,7 +470,10 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 			{
 				envelopeOutput = 0.0;
 
-				if(offTime_mSec <= 0.0)
+				
+				if (parameters->autoRetrigger == true)
+					state = egState::kDelay;
+				else if(offTime_mSec <= 0.0)
 					state = egState::kOff;			// go to OFF state
 				else
 					state = egState::kHoldOff;		// go to OFF state

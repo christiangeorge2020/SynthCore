@@ -70,7 +70,7 @@ const double pitchShiftTable[kPitchShiftTableLength] = {
 // --- this is just for easy indexing of the output array
 enum { LEFT_CHANNEL, RIGHT_CHANNEL }; // can add more channels as needed
 
-enum class ModRouting {None, LFO1_Fo, LFO1_Shape, Rhythmic_Breaks, Both};
+enum class ModRouting { None, LFO1_Fo, LFO1_Shape, Rhythmic_Breaks, Both };
 								
 // --- constants: this is the number of possible modulation inputs (move to synthdefs.h)
 const unsigned int MAX_MODULATION_CHANNELS = 32;	// --- increase if you want more
@@ -1082,6 +1082,8 @@ struct SynthOscParameters
 		enableHardSync = params.enableHardSync;
 		enableFreeRunMode = params.enableFreeRunMode;
 
+		morphModulation = params.morphModulation;
+
 		return *this;
 	}
 
@@ -1103,6 +1105,7 @@ struct SynthOscParameters
 	double outputAmplitude = 1.0;		// raw value, NOT dB
 	
 	double oscillatorShape = 0.0;		// [-1, +1]
+	double morphModulation = 0.0;		// [0, +1]
 
 	double hardSyncRatio = 1.0;			// [1, +???]
 	double fmRatio = 1.0;				// [1, +???]
@@ -1187,6 +1190,64 @@ public:
 	virtual uint32_t getWaveTableLength() = 0;
 };
 
+// --- informationn for morphing between two tables
+struct MorphTablePair
+{
+	MorphTablePair& operator=(const MorphTablePair& params)
+	{
+		if (this == &params)
+			return *this;
+
+		table_0 = params.table_0;
+		table_1 = params.table_1;
+		table_0_Length = params.table_0_Length;
+		table_1_Length = params.table_1_Length;
+		readIndex_0 = params.readIndex_0;
+		readIndex_1 = params.readIndex_1;
+
+		return *this;
+	}
+
+	// --- wavetable
+	IWaveTable* table_0 = nullptr;
+	IWaveTable* table_1 = nullptr;
+
+	uint32_t table_0_Length = 0;
+	uint32_t table_1_Length = 0;
+
+	double readIndex_0 = 0.0;
+	double readIndex_1 = 0.0;
+};
+
+
+// --- for wave table data sources so they can be shared
+class IMorphingWaveBank
+{
+public:
+	// --- reset/regenerate wave tables
+	virtual bool resetWaveTables(double sampleRate) = 0;
+
+	// --- select table to read based on MIDI Note number of pitch modulated oscillator
+	virtual MorphTablePair* selectTablePair(int oscillatorWaveformIndex, uint32_t midiNoteNumber) { return nullptr; }// = 0;
+
+	// --- read the selected wavetable and return a double value
+	//     linear interpolation is engaged by default
+	//     Should add Lagrange interpolation (maybe as class project?)
+	virtual double readMorphWaveTable(MorphTablePair* selectedWTPair) = 0;
+
+	// --- get the number of waves for this datasource
+	virtual uint32_t getNumMorphWaves() = 0;
+
+	// --- returns the names of the waveforms, which are identical to the indexes of waveform selection on the GUI
+	//     If there is no waveform, returns "" for that
+	virtual std::vector<std::string> getMorphWaveNames() = 0;
+	
+	// --- bank name
+	virtual std::string getMorphWaveBankName() = 0;
+	virtual void setMorphWaveBankName(std::string _bankName) = 0;
+
+};
+
 // --- for wave table data sources so they can be shared
 class IWaveBank
 {
@@ -1208,13 +1269,12 @@ public:
 	// --- returns the names of the waveforms, which are identical to the indexes of waveform selection on the GUI
 	//     If there is no waveform, returns "" for that
 	virtual std::vector<std::string> getWaveformNames() = 0;
-	
+
 	// --- bank name
 	virtual std::string getWaveBankName() = 0;
 	virtual void setWaveBankName(std::string _bankName) = 0;
 
 };
-
 
 
 
@@ -1236,20 +1296,20 @@ public:
 	virtual std::vector<std::string> getWaveBankNames(uint32_t bankSet = 0) = 0;
 };
 
-
-// --- for wave table data sources so they can be shared
-//     NOTE: do not document this yet, it is going to change
-class IMorphingWaveBank
-{
-public:
-	virtual void addMorphingTable(const double** morph_0, uint32_t midiNoteNumber) = 0;
-	virtual bool initMorphingTables() = 0;
-
-	virtual const double** selectMorphingTableSet(uint32_t& midiNoteNumber) = 0;
-
-	virtual uint32_t getTableLength() = 0;
-	virtual uint32_t getMorphingTableCount() = 0;
-};
+//
+//// --- for wave table data sources so they can be shared
+////     NOTE: do not document this yet, it is going to change
+//class IMorphingWaveBank
+//{
+//public:
+//	virtual void addMorphingTable(const double** morph_0, uint32_t midiNoteNumber) = 0;
+//	virtual bool initMorphingTables() = 0;
+//
+//	virtual const double** selectMorphingTableSet(uint32_t& midiNoteNumber) = 0;
+//
+//	virtual uint32_t getTableLength() = 0;
+//	virtual uint32_t getMorphingTableCount() = 0;
+//};
 
 // --- for wave sample data sources so they can be shared
 class WaveData;
@@ -1347,31 +1407,16 @@ class ISynthProcessor
 	virtual bool doNoteOn(double midiPitch, uint32_t midiNoteNumber, uint32_t midiNoteVelocity) = 0;
 	virtual bool doNoteOff(double midiPitch, uint32_t midiNoteNumber, uint32_t midiNoteVelocity) = 0;
 
-	// --- process one sample in and out
-	virtual double processAudioSample(double xn) = 0;
-
-	// --- return true if the derived object can process a frame, false otherwise
-	virtual bool canProcessAudioFrame() = 0;
-
 	// --- switch to enable.disable the aux input
 	virtual void enableAuxInput(bool enableAuxInput) {}
+
+	// --- the process function; note that synth voices can have up to 32 channels of output
+	//     so we use a new structure here rather than the older frame processing
+	virtual bool processSynthAudio(SynthProcessorData* audioData) = 0;
 
 	// --- for processing objects with a sidechain input or other necessary aux input
 	//     the return value is optional and will depend on the subclassed object
 	virtual double processAuxInputAudioSample(double xn) { return xn; }
-
-	// --- optional processing function
-	//     e.g. does not make sense for some objects to implement this
-	//          such as inherently mono objects like Biquad
-	//          BUT a processor that must use both left and right channels (ping-pong delay) would need it
-	virtual bool processAudioFrame(const float* inputFrame,		/* ptr to one frame of data: pInputFrame[0] = left, pInputFrame[1] = right, etc...*/
-		float* outputFrame,
-		uint32_t inputChannels,
-		uint32_t outputChannels)
-	{
-		// --- do nothing
-		return false; // NOT handled
-	}
 
 	// --- access to modulators
 	virtual std::shared_ptr<ModInputData> getModulators() = 0;

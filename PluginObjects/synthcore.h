@@ -103,6 +103,8 @@ struct SynthVoiceParameters
 
 		dcaParameters = params.dcaParameters;
 
+		moogFilterParameters = params.moogFilterParameters;
+
 		lfo1Parameters = params.lfo1Parameters;
 		ampEGParameters = params.ampEGParameters;
 		vectorJSData = params.vectorJSData;
@@ -136,6 +138,9 @@ struct SynthVoiceParameters
 	// --- LFO oscillators
 	std::shared_ptr<SynthLFOParameters> lfo1Parameters = std::make_shared<SynthLFOParameters>();
 	std::shared_ptr<SynthLFOParameters> lfo2Parameters = std::make_shared<SynthLFOParameters>();
+
+	// --- filters: **MOOG**
+	std::shared_ptr<MoogFilterParameters> moogFilterParameters = std::make_shared<MoogFilterParameters>();
 
 	// --- EGs
 	std::shared_ptr<EGParameters> ampEGParameters = std::make_shared<EGParameters>();
@@ -327,6 +332,8 @@ protected:
 
 		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxBipolarMod_1]);
 		modDestinationData[kLFO1_Shape] = &(lfo1->getModulators()->modulationInputs[kAuxBipolarMod_2]);
+
+		modDestinationData[kFilter1_fc] = &(moogFilter->getModulators()->modulationInputs[kBipolarMod]);
 	}
 
 	// --- arrays to hold source/destination
@@ -364,6 +371,9 @@ protected:
 
 	// --- filters:
 	// add here....
+
+	// --- filters: **MOOG**
+	std::unique_ptr<MoogFilter> moogFilter;
 	// Smart pointers delete themselves when no one is holding a copy of them. Smart pointers use an overloaded equals to increment its
 	// reference count, and an overloaded destructor to decrement. A unique pointer is a smart pointer that can only be owned by one object;
 	// nothing else can point to its value. 
