@@ -374,6 +374,13 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 		}
 		case egState::kDelay:
 		{
+
+			if (parameters->manualRetrigger) {
+				parameters->resetToZero = true;
+				restart();
+				break;
+			}
+
 			// --- check expired
 			if (delayTime_mSec == 0.0 || delayTimer.timerExpired())
 			{
@@ -393,6 +400,12 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 		{
 			// --- render value
 			envelopeOutput = attackOffset + envelopeOutput*attackCoeff;
+
+			if (parameters->manualRetrigger) {
+				parameters->resetToZero = true; 
+				restart();
+				break;
+			}
 
 			// --- check go to next state
 			if (envelopeOutput >= 1.0 || attackTime_mSec <= 0.0)
@@ -415,6 +428,12 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 			// --- render value
 			envelopeOutput = decayOffset + envelopeOutput*decayCoeff;
 
+			if (parameters->manualRetrigger) {
+				parameters->resetToZero = true;
+				restart();
+				break;
+			}
+
 			// --- check go to next state
 			if (envelopeOutput <= sustainLevel || decayTime_mSec <= 0.0)
 			{
@@ -428,6 +447,12 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 		case egState::kHoldOn:
 		{
 			envelopeOutput = 1.0;
+
+			if (parameters->manualRetrigger) {
+				parameters->resetToZero = true; 
+				restart();
+				break;
+			}
 
 			// --- check expired
 			if (holdTime_mSec == 0.0 || holdTimer.timerExpired())
@@ -449,6 +474,13 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 		{
 			// --- render value
 			envelopeOutput = sustainLevel;
+
+			if (parameters->manualRetrigger) {
+				parameters->resetToZero = true; 
+				restart();
+				break;
+			}
+
 			break;
 		}
 	
@@ -464,6 +496,12 @@ const ModOutputData EnvelopeGenerator::renderModulatorOutput()
 			else
 				// --- render value
 				envelopeOutput = releaseOffset + envelopeOutput*releaseCoeff;
+
+			if (parameters->manualRetrigger) {
+				parameters->resetToZero = true; 
+				restart();
+				break;
+			}
 
 			// --- check go to next state
 			if (envelopeOutput <= 0.0 || releaseTime_mSec <= 0.0)
