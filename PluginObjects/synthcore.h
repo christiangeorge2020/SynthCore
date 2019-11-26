@@ -36,6 +36,8 @@ enum modSource
 	kOsc1_Normal, // osc 1 output
 
 	// --- other modulators (e.g. filter output) here
+	kJoystickAC,
+	kJoystickBD,
 
 
 	// --- remain last, will always be the size of modulator array
@@ -52,6 +54,7 @@ enum modDestination
 {
 	// --- oscillator pitch (add more here)
 	kOsc1_fo,
+	kOsc2_fo,
 
 	// --- LFO
 	kLFO1_fo,
@@ -321,10 +324,16 @@ protected:
 		
 		// LFO2 -> LFO1
 		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
+
+		modSourceData[kJoystickAC] = &parameters->vectorJSData.vectorACMix;
+		modSourceData[kJoystickBD] = &parameters->vectorJSData.vectorBDMix;
+
 		
 
 		// --- destinations
 		modDestinationData[kOsc1_fo] = &(osc1->getModulators()->modulationInputs[kBipolarMod]);
+		modDestinationData[kOsc2_fo] = &(osc2->getModulators()->modulationInputs[kBipolarMod]);
+
 		modDestinationData[kDCA_EGMod] = &(dca->getModulators()->modulationInputs[kEGMod]);
 		modDestinationData[kDCA_AmpMod] = &(dca->getModulators()->modulationInputs[kMaxDownAmpMod]);
 

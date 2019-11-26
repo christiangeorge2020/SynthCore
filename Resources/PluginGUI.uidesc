@@ -70,6 +70,16 @@
 		<control-tag name="controlID::eg1ManualTrigger" tag="88" />
 		<control-tag name="controlID::fc1_hertz" tag="5" />
 		<control-tag name="controlID::q1Control" tag="6" />
+		<control-tag name="controlID::lfo1Amplitude" tag="170" />
+		<control-tag name="controlID::eg1ModOut" tag="180" />
+		<control-tag name="controlID::osc1FoModIn" tag="161" />
+		<control-tag name="controlID::osc2FoModIn" tag="162" />
+		<control-tag name="controlID::enableKeyTrack" tag="7" />
+		<control-tag name="controlID::keyTrackRatio" tag="8" />
+		<control-tag name="controlID::lfo1_to_osc1Fo" tag="171" />
+		<control-tag name="controlID::lfo1_to_osc2Fo" tag="172" />
+		<control-tag name="controlID::eg1_to_osc1Fo" tag="181" />
+		<control-tag name="controlID::eg1Offset" tag="89" />
 		<control-tag name="XY_TRACKPAD" tag="131073" />
 		<control-tag name="VECTOR_JOYSTICK" tag="131074" />
 		<control-tag name="PRESET_NAME" tag="131075" />

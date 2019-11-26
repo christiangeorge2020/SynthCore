@@ -62,7 +62,17 @@ enum controlID {
 	eg1AutoRetrigger = 87,
 	eg1ManualTrigger = 88,
 	fc1_hertz = 5,
-	q1Control = 6
+	q1Control = 6,
+	lfo1Amplitude = 170,
+	eg1ModOut = 180,
+	osc1FoModIn = 161,
+	osc2FoModIn = 162,
+	enableKeyTrack = 7,
+	keyTrackRatio = 8,
+	lfo1_to_osc1Fo = 171,
+	lfo1_to_osc2Fo = 172,
+	eg1_to_osc1Fo = 181,
+	eg1Offset = 89
 };
 
 	// **--0x0F1F--**
@@ -196,6 +206,12 @@ private:
 	double eg1DelayTime_mSec = 0.0;
 	double fc1_hertz = 0.0;
 	double q1Control = 0.0;
+	double lfo1Amplitude = 0.0;
+	double eg1ModOut = 0.0;
+	double osc1FoModIn = 0.0;
+	double osc2FoModIn = 0.0;
+	double keyTrackRatio = 0.0;
+	double eg1Offset = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -251,6 +267,18 @@ private:
 
 	int eg1ManualTrigger = 0;
 	enum class eg1ManualTriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1ManualTriggerEnum::SWITCH_OFF, eg1ManualTrigger)) etc... 
+
+	int enableKeyTrack = 0;
+	enum class enableKeyTrackEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(enableKeyTrackEnum::SWITCH_OFF, enableKeyTrack)) etc... 
+
+	int lfo1_to_osc1Fo = 0;
+	enum class lfo1_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_osc1FoEnum::SWITCH_OFF, lfo1_to_osc1Fo)) etc... 
+
+	int lfo1_to_osc2Fo = 0;
+	enum class lfo1_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_osc2FoEnum::SWITCH_OFF, lfo1_to_osc2Fo)) etc... 
+
+	int eg1_to_osc1Fo = 0;
+	enum class eg1_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_osc1FoEnum::SWITCH_OFF, eg1_to_osc1Fo)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

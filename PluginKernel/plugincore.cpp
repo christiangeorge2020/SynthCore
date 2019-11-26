@@ -346,6 +346,72 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&q1Control, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
+	// --- continuous control: LFO1 Out
+	piParam = new PluginParameter(controlID::lfo1Amplitude, "LFO1 Out", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&lfo1Amplitude, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Out
+	piParam = new PluginParameter(controlID::eg1ModOut, "EG1 Out", "", controlVariableType::kDouble, -1.000000, 1.000000, 1.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1ModOut, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Osc1 Fo In
+	piParam = new PluginParameter(controlID::osc1FoModIn, "Osc1 Fo In", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&osc1FoModIn, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Osc2 Fo In
+	piParam = new PluginParameter(controlID::osc2FoModIn, "Osc2 Fo In", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&osc2FoModIn, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Key Track
+	piParam = new PluginParameter(controlID::enableKeyTrack, "Key Track", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&enableKeyTrack, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Key Track Ratio
+	piParam = new PluginParameter(controlID::keyTrackRatio, "Key Track Ratio", "", controlVariableType::kDouble, 0.250000, 4.000000, 1.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&keyTrackRatio, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO1
+	piParam = new PluginParameter(controlID::lfo1_to_osc1Fo, "LFO1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_osc1Fo, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO1
+	piParam = new PluginParameter(controlID::lfo1_to_osc2Fo, "LFO1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_osc2Fo, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG1
+	piParam = new PluginParameter(controlID::eg1_to_osc1Fo, "EG1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1_to_osc1Fo, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Offset
+	piParam = new PluginParameter(controlID::eg1Offset, "EG1 Offset", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1Offset, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -560,6 +626,56 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::q1Control, auxAttribute);
 
+	// --- controlID::lfo1Amplitude
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::lfo1Amplitude, auxAttribute);
+
+	// --- controlID::eg1ModOut
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1ModOut, auxAttribute);
+
+	// --- controlID::osc1FoModIn
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::osc1FoModIn, auxAttribute);
+
+	// --- controlID::osc2FoModIn
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::osc2FoModIn, auxAttribute);
+
+	// --- controlID::enableKeyTrack
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741824);
+	setParamAuxAttribute(controlID::enableKeyTrack, auxAttribute);
+
+	// --- controlID::keyTrackRatio
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::keyTrackRatio, auxAttribute);
+
+	// --- controlID::lfo1_to_osc1Fo
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_osc1Fo, auxAttribute);
+
+	// --- controlID::lfo1_to_osc2Fo
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_osc2Fo, auxAttribute);
+
+	// --- controlID::eg1_to_osc1Fo
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg1_to_osc1Fo, auxAttribute);
+
+	// --- controlID::eg1Offset
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1Offset, auxAttribute);
+
 
 	// **--0xEDA5--**
    
@@ -702,6 +818,19 @@ void PluginCore::updateParameters()
 
 	engineParams.voiceParameters->moogFilterParameters->fc = fc1_hertz;
 	engineParams.voiceParameters->moogFilterParameters->Q = q1Control;
+	engineParams.voiceParameters->moogFilterParameters->enableKeyTrack = (enableKeyTrack == 1);
+	engineParams.voiceParameters->moogFilterParameters->keyTrackRatio = keyTrackRatio;
+
+	engineParams.setMM_SourceMasterIntensity(kLFO1_Normal, lfo1Amplitude);
+	engineParams.setMM_SourceMasterIntensity(kEG1_Normal, eg1ModOut);
+
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc1_fo, lfo1_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc2_fo, lfo1_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kOsc1_fo, eg1_to_osc1Fo);
+
+	engineParams.setMM_DestMasterIntensity(kOsc1_fo, osc1FoModIn);
+	engineParams.setMM_DestMasterIntensity(kOsc2_fo, osc2FoModIn);
+
 	
 
 	// --- THE update - this trickles all param updates
@@ -1090,8 +1219,18 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::eg1Mode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::eg1AutoRetrigger, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::eg1ManualTrigger, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::fc1_hertz, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::q1Control, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::fc1_hertz, 880.000000);
+	setPresetParameter(preset->presetParameters, controlID::q1Control, 1.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1Amplitude, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1ModOut, 1.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc1FoModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc2FoModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::enableKeyTrack, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::keyTrackRatio, 1.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_osc1Fo, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_osc2Fo, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1_to_osc1Fo, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1Offset, 0.000000);
 	addPreset(preset);
 
 

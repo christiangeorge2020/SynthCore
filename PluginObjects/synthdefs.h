@@ -38,7 +38,7 @@ Definitions for synth components.
 
 
 
-const unsigned int MAX_VOICES = 4;			// --- in Debug mode, you may only get 2 or 3 for extreme-synths; in Release mode you will easily get 32, even up to 64 depending on algorithms
+const unsigned int MAX_VOICES = 3;			// --- in Debug mode, you may only get 2 or 3 for extreme-synths; in Release mode you will easily get 32, even up to 64 depending on algorithms
 const unsigned int MAX_SYNTH_CHANNELS = 32;	// --- VST3 allows for 22.1, so 32 should cover us
 const unsigned int MAX_OSC_CHANNELS = 32;	// --- VST3 allows for 22.1, so 32 should cover us
 const unsigned int MAX_PROCESSOR_CHANNELS = 32;	// --- VST3 allows for 22.1, so 32 should cover us

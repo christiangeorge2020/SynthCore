@@ -309,6 +309,8 @@ bool SynthVoice::doNoteOn(midiEvent& event)
 	// --- needed forLFO  modes
 	lfo1->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
+	moogFilter->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+
 	// --- set the flag
 	voiceIsRunning = true; // we are ON
 	granularityCounter = -1; // reset to -1
@@ -398,7 +400,7 @@ SynthEngine::SynthEngine()
 
 	// --- HARDWIRED MOD ROUTINGS --- //
 	
-	parameters.setMM_HardwiredRouting(kEG1_Normal, kFilter1_fc);
+	parameters.setMM_HardwiredRouting(kJoystickAC, kFilter1_fc);
 	// --- kEG1_Normal -> kDCA_EGMod
 	parameters.setMM_HardwiredRouting(kEG1_Normal, kDCA_EGMod);
 

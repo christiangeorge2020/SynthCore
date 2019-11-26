@@ -200,6 +200,9 @@
     <ClInclude Include="..\PluginObjects\rotor.h">
       <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
     </ClInclude>
+    <ClInclude Include="..\PluginObjects\limiter.h">
+      <Filter>Plugin Kernel\Plugin GUI\PluginObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\PluginGUI.uidesc">
