@@ -64,11 +64,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\chris\AppData\Roaming\RackAFX 7.0\PlugIns\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\sammyfuller\AppData\Roaming\RackAFX 7.0\PlugIns\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)\build\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\build\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\chris\AppData\Roaming\RackAFX 7.0\PlugIns\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\sammyfuller\AppData\Roaming\RackAFX 7.0\PlugIns\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)\build\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\build\</IntDir>
@@ -106,7 +106,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>C:\Users\chris\AppData\Roaming\RackAFX 7.0\PlugIns\$(ProjectName)$(TargetExt)</OutputFile>
+      <OutputFile>C:\Users\sammyfuller\AppData\Roaming\RackAFX 7.0\PlugIns\$(ProjectName)$(TargetExt)</OutputFile>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
@@ -159,7 +159,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>C:\Users\chris\AppData\Roaming\RackAFX 7.0\PlugIns\$(ProjectName)$(TargetExt)</OutputFile>
+      <OutputFile>C:\Users\sammyfuller\AppData\Roaming\RackAFX 7.0\PlugIns\$(ProjectName)$(TargetExt)</OutputFile>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
@@ -277,3 +277,4 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
+
