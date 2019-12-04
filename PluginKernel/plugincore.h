@@ -48,19 +48,6 @@ enum controlID {
 	osc3BankIndex = 21,
 	osc4BankIndex = 31,
 	osc1Detune_cents = 3,
-	joystickX_rate = 68,
-	joystickX_amp = 78,
-	joystickY_rate = 69,
-	joystickY_amp = 79,
-	eg1AttackTime_mSec = 82,
-	eg1DecayTime_mSec = 84,
-	eg1SustainLevel = 85,
-	eg1ReleaseTime_mSec = 86,
-	eg1HoldTime_mSec = 83,
-	eg1DelayTime_mSec = 81,
-	eg1Mode = 80,
-	eg1AutoRetrigger = 87,
-	eg1ManualTrigger = 88,
 	fc1_hertz = 5,
 	q1Control = 6,
 	lfo1Amplitude = 170,
@@ -72,7 +59,27 @@ enum controlID {
 	lfo1_to_osc1Fo = 171,
 	lfo1_to_osc2Fo = 172,
 	eg1_to_osc1Fo = 181,
-	eg1Offset = 89
+	eg2DelayTime_mSec = 71,
+	eg2AttackTime_mSec = 72,
+	eg2HoldTime_mSec = 73,
+	eg2DecayTime_mSec = 74,
+	eg2SustainLevel = 75,
+	eg2ReleaseTime_mSec = 76,
+	eg2AutoTrigger = 77,
+	eg2ManualTrigger = 78,
+	eg1DelayTime_mSec = 61,
+	eg1AttackTime_mSec = 62,
+	eg1HoldTime_mSec = 63,
+	eg1DecayTime_mSec = 64,
+	eg1SustainLevel = 65,
+	eg1ReleaseTime_mSec = 66,
+	eg1AutoRetrigger = 67,
+	eg1ManualTrigger = 68,
+	eg1Offset = 69,
+	eg2Offset = 79,
+	eg1Mode = 60,
+	eg2Mode = 70,
+	osc1Mode = 2
 };
 
 	// **--0x0F1F--**
@@ -194,16 +201,6 @@ private:
 	double lfo2Shape = 0.0;
 	double lfo2ShapeSplit = 0.0;
 	double osc1Detune_cents = 0.0;
-	double joystickX_rate = 0.0;
-	double joystickX_amp = 0.0;
-	double joystickY_rate = 0.0;
-	double joystickY_amp = 0.0;
-	double eg1AttackTime_mSec = 0.0;
-	double eg1DecayTime_mSec = 0.0;
-	double eg1SustainLevel = 0.0;
-	double eg1ReleaseTime_mSec = 0.0;
-	double eg1HoldTime_mSec = 0.0;
-	double eg1DelayTime_mSec = 0.0;
 	double fc1_hertz = 0.0;
 	double q1Control = 0.0;
 	double lfo1Amplitude = 0.0;
@@ -211,7 +208,20 @@ private:
 	double osc1FoModIn = 0.0;
 	double osc2FoModIn = 0.0;
 	double keyTrackRatio = 0.0;
+	double eg2DelayTime_mSec = 0.0;
+	double eg2AttackTime_mSec = 0.0;
+	double eg2HoldTime_mSec = 0.0;
+	double eg2DecayTime_mSec = 0.0;
+	double eg2SustainLevel = 0.0;
+	double eg2ReleaseTime_mSec = 0.0;
+	double eg1DelayTime_mSec = 0.0;
+	double eg1AttackTime_mSec = 0.0;
+	double eg1HoldTime_mSec = 0.0;
+	double eg1DecayTime_mSec = 0.0;
+	double eg1SustainLevel = 0.0;
+	double eg1ReleaseTime_mSec = 0.0;
 	double eg1Offset = 0.0;
+	double eg2Offset = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -259,15 +269,6 @@ private:
 	int osc4BankIndex = 0;
 	enum class osc4BankIndexEnum { Bank_0,Bank_1,Bank_2,Bank_3 };	// to compare: if(compareEnumToInt(osc4BankIndexEnum::Bank_0, osc4BankIndex)) etc... 
 
-	int eg1Mode = 0;
-	enum class eg1ModeEnum { ADSR,AHDSR,AHR };	// to compare: if(compareEnumToInt(eg1ModeEnum::ADSR, eg1Mode)) etc... 
-
-	int eg1AutoRetrigger = 0;
-	enum class eg1AutoRetriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1AutoRetriggerEnum::SWITCH_OFF, eg1AutoRetrigger)) etc... 
-
-	int eg1ManualTrigger = 0;
-	enum class eg1ManualTriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1ManualTriggerEnum::SWITCH_OFF, eg1ManualTrigger)) etc... 
-
 	int enableKeyTrack = 0;
 	enum class enableKeyTrackEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(enableKeyTrackEnum::SWITCH_OFF, enableKeyTrack)) etc... 
 
@@ -279,6 +280,27 @@ private:
 
 	int eg1_to_osc1Fo = 0;
 	enum class eg1_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_osc1FoEnum::SWITCH_OFF, eg1_to_osc1Fo)) etc... 
+
+	int eg2AutoTrigger = 0;
+	enum class eg2AutoTriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2AutoTriggerEnum::SWITCH_OFF, eg2AutoTrigger)) etc... 
+
+	int eg2ManualTrigger = 0;
+	enum class eg2ManualTriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2ManualTriggerEnum::SWITCH_OFF, eg2ManualTrigger)) etc... 
+
+	int eg1AutoRetrigger = 0;
+	enum class eg1AutoRetriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1AutoRetriggerEnum::SWITCH_OFF, eg1AutoRetrigger)) etc... 
+
+	int eg1ManualTrigger = 0;
+	enum class eg1ManualTriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1ManualTriggerEnum::SWITCH_OFF, eg1ManualTrigger)) etc... 
+
+	int eg1Mode = 0;
+	enum class eg1ModeEnum { ADSR,AHDSR,AHR };	// to compare: if(compareEnumToInt(eg1ModeEnum::ADSR, eg1Mode)) etc... 
+
+	int eg2Mode = 0;
+	enum class eg2ModeEnum { ADSR,AHDSR,AHR };	// to compare: if(compareEnumToInt(eg2ModeEnum::ADSR, eg2Mode)) etc... 
+
+	int osc1Mode = 0;
+	enum class osc1ModeEnum { Mono,Unison,Poly };	// to compare: if(compareEnumToInt(osc1ModeEnum::Mono, osc1Mode)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

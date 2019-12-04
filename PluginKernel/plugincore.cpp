@@ -244,94 +244,6 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&osc1Detune_cents, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
-	// --- continuous control: JS X Rate
-	piParam = new PluginParameter(controlID::joystickX_rate, "JS X Rate", "hertz", controlVariableType::kDouble, 0.000000, 20.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&joystickX_rate, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: JS X Amp
-	piParam = new PluginParameter(controlID::joystickX_amp, "JS X Amp", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&joystickX_amp, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: JS Y Rate
-	piParam = new PluginParameter(controlID::joystickY_rate, "JS Y Rate", "hertz", controlVariableType::kDouble, 0.000000, 20.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&joystickY_rate, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: JS Y Amp
-	piParam = new PluginParameter(controlID::joystickY_amp, "JS Y Amp", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&joystickY_amp, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: EG1 Attack
-	piParam = new PluginParameter(controlID::eg1AttackTime_mSec, "EG1 Attack", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 5.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&eg1AttackTime_mSec, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: EG1 Decay
-	piParam = new PluginParameter(controlID::eg1DecayTime_mSec, "EG1 Decay", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 100.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&eg1DecayTime_mSec, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: EG1 Sustain
-	piParam = new PluginParameter(controlID::eg1SustainLevel, "EG1 Sustain", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.707000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&eg1SustainLevel, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: EG1 Release
-	piParam = new PluginParameter(controlID::eg1ReleaseTime_mSec, "EG1 Release", "mSec", controlVariableType::kDouble, 0.000000, 10000.000000, 1000.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&eg1ReleaseTime_mSec, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: EG1 Hold
-	piParam = new PluginParameter(controlID::eg1HoldTime_mSec, "EG1 Hold", "msec", controlVariableType::kDouble, 0.000000, 5000.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&eg1HoldTime_mSec, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: EG1 Delay
-	piParam = new PluginParameter(controlID::eg1DelayTime_mSec, "EG1 Delay", "msec", controlVariableType::kDouble, 0.000000, 100.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&eg1DelayTime_mSec, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- discrete control: EG1 Mode
-	piParam = new PluginParameter(controlID::eg1Mode, "EG1 Mode", "ADSR,AHDSR,AHR", "ADSR");
-	piParam->setBoundVariable(&eg1Mode, boundVariableType::kInt);
-	piParam->setIsDiscreteSwitch(true);
-	addPluginParameter(piParam);
-
-	// --- discrete control: EG1 AutoTrigg
-	piParam = new PluginParameter(controlID::eg1AutoRetrigger, "EG1 AutoTrigg", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&eg1AutoRetrigger, boundVariableType::kInt);
-	piParam->setIsDiscreteSwitch(true);
-	addPluginParameter(piParam);
-
-	// --- discrete control: EG1 Trigger
-	piParam = new PluginParameter(controlID::eg1ManualTrigger, "EG1 Trigger", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&eg1ManualTrigger, boundVariableType::kInt);
-	piParam->setIsDiscreteSwitch(true);
-	addPluginParameter(piParam);
-
 	// --- continuous control: FC 1
 	piParam = new PluginParameter(controlID::fc1_hertz, "FC 1", "Hertz", controlVariableType::kDouble, 20.000000, 18000.000000, 880.000000, taper::kVoltOctaveTaper);
 	piParam->setParameterSmoothing(false);
@@ -405,11 +317,144 @@ bool PluginCore::initPluginParameters()
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
+	// --- continuous control: EG2 Delay
+	piParam = new PluginParameter(controlID::eg2DelayTime_mSec, "EG2 Delay", "mSec", controlVariableType::kDouble, 0.000000, 100.000000, 10.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg2DelayTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG2 Attack
+	piParam = new PluginParameter(controlID::eg2AttackTime_mSec, "EG2 Attack", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 10.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg2AttackTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG2 Hold
+	piParam = new PluginParameter(controlID::eg2HoldTime_mSec, "EG2 Hold", "msec", controlVariableType::kDouble, 0.000000, 2000.000000, 10.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg2HoldTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG2 Decay
+	piParam = new PluginParameter(controlID::eg2DecayTime_mSec, "EG2 Decay", "mSec", controlVariableType::kDouble, 0.000000, 1000.000000, 100.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg2DecayTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG2 Sustain
+	piParam = new PluginParameter(controlID::eg2SustainLevel, "EG2 Sustain", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.707000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg2SustainLevel, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG2 Release
+	piParam = new PluginParameter(controlID::eg2ReleaseTime_mSec, "EG2 Release", "mSec", controlVariableType::kDouble, 0.000000, 10000.000000, 1000.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg2ReleaseTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG2 AutoTrig
+	piParam = new PluginParameter(controlID::eg2AutoTrigger, "EG2 AutoTrig", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2AutoTrigger, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG2 Trigger
+	piParam = new PluginParameter(controlID::eg2ManualTrigger, "EG2 Trigger", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2ManualTrigger, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Eg1 Delay
+	piParam = new PluginParameter(controlID::eg1DelayTime_mSec, "Eg1 Delay", "mSec", controlVariableType::kDouble, 0.000000, 100.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1DelayTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Attack
+	piParam = new PluginParameter(controlID::eg1AttackTime_mSec, "EG1 Attack", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 5.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1AttackTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Hold
+	piParam = new PluginParameter(controlID::eg1HoldTime_mSec, "EG1 Hold", "mSec", controlVariableType::kDouble, 0.000000, 100.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1HoldTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Decay
+	piParam = new PluginParameter(controlID::eg1DecayTime_mSec, "EG1 Decay", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 100.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1DecayTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Sustain
+	piParam = new PluginParameter(controlID::eg1SustainLevel, "EG1 Sustain", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.707000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1SustainLevel, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG1 Release
+	piParam = new PluginParameter(controlID::eg1ReleaseTime_mSec, "EG1 Release", "mSec", controlVariableType::kDouble, 0.000000, 10000.000000, 1000.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1ReleaseTime_mSec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG1 AutoTrig
+	piParam = new PluginParameter(controlID::eg1AutoRetrigger, "EG1 AutoTrig", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1AutoRetrigger, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG1 Trigger
+	piParam = new PluginParameter(controlID::eg1ManualTrigger, "EG1 Trigger", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1ManualTrigger, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
 	// --- continuous control: EG1 Offset
 	piParam = new PluginParameter(controlID::eg1Offset, "EG1 Offset", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&eg1Offset, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG2 Offset
+	piParam = new PluginParameter(controlID::eg2Offset, "EG2 Offset", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg2Offset, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG1 Mode
+	piParam = new PluginParameter(controlID::eg1Mode, "EG1 Mode", "ADSR,AHDSR,AHR", "ADSR");
+	piParam->setBoundVariable(&eg1Mode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG2 Mode
+	piParam = new PluginParameter(controlID::eg2Mode, "EG2 Mode", "ADSR,AHDSR,AHR", "ADSR");
+	piParam->setBoundVariable(&eg2Mode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc1 Mode
+	piParam = new PluginParameter(controlID::osc1Mode, "Osc1 Mode", "Mono,Unison,Poly", "Mono");
+	piParam->setBoundVariable(&osc1Mode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
 	// --- Aux Attributes
@@ -551,71 +596,6 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::osc1Detune_cents, auxAttribute);
 
-	// --- controlID::joystickX_rate
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::joystickX_rate, auxAttribute);
-
-	// --- controlID::joystickX_amp
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::joystickX_amp, auxAttribute);
-
-	// --- controlID::joystickY_rate
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::joystickY_rate, auxAttribute);
-
-	// --- controlID::joystickY_amp
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::joystickY_amp, auxAttribute);
-
-	// --- controlID::eg1AttackTime_mSec
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::eg1AttackTime_mSec, auxAttribute);
-
-	// --- controlID::eg1DecayTime_mSec
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::eg1DecayTime_mSec, auxAttribute);
-
-	// --- controlID::eg1SustainLevel
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::eg1SustainLevel, auxAttribute);
-
-	// --- controlID::eg1ReleaseTime_mSec
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::eg1ReleaseTime_mSec, auxAttribute);
-
-	// --- controlID::eg1HoldTime_mSec
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::eg1HoldTime_mSec, auxAttribute);
-
-	// --- controlID::eg1DelayTime_mSec
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::eg1DelayTime_mSec, auxAttribute);
-
-	// --- controlID::eg1Mode
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(805306368);
-	setParamAuxAttribute(controlID::eg1Mode, auxAttribute);
-
-	// --- controlID::eg1AutoRetrigger
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(1073741824);
-	setParamAuxAttribute(controlID::eg1AutoRetrigger, auxAttribute);
-
-	// --- controlID::eg1ManualTrigger
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(1610612738);
-	setParamAuxAttribute(controlID::eg1ManualTrigger, auxAttribute);
-
 	// --- controlID::fc1_hertz
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
@@ -671,10 +651,110 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::eg1_to_osc1Fo, auxAttribute);
 
+	// --- controlID::eg2DelayTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg2DelayTime_mSec, auxAttribute);
+
+	// --- controlID::eg2AttackTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg2AttackTime_mSec, auxAttribute);
+
+	// --- controlID::eg2HoldTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg2HoldTime_mSec, auxAttribute);
+
+	// --- controlID::eg2DecayTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg2DecayTime_mSec, auxAttribute);
+
+	// --- controlID::eg2SustainLevel
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg2SustainLevel, auxAttribute);
+
+	// --- controlID::eg2ReleaseTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg2ReleaseTime_mSec, auxAttribute);
+
+	// --- controlID::eg2AutoTrigger
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741824);
+	setParamAuxAttribute(controlID::eg2AutoTrigger, auxAttribute);
+
+	// --- controlID::eg2ManualTrigger
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1610612736);
+	setParamAuxAttribute(controlID::eg2ManualTrigger, auxAttribute);
+
+	// --- controlID::eg1DelayTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1DelayTime_mSec, auxAttribute);
+
+	// --- controlID::eg1AttackTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1AttackTime_mSec, auxAttribute);
+
+	// --- controlID::eg1HoldTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1HoldTime_mSec, auxAttribute);
+
+	// --- controlID::eg1DecayTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1DecayTime_mSec, auxAttribute);
+
+	// --- controlID::eg1SustainLevel
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1SustainLevel, auxAttribute);
+
+	// --- controlID::eg1ReleaseTime_mSec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1ReleaseTime_mSec, auxAttribute);
+
+	// --- controlID::eg1AutoRetrigger
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741824);
+	setParamAuxAttribute(controlID::eg1AutoRetrigger, auxAttribute);
+
+	// --- controlID::eg1ManualTrigger
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1610612736);
+	setParamAuxAttribute(controlID::eg1ManualTrigger, auxAttribute);
+
 	// --- controlID::eg1Offset
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::eg1Offset, auxAttribute);
+
+	// --- controlID::eg2Offset
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg2Offset, auxAttribute);
+
+	// --- controlID::eg1Mode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::eg1Mode, auxAttribute);
+
+	// --- controlID::eg2Mode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::eg2Mode, auxAttribute);
+
+	// --- controlID::osc1Mode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc1Mode, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -1206,19 +1286,6 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::osc3BankIndex, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc4BankIndex, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc1Detune_cents, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::joystickX_rate, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::joystickX_amp, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::joystickY_rate, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::joystickY_amp, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1AttackTime_mSec, 5.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1DecayTime_mSec, 100.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1SustainLevel, 0.707000);
-	setPresetParameter(preset->presetParameters, controlID::eg1ReleaseTime_mSec, 1000.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1HoldTime_mSec, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1DelayTime_mSec, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1Mode, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1AutoRetrigger, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1ManualTrigger, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::fc1_hertz, 880.000000);
 	setPresetParameter(preset->presetParameters, controlID::q1Control, 1.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo1Amplitude, 0.000000);
@@ -1230,7 +1297,27 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::lfo1_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo1_to_osc2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::eg1_to_osc1Fo, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2DelayTime_mSec, 10.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2AttackTime_mSec, 10.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2HoldTime_mSec, 10.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2DecayTime_mSec, 100.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2SustainLevel, 0.707000);
+	setPresetParameter(preset->presetParameters, controlID::eg2ReleaseTime_mSec, 1000.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2AutoTrigger, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2ManualTrigger, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1DelayTime_mSec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1AttackTime_mSec, 5.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1HoldTime_mSec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1DecayTime_mSec, 100.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1SustainLevel, 0.707000);
+	setPresetParameter(preset->presetParameters, controlID::eg1ReleaseTime_mSec, 1000.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1AutoRetrigger, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1ManualTrigger, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::eg1Offset, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2Offset, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1Mode, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2Mode, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc1Mode, 0.000000);
 	addPreset(preset);
 
 

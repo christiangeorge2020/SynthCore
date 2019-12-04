@@ -55,19 +55,6 @@
 		<control-tag name="controlID::osc3BankIndex" tag="21" />
 		<control-tag name="controlID::osc4BankIndex" tag="31" />
 		<control-tag name="controlID::osc1Detune_cents" tag="3" />
-		<control-tag name="controlID::joystickX_rate" tag="68" />
-		<control-tag name="controlID::joystickX_amp" tag="78" />
-		<control-tag name="controlID::joystickY_rate" tag="69" />
-		<control-tag name="controlID::joystickY_amp" tag="79" />
-		<control-tag name="controlID::eg1AttackTime_mSec" tag="82" />
-		<control-tag name="controlID::eg1DecayTime_mSec" tag="84" />
-		<control-tag name="controlID::eg1SustainLevel" tag="85" />
-		<control-tag name="controlID::eg1ReleaseTime_mSec" tag="86" />
-		<control-tag name="controlID::eg1HoldTime_mSec" tag="83" />
-		<control-tag name="controlID::eg1DelayTime_mSec" tag="81" />
-		<control-tag name="controlID::eg1Mode" tag="80" />
-		<control-tag name="controlID::eg1AutoRetrigger" tag="87" />
-		<control-tag name="controlID::eg1ManualTrigger" tag="88" />
 		<control-tag name="controlID::fc1_hertz" tag="5" />
 		<control-tag name="controlID::q1Control" tag="6" />
 		<control-tag name="controlID::lfo1Amplitude" tag="170" />
@@ -79,7 +66,27 @@
 		<control-tag name="controlID::lfo1_to_osc1Fo" tag="171" />
 		<control-tag name="controlID::lfo1_to_osc2Fo" tag="172" />
 		<control-tag name="controlID::eg1_to_osc1Fo" tag="181" />
-		<control-tag name="controlID::eg1Offset" tag="89" />
+		<control-tag name="controlID::eg2DelayTime_mSec" tag="71" />
+		<control-tag name="controlID::eg2AttackTime_mSec" tag="72" />
+		<control-tag name="controlID::eg2HoldTime_mSec" tag="73" />
+		<control-tag name="controlID::eg2DecayTime_mSec" tag="74" />
+		<control-tag name="controlID::eg2SustainLevel" tag="75" />
+		<control-tag name="controlID::eg2ReleaseTime_mSec" tag="76" />
+		<control-tag name="controlID::eg2AutoTrigger" tag="77" />
+		<control-tag name="controlID::eg2ManualTrigger" tag="78" />
+		<control-tag name="controlID::eg1DelayTime_mSec" tag="61" />
+		<control-tag name="controlID::eg1AttackTime_mSec" tag="62" />
+		<control-tag name="controlID::eg1HoldTime_mSec" tag="63" />
+		<control-tag name="controlID::eg1DecayTime_mSec" tag="64" />
+		<control-tag name="controlID::eg1SustainLevel" tag="65" />
+		<control-tag name="controlID::eg1ReleaseTime_mSec" tag="66" />
+		<control-tag name="controlID::eg1AutoRetrigger" tag="67" />
+		<control-tag name="controlID::eg1ManualTrigger" tag="68" />
+		<control-tag name="controlID::eg1Offset" tag="69" />
+		<control-tag name="controlID::eg2Offset" tag="79" />
+		<control-tag name="controlID::eg1Mode" tag="60" />
+		<control-tag name="controlID::eg2Mode" tag="70" />
+		<control-tag name="controlID::osc1Mode" tag="2" />
 		<control-tag name="XY_TRACKPAD" tag="131073" />
 		<control-tag name="VECTOR_JOYSTICK" tag="131074" />
 		<control-tag name="PRESET_NAME" tag="131075" />
