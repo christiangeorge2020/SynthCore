@@ -79,7 +79,8 @@ enum controlID {
 	eg2Offset = 79,
 	eg1Mode = 60,
 	eg2Mode = 70,
-	osc1Mode = 2
+	mode = 2,
+	unisonDetune_Cents = 4
 };
 
 	// **--0x0F1F--**
@@ -222,6 +223,7 @@ private:
 	double eg1ReleaseTime_mSec = 0.0;
 	double eg1Offset = 0.0;
 	double eg2Offset = 0.0;
+	double unisonDetune_Cents = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -299,8 +301,8 @@ private:
 	int eg2Mode = 0;
 	enum class eg2ModeEnum { ADSR,AHDSR,AHR };	// to compare: if(compareEnumToInt(eg2ModeEnum::ADSR, eg2Mode)) etc... 
 
-	int osc1Mode = 0;
-	enum class osc1ModeEnum { Mono,Unison,Poly };	// to compare: if(compareEnumToInt(osc1ModeEnum::Mono, osc1Mode)) etc... 
+	int mode = 0;
+	enum class modeEnum { Poly,Mono,Unison };	// to compare: if(compareEnumToInt(modeEnum::Poly, mode)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

@@ -451,10 +451,17 @@ bool PluginCore::initPluginParameters()
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
-	// --- discrete control: Osc1 Mode
-	piParam = new PluginParameter(controlID::osc1Mode, "Osc1 Mode", "Mono,Unison,Poly", "Mono");
-	piParam->setBoundVariable(&osc1Mode, boundVariableType::kInt);
+	// --- discrete control: Mode
+	piParam = new PluginParameter(controlID::mode, "Mode", "Poly,Mono,Unison", "Poly");
+	piParam->setBoundVariable(&mode, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Unison Detune
+	piParam = new PluginParameter(controlID::unisonDetune_Cents, "Unison Detune", "Cents", controlVariableType::kDouble, -10.000000, 10.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&unisonDetune_Cents, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
 	// --- Aux Attributes
@@ -751,10 +758,15 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(805306368);
 	setParamAuxAttribute(controlID::eg2Mode, auxAttribute);
 
-	// --- controlID::osc1Mode
+	// --- controlID::mode
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(805306368);
-	setParamAuxAttribute(controlID::osc1Mode, auxAttribute);
+	setParamAuxAttribute(controlID::mode, auxAttribute);
+
+	// --- controlID::unisonDetune_Cents
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::unisonDetune_Cents, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -910,6 +922,9 @@ void PluginCore::updateParameters()
 
 	engineParams.setMM_DestMasterIntensity(kOsc1_fo, osc1FoModIn);
 	engineParams.setMM_DestMasterIntensity(kOsc2_fo, osc2FoModIn);
+
+	engineParams.mode = convertIntToEnum(mode, synthMode);
+	engineParams.masterUnisonDetune_Cents = unisonDetune_Cents;
 
 	
 
@@ -1317,7 +1332,8 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::eg2Offset, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::eg1Mode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::eg2Mode, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::osc1Mode, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::mode, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::unisonDetune_Cents, 0.000000);
 	addPreset(preset);
 
 
