@@ -69,7 +69,7 @@ struct SynthLFOParameters
 		lfoShape = params.lfoShape;
 		shapeSplitpoint = params.shapeSplitpoint;
 
-		//modRoute = params.modRoute;
+		modRoute = params.modRoute;
 
 		return *this;
 	}
@@ -85,7 +85,7 @@ struct SynthLFOParameters
 	double lfoShape = 0.5;
 	double shapeSplitpoint = 0.5;
 
-	//ModRouting modRoute = ModRouting::None;
+	ModRouting modRoute = ModRouting::None;
 };
 
 
