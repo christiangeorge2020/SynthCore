@@ -9,10 +9,10 @@
 bool MoogFilter::doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity)
 {
 	// --- store MIDI info for key tracking, etc...
-
 	keyTrackPitch = midiPitch;
 
 	// --- can also store a note-on flag if needed
+	noteOn = true;
 
 	return true;
 }
@@ -24,6 +24,7 @@ bool MoogFilter::doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t m
 bool MoogFilter::doNoteOff(double midiPitch, uint32_t midiNoteNumber, uint32_t midiNoteVelocity)
 {
 	// --- nothing to do (yet?)
+
 	return true;
 }
 
@@ -53,9 +54,10 @@ bool MoogFilter::update(bool updateAllModRoutings)
 	double freqModSemitones_fc1 = 0.5*freqModSemitoneRange*modulators->modulationInputs[kBipolarMod]; // k_BipolarMod -> Fc1
 
 	// --- perform modulation by multiplying Fc by the offset in semitones
-	double fc1 = parameters->enableKeyTrack ? (keyTrackPitch * parameters->keyTrackRatio) : parameters->fc;
+	//double fc1 = parameters->fc * pitchShiftTableLookup(freqModSemitones_fc1);
+	double fc1 = parameters->enableKeyTrack ? (keyTrackPitch * parameters->keyTrackRatio) : parameters->fc; //Check if key tracking is enabled.
 	fc1 *= pitchShiftTableLookup(freqModSemitones_fc1);
-
+	
 	boundValue(fc1, freqModLow, freqModHigh);
 
 	// --- updte the subfilters

@@ -23,8 +23,8 @@ namespace VSTGUI {
 \param tag - the control ID value
 */
 WaveView::WaveView(const VSTGUI::CRect& size, IControlListener* listener, int32_t tag)
-: ICustomView()
-, CControl(size, listener, tag)
+: CControl(size, listener, tag)
+, ICustomView()
 {
     // --- create circular buffer that is same size as the window is wide
 	circularBuffer = new double[(int)size.getWidth()];

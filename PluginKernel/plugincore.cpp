@@ -451,8 +451,8 @@ bool PluginCore::initPluginParameters()
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
-	// --- discrete control: Mode
-	piParam = new PluginParameter(controlID::mode, "Mode", "Poly,Mono,Unison", "Poly");
+	// --- discrete control: Voice Mode
+	piParam = new PluginParameter(controlID::mode, "Voice Mode", "Poly,Mono,Unison", "Poly");
 	piParam->setBoundVariable(&mode, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
@@ -853,12 +853,10 @@ void PluginCore::updateParameters()
 
 	// --- collect GUI control update values
 	engineParams.masterPitchBendSensCoarse = (unsigned int)masterPitchBend; // --- this is pitch bend max range in semitones
-
 	engineParams.masterPitchBendSensFine = (unsigned int)(100.0*(masterPitchBend - engineParams.masterPitchBendSensCoarse)); // this is pitch bend max range in semitones
 
 	// --- create two tuning offsets from one master tune value
 	engineParams.masterTuningCoarse = (int)masterTune;
-
 	engineParams.masterTuningFine = (int)(100.0*(masterTune - engineParams.masterTuningCoarse)); // --- get fraction and convert to cents (1/100th of a semitone)
 
 	engineParams.masterVolume_dB = masterVolume_dB;
@@ -882,9 +880,12 @@ void PluginCore::updateParameters()
 
 	//engineParams.voiceParameters->osc1Parameters->scaleSelect = convertIntToEnum(scaleMode, ScaleMode);
 	
-	engineParams.voiceParameters->dcaParameters->bpm = bpm;
+	/// DCA Parameters
 
+	engineParams.voiceParameters->dcaParameters->bpm = bpm;
 	engineParams.voiceParameters->dcaParameters->modRoute = convertIntToEnum(lfo2ModTarget, ModRouting);
+
+	/// OSC Parameters
 
 	engineParams.voiceParameters->osc1Parameters->oscillatorWaveformIndex = osc1Waveform;
 	engineParams.voiceParameters->osc1Parameters->oscillatorBankIndex = osc1BankIndex;
@@ -897,7 +898,8 @@ void PluginCore::updateParameters()
 
 	engineParams.voiceParameters->osc1Parameters->detuneCents = osc1Detune_cents;
 
-	// EG1 Parameters
+	/// EG1 Parameters
+
 	engineParams.voiceParameters->ampEGParameters->delayTime_mSec = eg1DelayTime_mSec;
 	engineParams.voiceParameters->ampEGParameters->attackTime_mSec = eg1AttackTime_mSec;
 	engineParams.voiceParameters->ampEGParameters->holdTime_mSec = eg1HoldTime_mSec;
@@ -908,10 +910,14 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->ampEGParameters->autoRetrigger = eg1AutoRetrigger;
 	engineParams.voiceParameters->ampEGParameters->manualRetrigger = eg1ManualTrigger;
 
+	/// MOOG FILTER Parameters
+
 	engineParams.voiceParameters->moogFilterParameters->fc = fc1_hertz;
 	engineParams.voiceParameters->moogFilterParameters->Q = q1Control;
 	engineParams.voiceParameters->moogFilterParameters->enableKeyTrack = (enableKeyTrack == 1);
 	engineParams.voiceParameters->moogFilterParameters->keyTrackRatio = keyTrackRatio;
+
+	/// MOD MATRIX Routings
 
 	engineParams.setMM_SourceMasterIntensity(kLFO1_Normal, lfo1Amplitude);
 	engineParams.setMM_SourceMasterIntensity(kEG1_Normal, eg1ModOut);

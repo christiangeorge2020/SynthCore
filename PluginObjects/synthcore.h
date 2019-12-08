@@ -9,6 +9,7 @@
 #include "synthoscillator.h" 
 #include "vafilters.h"
 #include "synthlfo.h"
+#include "rotor.h"
 #include "dca_eg.h"
 
 #include <array>
@@ -32,12 +33,29 @@ enum modSource
 	kEG1_Normal,	// EG1 = amp EG
 	kEG1_Biased,
 
+	kEG2_Normal,
+	kEG2_Biased,
+
 	// --- oscillators here
 	kOsc1_Normal, // osc 1 output
+  kOsc2_Normal,
+  kOsc3_Normal,
+  kOsc4_Normal,
 
 	// --- other modulators (e.g. filter output) here
+
+	kRotor_X,
+	kRotor_Y,
+
+	// --- vector joystick
+	// AC, BD
 	kJoystickAC,
 	kJoystickBD,
+  // Individual A, B, C, D
+  kJoystickA,
+  kJoystickB,
+  kJoystickC,
+  kJoystickD,
 
 
 	// --- remain last, will always be the size of modulator array
@@ -55,14 +73,27 @@ enum modDestination
 	// --- oscillator pitch (add more here)
 	kOsc1_fo,
 	kOsc2_fo,
+	kOsc3_fo,
+	kOsc4_fo,
+
+	kOsc1_shape,
+	kOsc2_shape,
+	kOsc3_shape,
+	kOsc4_shape,
 
 	// --- LFO
 	kLFO1_fo,
+  kLFO2_fo,
 
 	// --- FILTER (add more here)
 	kFilter1_fc, // Fc
+	kFilter2_fc,
+
+	kFilter1_Q,
+	kFilter2_Q,
 
 	kLFO1_Shape,
+  kLFO2_Shape,
 
 	// --- DCA (add more here)
 	kDCA_EGMod, // EG Input
@@ -109,6 +140,7 @@ struct SynthVoiceParameters
 		moogFilterParameters = params.moogFilterParameters;
 
 		lfo1Parameters = params.lfo1Parameters;
+		rotorParameters = params.rotorParameters;
 		ampEGParameters = params.ampEGParameters;
 		vectorJSData = params.vectorJSData;
 
@@ -142,11 +174,14 @@ struct SynthVoiceParameters
 	std::shared_ptr<SynthLFOParameters> lfo1Parameters = std::make_shared<SynthLFOParameters>();
 	std::shared_ptr<SynthLFOParameters> lfo2Parameters = std::make_shared<SynthLFOParameters>();
 
-	// --- filters: **MOOG**
-	std::shared_ptr<MoogFilterParameters> moogFilterParameters = std::make_shared<MoogFilterParameters>();
+  // --- ROTOR
+	std::shared_ptr<RotorParameters> rotorParameters = std::make_shared<RotorParameters>();
 
 	// --- EGs
 	std::shared_ptr<EGParameters> ampEGParameters = std::make_shared<EGParameters>();
+
+	// --- Filters
+	std::shared_ptr<MoogFilterParameters> moogFilterParameters = std::make_shared<MoogFilterParameters>();
 
 	// --- DCA
 	std::shared_ptr<DCAParameters> dcaParameters = std::make_shared<DCAParameters>();
@@ -324,15 +359,20 @@ protected:
 		
 		// LFO2 -> LFO1
 		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
-
+		
+		// Rotor
+		modSourceData[kRotor_X] = &rotorOutput.modulationOutputs[kRotorXOutput];
+		modSourceData[kRotor_Y] = &rotorOutput.modulationOutputs[kRotorYOutput];
+		
+		// Vector joystick as a modulation source
 		modSourceData[kJoystickAC] = &parameters->vectorJSData.vectorACMix;
 		modSourceData[kJoystickBD] = &parameters->vectorJSData.vectorBDMix;
-
-		
 
 		// --- destinations
 		modDestinationData[kOsc1_fo] = &(osc1->getModulators()->modulationInputs[kBipolarMod]);
 		modDestinationData[kOsc2_fo] = &(osc2->getModulators()->modulationInputs[kBipolarMod]);
+		modDestinationData[kOsc3_fo] = &(osc3->getModulators()->modulationInputs[kBipolarMod]);
+		modDestinationData[kOsc4_fo] = &(osc4->getModulators()->modulationInputs[kBipolarMod]);
 
 		modDestinationData[kDCA_EGMod] = &(dca->getModulators()->modulationInputs[kEGMod]);
 		modDestinationData[kDCA_AmpMod] = &(dca->getModulators()->modulationInputs[kMaxDownAmpMod]);
@@ -352,6 +392,7 @@ protected:
 	// --- mod source data: --- modulators ---
 	ModOutputData lfo1Output;
 	ModOutputData lfo2Output;
+	ModOutputData rotorOutput;
 	ModOutputData ampEGOutput;
 
 	// --- mod source data: --- filter ---
@@ -391,7 +432,7 @@ protected:
 	std::unique_ptr<SynthLFO> lfo1;
 	std::unique_ptr<SynthLFO> lfo2;
 
-
+	std::unique_ptr<Rotor> rotor;
 
 	// --- EGs
 	std::unique_ptr<EnvelopeGenerator> ampEG;

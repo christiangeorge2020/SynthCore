@@ -31,10 +31,13 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 	lfo1.reset(new SynthLFO(midiInputData, parameters->lfo1Parameters));
 	lfo2.reset(new SynthLFO(midiInputData, parameters->lfo2Parameters));
 
-	ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
+	rotor.reset(new Rotor(midiInputData, parameters->rotorParameters));
 
 	// **MOOG**
 	moogFilter.reset(new MoogFilter(midiInputData, parameters->moogFilterParameters));
+
+	// **ENVELOPE GENERATORS**
+	ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
 
 	dca.reset(new DCA(midiInputData, parameters->dcaParameters));
 
@@ -107,6 +110,8 @@ bool SynthVoice::reset(double _sampleRate)
 	/// LFO Reset
 	lfo1->reset(_sampleRate);
 	lfo2->reset(_sampleRate);
+
+	rotor->reset(_sampleRate);
 
 	ampEG->reset(_sampleRate);
 
@@ -187,13 +192,13 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 
 	lfo2->update(updateAllModRoutings);
 	lfo2Output = lfo2->renderModulatorOutput();
+
+	rotor->update(updateAllModRoutings);
+	rotorOutput = rotor->renderModulatorOutput();
 	
 	// --- update/render (add more here)
 	ampEG->update(updateAllModRoutings);
 	ampEGOutput = ampEG->renderModulatorOutput();
-
-	// --- FILTER **MOOG**	
-	moogFilter->update(updateAllModRoutings);
 
 	// --- do all mods	
 	runModulationMatrix(updateAllModRoutings);
@@ -203,6 +208,9 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	osc2->update(updateAllModRoutings);
 	osc3->update(updateAllModRoutings);
 	osc4->update(updateAllModRoutings);
+
+	// --- FILTER **MOOG**	
+	moogFilter->update(updateAllModRoutings);
 
 	dca->update(updateAllModRoutings);
 
@@ -274,7 +282,10 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	synthOutputData.synthOutputs[0] = audioData.outputs[0]; //lfo1Output.modulationOutputs[kLFONormalOutput]; //
 	synthOutputData.synthOutputs[1] = audioData.outputs[1]; //lfo2Output.modulationOutputs[kLFONormalOutput]; //
 
-	return synthOutputData;
+	/*synthOutputData.synthOutputs[0] = rotorOutput.modulationOutputs[kRotorXOutput];
+	synthOutputData.synthOutputs[1] = rotorOutput.modulationOutputs[kRotorYOutput];*/
+	
+  return synthOutputData;
 }
 
 bool SynthVoice::doNoteOn(midiEvent& event)
@@ -308,6 +319,9 @@ bool SynthVoice::doNoteOn(midiEvent& event)
 
 	// --- needed forLFO  modes
 	lfo1->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+	lfo2->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+
+	rotor->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
 	moogFilter->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
@@ -399,13 +413,23 @@ SynthEngine::SynthEngine()
 	midiInputData->ccMIDIData[PAN_CC10] = 64;		// --- MIDI PAN; default this to CENTER
 
 	// --- HARDWIRED MOD ROUTINGS --- //
-	
-	parameters.setMM_HardwiredRouting(kJoystickAC, kFilter1_fc);
+	//
 	// --- kEG1_Normal -> kDCA_EGMod
 	parameters.setMM_HardwiredRouting(kEG1_Normal, kDCA_EGMod);
 
+	//parameters.setMM_HardwiredRouting(kEG1_Normal, kFilter1_fc);
+
+	/*parameters.setMM_HardwiredRouting(kRotor_X, kOsc1_fo);
+	parameters.setMM_HardwiredRouting(kRotor_X, kOsc2_fo);
+	parameters.setMM_HardwiredRouting(kRotor_X, kOsc3_fo);
+	parameters.setMM_HardwiredRouting(kRotor_X, kOsc4_fo);*/
+
+
 	// --- example of another hardwired routing
-	//parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
+	/*parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
+	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc2_fo);
+	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc3_fo);
+	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc4_fo);*/
 
 	/// LFO2 -> LFO1
 	/*parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_fo);
@@ -418,6 +442,9 @@ SynthEngine::SynthEngine()
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 
 	// --- EG3 -> Wave Morph??
+
+	// MOVE TO MOD MATRIX, make new row for joystick
+	// parameters.setMM_HardwiredRouting(kJoystickAC, kFilter1_fc);
 
 	// --- set amp mod default value to prevent silence accidentally
 	parameters.setMM_DestDefaultValue(kDCA_AmpMod, 1.0);
@@ -634,7 +661,7 @@ bool SynthEngine::processMIDIEvent(midiEvent& event)
 		// --- for mono, we only use one voice, number [0]
 		if (parameters.mode == synthMode::kMono)
 		{
-			if (synthVoices[0]->isVoiceActive())
+			if (synthVoices[0]->isVoiceActive()) //Note on flag is set, clears after EG phase.
 			{
 				synthVoices[0]->processMIDIEvent(event);
 				return true;
@@ -666,6 +693,12 @@ bool SynthEngine::processMIDIEvent(midiEvent& event)
 		else if (parameters.mode == synthMode::kUnison)
 		{
 			// --- this will get complicated with voice stealing.
+
+			// Randomized Starting phase?
+
+      // Adjustable Num of Voices? Vector, maybe?
+      // vector<synthVoices> unisonStack;
+
 			synthVoices[0]->processMIDIEvent(event);
 			synthVoices[1]->processMIDIEvent(event);
 			synthVoices[2]->processMIDIEvent(event);
@@ -691,6 +724,11 @@ bool SynthEngine::processMIDIEvent(midiEvent& event)
 			// --- store CC event in globally shared array
 			midiInputData->ccMIDIData[event.midiData1] = event.midiData2;
 		}
+		/*if (event.midiMessage == POLY_PRESSURE)
+		{
+			midiInputData->globalMIDIData[kPolyPressure] = event.midiData2;
+		}*/
+
 
 		// --- NOTE: this synth has GUI controls for items that may also be transmitted via SYSEX-MIDI
 		//
