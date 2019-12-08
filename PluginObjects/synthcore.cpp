@@ -820,10 +820,18 @@ int SynthEngine::getVoiceIndexToSteal()
 	// --- find oldest note
 	int index = -1;
 
-	// --- add your heuristic code here to return the index of the voice to steal
+	int maxTime = 0;
+	int maxTimeIndex = 0;
 
+	// --- add your heuristic code here to return the index of the voice to steal
+	for (int i = 0; i < MAX_VOICES; i++) {
+		if (synthVoices[i]->getTimestamp() > maxTime) {
+			maxTimeIndex = i;
+			maxTime = synthVoices[i]->getTimestamp();
+		}
+	}
 	// --- index should always be >= 0
-	return index;
+	return maxTimeIndex;
 }
 
 
