@@ -458,7 +458,7 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- continuous control: Unison Detune
-	piParam = new PluginParameter(controlID::unisonDetune_Cents, "Unison Detune", "Cents", controlVariableType::kDouble, -10.000000, 10.000000, 0.000000, taper::kLinearTaper);
+	piParam = new PluginParameter(controlID::unisonDetune_Cents, "Unison Detune", "Cents", controlVariableType::kDouble, -50.000000, 50.000000, 0.000000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&unisonDetune_Cents, boundVariableType::kDouble);
@@ -886,12 +886,17 @@ void PluginCore::updateParameters()
 
 	engineParams.voiceParameters->dcaParameters->modRoute = convertIntToEnum(lfo2ModTarget, ModRouting);
 
+
+	// Oscillator Parameters
 	engineParams.voiceParameters->osc1Parameters->oscillatorWaveformIndex = osc1Waveform;
 	engineParams.voiceParameters->osc1Parameters->oscillatorBankIndex = osc1BankIndex;
+
 	engineParams.voiceParameters->osc2Parameters->oscillatorWaveformIndex = osc2Waveform;
 	engineParams.voiceParameters->osc2Parameters->oscillatorBankIndex = osc2BankIndex;
+
 	engineParams.voiceParameters->osc3Parameters->oscillatorWaveformIndex = osc3Waveform;
 	engineParams.voiceParameters->osc3Parameters->oscillatorBankIndex = osc3BankIndex;
+
 	engineParams.voiceParameters->osc4Parameters->oscillatorWaveformIndex = osc4Waveform;
 	engineParams.voiceParameters->osc4Parameters->oscillatorBankIndex = osc4BankIndex;
 
@@ -923,6 +928,8 @@ void PluginCore::updateParameters()
 	engineParams.setMM_DestMasterIntensity(kOsc1_fo, osc1FoModIn);
 	engineParams.setMM_DestMasterIntensity(kOsc2_fo, osc2FoModIn);
 
+
+	// Synth Mode; Unison, Mono, Poly
 	engineParams.mode = convertIntToEnum(mode, synthMode);
 	engineParams.masterUnisonDetune_Cents = unisonDetune_Cents;
 
