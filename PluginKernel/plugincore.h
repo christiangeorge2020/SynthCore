@@ -85,7 +85,26 @@ enum controlID {
 	exciter1Hold_msec = 82,
 	exciter1Release_msec = 83,
 	osc1ExciterMode = 80,
-	resonator1Decay = 84
+	resonator1Decay = 84,
+	joystickACRate_hertz = 148,
+	joystickBDRate_hertz = 158,
+	joystickACAmp = 149,
+	joystickBDAmp = 159,
+	osc2ExciterMode = 90,
+	osc3ExciterMode = 100,
+	osc4ExciterMode = 110,
+	resonator2Decay = 94,
+	resonator3Decay = 104,
+	resonator4Decay = 114,
+	exciter2Release_msec = 93,
+	exciter3Release_msec = 103,
+	exciter4Release_msec = 113,
+	exciter2Hold_msec = 92,
+	exciter3Hold_msec = 102,
+	exciter4Hold_msec = 112,
+	exciter2Attack_msec = 91,
+	exciter3Attack_msec = 101,
+	exciter4Attack_msec = 111
 };
 
 	// **--0x0F1F--**
@@ -233,6 +252,22 @@ private:
 	double exciter1Hold_msec = 0.0;
 	double exciter1Release_msec = 0.0;
 	double resonator1Decay = 0.0;
+	double joystickACRate_hertz = 0.0;
+	double joystickBDRate_hertz = 0.0;
+	double joystickACAmp = 0.0;
+	double joystickBDAmp = 0.0;
+	double resonator2Decay = 0.0;
+	double resonator3Decay = 0.0;
+	double resonator4Decay = 0.0;
+	double exciter2Release_msec = 0.0;
+	double exciter3Release_msec = 0.0;
+	double exciter4Release_msec = 0.0;
+	double exciter2Hold_msec = 0.0;
+	double exciter3Hold_msec = 0.0;
+	double exciter4Hold_msec = 0.0;
+	double exciter2Attack_msec = 0.0;
+	double exciter3Attack_msec = 0.0;
+	double exciter4Attack_msec = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -315,6 +350,15 @@ private:
 
 	int osc1ExciterMode = 0;
 	enum class osc1ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc1ExciterModeEnum::None, osc1ExciterMode)) etc... 
+
+	int osc2ExciterMode = 0;
+	enum class osc2ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc2ExciterModeEnum::None, osc2ExciterMode)) etc... 
+
+	int osc3ExciterMode = 0;
+	enum class osc3ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc3ExciterModeEnum::None, osc3ExciterMode)) etc... 
+
+	int osc4ExciterMode = 0;
+	enum class osc4ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc4ExciterModeEnum::None, osc4ExciterMode)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

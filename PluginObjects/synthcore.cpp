@@ -31,6 +31,9 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 	lfo1.reset(new SynthLFO(midiInputData, parameters->lfo1Parameters));
 	lfo2.reset(new SynthLFO(midiInputData, parameters->lfo2Parameters));
 
+	jsLFO_AC.reset(new SynthLFO(midiInputData, parameters->jsLFOACParameters));
+	jsLFO_BD.reset(new SynthLFO(midiInputData, parameters->jsLFOBDParameters));
+
 	ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
 
 	// **MOOG**
@@ -108,6 +111,9 @@ bool SynthVoice::reset(double _sampleRate)
 	lfo1->reset(_sampleRate);
 	lfo2->reset(_sampleRate);
 
+	jsLFO_AC->reset(_sampleRate);
+	jsLFO_BD->reset(_sampleRate);
+
 	ampEG->reset(_sampleRate);
 
 	dca->reset(_sampleRate);
@@ -122,6 +128,10 @@ bool SynthVoice::reset(double _sampleRate)
 	/// Clear modulator output arrays
 	lfo1Output.clear();
 	lfo2Output.clear();
+
+	jsOutput_AC.clear();
+	jsOutput_BD.clear();
+
 	ampEGOutput.clear();
 	
 	// --- filter EG goes here (add more)
@@ -176,6 +186,7 @@ void SynthVoice::runModulationMatrix(bool updateAllModRoutings)
 	}
 }
 
+
 const SynthRenderData SynthVoice::renderAudioOutput()
 {
 	// --- run the granularity counter
@@ -187,6 +198,13 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 
 	lfo2->update(updateAllModRoutings);
 	lfo2Output = lfo2->renderModulatorOutput();
+
+	// --- update/render (add more here)
+	jsLFO_AC->update(updateAllModRoutings);
+	jsOutput_AC = jsLFO_AC->renderModulatorOutput();
+
+	jsLFO_BD->update(updateAllModRoutings);
+	jsOutput_BD = jsLFO_BD->renderModulatorOutput();
 	
 	// --- update/render (add more here)
 	ampEG->update(updateAllModRoutings);
@@ -197,6 +215,17 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 
 	// --- do all mods	
 	runModulationMatrix(updateAllModRoutings);
+
+	//cookedVectorA = S * parameters->vectorJSData.vectorA;
+	cookedVectorA = parameters->vectorJSData.vectorA + jsOutput_AC.modulationOutputs[kjsLFOAC_Normal];
+	cookedVectorC = parameters->vectorJSData.vectorC - jsOutput_AC.modulationOutputs[kjsLFOAC_Normal];
+	cookedVectorB = parameters->vectorJSData.vectorB + jsOutput_BD.modulationOutputs[kjsLFOBD_Normal];
+	cookedVectorD = parameters->vectorJSData.vectorC - jsOutput_BD.modulationOutputs[kjsLFOBD_Normal];
+
+	boundValue(cookedVectorA, 0, 1);
+	boundValue(cookedVectorB, 0, 1);
+	boundValue(cookedVectorC, 0, 1);
+	boundValue(cookedVectorD, 0, 1);
 
 	// --- update modulate-ees (add more here)
 	osc1->update(updateAllModRoutings);
@@ -268,11 +297,12 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	//     relocate, pan, modify, etc.. all of its oscillator outputs
 	//
 	// --- this voice generates two output channels
+
 	synthOutputData.channelCount = 2;
 
 	// --- summation for the simple core
-	synthOutputData.synthOutputs[0] = audioData.outputs[0]; //lfo1Output.modulationOutputs[kLFONormalOutput]; //
-	synthOutputData.synthOutputs[1] = audioData.outputs[1]; //lfo2Output.modulationOutputs[kLFONormalOutput]; //
+	synthOutputData.synthOutputs[0] = audioData.outputs[0]; //jsOutput_BD.modulationOutputs[kjsLFOBD_Normal]; //
+	synthOutputData.synthOutputs[1] = audioData.outputs[1]; //jsOutput_BD.modulationOutputs[kjsLFOBD_Normal]; // 
 
 	return synthOutputData;
 }
@@ -280,7 +310,8 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 bool SynthVoice::doNoteOn(midiEvent& event)
 {
 	// --- calculate MIDI -> pitch value
-	double midiPitch = midiNoteNumberToOscFrequency(event.midiData1); 
+	double midiPitch = midiNoteNumberToOscFrequency(event.midiData1);
+	
 	
 	// --- OR lookup midiFreqTable[event.midiData1];
 	//        double midiPitch = midiFreqTable[event.midiData1];
@@ -331,6 +362,16 @@ bool SynthVoice::doNoteOff(midiEvent& event)
 
 	// --- set our current state; the ampEG will determine the final state
 	voiceNoteState = voiceState::kNoteOffState;
+	return true;
+}
+
+bool SynthVoice::setUnison(double unisonDetune) {
+
+	osc1->setUnison(unisonDetune);
+	osc2->setUnison(unisonDetune);
+	osc3->setUnison(unisonDetune);
+	osc4->setUnison(unisonDetune);
+
 	return true;
 }
 
@@ -762,6 +803,7 @@ void SynthEngine::setParameters(const SynthEngineParameters& _parameters)
 	// --- map -8192 -> 8191 to MIDI 14-bit
 	bipolarIntToMIDI14_bit(mtFine, -8192, 8191, midiInputData->globalMIDIData[kMIDIMasterTuneFineLSB], midiInputData->globalMIDIData[kMIDIMasterTuneFineMSB]);
 
+	double unisonDetune;
 	// --- now trickle down the voice parameters
 	for (unsigned int i = 0; i < MAX_VOICES; i++)
 	{
@@ -775,22 +817,40 @@ void SynthEngine::setParameters(const SynthEngineParameters& _parameters)
 				{
 					parameters.voiceParameters->voiceUnisonDetune_Cents = 0.0;
 					parameters.voiceParameters->dcaParameters->panValue = 0.5;
+
+					unisonDetune = 0.0;
+					synthVoices[i]->setUnison(unisonDetune);
 				}
 				else if (i == 1)
 				{
 					parameters.voiceParameters->voiceUnisonDetune_Cents = parameters.masterUnisonDetune_Cents;
 					parameters.voiceParameters->dcaParameters->panValue = -1.0;
+
+					unisonDetune = parameters.masterUnisonDetune_Cents;
+					synthVoices[i]->setUnison(unisonDetune);
 				}
 				else if (i == 2)
 				{
 					parameters.voiceParameters->voiceUnisonDetune_Cents = -parameters.masterUnisonDetune_Cents;
 					parameters.voiceParameters->dcaParameters->panValue = 1.0;
+
+					unisonDetune = -parameters.masterUnisonDetune_Cents;
+					synthVoices[i]->setUnison(unisonDetune);
 				}
 				else if (i == 3)
 				{
 					parameters.voiceParameters->voiceUnisonDetune_Cents = 0.707*parameters.masterUnisonDetune_Cents;
 					parameters.voiceParameters->dcaParameters->panValue = -0.5;
+
+					unisonDetune = 0.707*parameters.masterUnisonDetune_Cents;
+					synthVoices[i]->setUnison(unisonDetune);
 				}
+
+				/*parameters.voiceParameters->osc1Parameters->unisonDetuneCents = parameters.voiceParameters->voiceUnisonDetune_Cents;
+				parameters.voiceParameters->osc2Parameters->unisonDetuneCents = parameters.voiceParameters->voiceUnisonDetune_Cents;
+				parameters.voiceParameters->osc3Parameters->unisonDetuneCents = parameters.voiceParameters->voiceUnisonDetune_Cents;
+				parameters.voiceParameters->osc4Parameters->unisonDetuneCents = parameters.voiceParameters->voiceUnisonDetune_Cents;*/
+
 			}
 			else
 			{

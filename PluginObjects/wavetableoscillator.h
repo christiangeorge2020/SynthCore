@@ -33,6 +33,8 @@ public:
 	virtual bool doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
 	virtual bool doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
 
+	virtual bool setUnison(double unisonDetune);
+
 	virtual std::vector<std::string> getBankNames() { return waveTableData->getWaveBankNames(bankSet); }
 	virtual void setBankSet(uint32_t _bankSet) { bankSet = _bankSet; }
 	virtual uint32_t getBankSet() { return bankSet; }
@@ -87,6 +89,7 @@ protected:
 
 	// --- the note number of the playing note
 	uint32_t midiNoteNumber = 0;
+	double unisonDetune_cents = 0.0;
 
 	// --- midi note closest to FINAL pitch, but not over
 	uint32_t renderMidiNoteNumber = 0;

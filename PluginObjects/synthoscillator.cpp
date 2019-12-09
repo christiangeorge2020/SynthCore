@@ -93,6 +93,12 @@ bool SynthOsc::doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_t mi
 	return true;
 }
 
+bool SynthOsc::setUnison(double unisonDetune) {
+	
+	wavetableOscillator->setUnison(unisonDetune);
+
+	return true;
+}
 
 
 

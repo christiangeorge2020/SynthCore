@@ -30,6 +30,7 @@ public:
 	virtual bool update(bool updateAllModRoutings = true);
 	virtual bool doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
 	virtual bool doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
+	virtual bool setUnison(double unisonDetune_cents);
 	
 	// --- **7**
 	virtual std::vector<std::string> getWaveformNames(uint32_t bankIndex);

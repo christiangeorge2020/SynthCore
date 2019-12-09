@@ -93,6 +93,25 @@
 		<control-tag name="controlID::exciter1Release_msec" tag="83" />
 		<control-tag name="controlID::osc1ExciterMode" tag="80" />
 		<control-tag name="controlID::resonator1Decay" tag="84" />
+		<control-tag name="controlID::joystickACRate_hertz" tag="148" />
+		<control-tag name="controlID::joystickBDRate_hertz" tag="158" />
+		<control-tag name="controlID::joystickACAmp" tag="149" />
+		<control-tag name="controlID::joystickBDAmp" tag="159" />
+		<control-tag name="controlID::osc2ExciterMode" tag="90" />
+		<control-tag name="controlID::osc3ExciterMode" tag="100" />
+		<control-tag name="controlID::osc4ExciterMode" tag="110" />
+		<control-tag name="controlID::resonator2Decay" tag="94" />
+		<control-tag name="controlID::resonator3Decay" tag="104" />
+		<control-tag name="controlID::resonator4Decay" tag="114" />
+		<control-tag name="controlID::exciter2Release_msec" tag="93" />
+		<control-tag name="controlID::exciter3Release_msec" tag="103" />
+		<control-tag name="controlID::exciter4Release_msec" tag="113" />
+		<control-tag name="controlID::exciter2Hold_msec" tag="92" />
+		<control-tag name="controlID::exciter3Hold_msec" tag="102" />
+		<control-tag name="controlID::exciter4Hold_msec" tag="112" />
+		<control-tag name="controlID::exciter2Attack_msec" tag="91" />
+		<control-tag name="controlID::exciter3Attack_msec" tag="101" />
+		<control-tag name="controlID::exciter4Attack_msec" tag="111" />
 		<control-tag name="XY_TRACKPAD" tag="131073" />
 		<control-tag name="VECTOR_JOYSTICK" tag="131074" />
 		<control-tag name="PRESET_NAME" tag="131075" />

@@ -498,6 +498,136 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&resonator1Decay, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
+	// --- continuous control: AC Rate
+	piParam = new PluginParameter(controlID::joystickACRate_hertz, "AC Rate", "Hertz", controlVariableType::kDouble, 0.000000, 20.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&joystickACRate_hertz, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: BD Rate
+	piParam = new PluginParameter(controlID::joystickBDRate_hertz, "BD Rate", "hertz", controlVariableType::kDouble, 0.000000, 20.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&joystickBDRate_hertz, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: AC Amplitude
+	piParam = new PluginParameter(controlID::joystickACAmp, "AC Amplitude", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.250000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&joystickACAmp, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: BD Amplitude
+	piParam = new PluginParameter(controlID::joystickBDAmp, "BD Amplitude", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.500000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&joystickBDAmp, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc2 Model
+	piParam = new PluginParameter(controlID::osc2ExciterMode, "Osc2 Model", "None,Noise,Waveform", "None");
+	piParam->setBoundVariable(&osc2ExciterMode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc3 Model
+	piParam = new PluginParameter(controlID::osc3ExciterMode, "Osc3 Model", "None,Noise,Waveform", "None");
+	piParam->setBoundVariable(&osc3ExciterMode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc4 Model
+	piParam = new PluginParameter(controlID::osc4ExciterMode, "Osc4 Model", "None,Noise,Waveform", "None");
+	piParam->setBoundVariable(&osc4ExciterMode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Tube2 Decay
+	piParam = new PluginParameter(controlID::resonator2Decay, "Tube2 Decay", "", controlVariableType::kDouble, 0.750000, 1.000000, 1.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&resonator2Decay, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Tube3 Decay
+	piParam = new PluginParameter(controlID::resonator3Decay, "Tube3 Decay", "", controlVariableType::kDouble, 0.750000, 1.000000, 1.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&resonator3Decay, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Tube4 Decay
+	piParam = new PluginParameter(controlID::resonator4Decay, "Tube4 Decay", "", controlVariableType::kDouble, 0.750000, 1.000000, 0.750000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&resonator4Decay, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter2 Release
+	piParam = new PluginParameter(controlID::exciter2Release_msec, "Exciter2 Release", "mSec", controlVariableType::kDouble, 0.000000, 5000.000000, 1000.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter2Release_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter3 Release
+	piParam = new PluginParameter(controlID::exciter3Release_msec, "Exciter3 Release", "mSec", controlVariableType::kDouble, 0.000000, 5000.000000, 1000.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter3Release_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter4 Release
+	piParam = new PluginParameter(controlID::exciter4Release_msec, "Exciter4 Release", "mSec", controlVariableType::kDouble, 0.000000, 5000.000000, 1000.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter4Release_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter2 Hold
+	piParam = new PluginParameter(controlID::exciter2Hold_msec, "Exciter2 Hold", "msec", controlVariableType::kDouble, 0.000000, 5000.000000, 250.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter2Hold_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter3 Hold
+	piParam = new PluginParameter(controlID::exciter3Hold_msec, "Exciter3 Hold", "msec", controlVariableType::kDouble, 0.000000, 5000.000000, 250.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter3Hold_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter4 Hold
+	piParam = new PluginParameter(controlID::exciter4Hold_msec, "Exciter4 Hold", "msec", controlVariableType::kDouble, 0.000000, 5000.000000, 250.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter4Hold_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter2 Attack
+	piParam = new PluginParameter(controlID::exciter2Attack_msec, "Exciter2 Attack", "msec", controlVariableType::kDouble, 0.000000, 500.000000, 100.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter2Attack_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter3 Attack
+	piParam = new PluginParameter(controlID::exciter3Attack_msec, "Exciter3 Attack", "msec", controlVariableType::kDouble, 0.000000, 500.000000, 100.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter3Attack_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter4 Attack
+	piParam = new PluginParameter(controlID::exciter4Attack_msec, "Exciter4 Attack", "msec", controlVariableType::kDouble, 0.000000, 500.000000, 100.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter4Attack_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -827,6 +957,101 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::resonator1Decay, auxAttribute);
 
+	// --- controlID::joystickACRate_hertz
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::joystickACRate_hertz, auxAttribute);
+
+	// --- controlID::joystickBDRate_hertz
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::joystickBDRate_hertz, auxAttribute);
+
+	// --- controlID::joystickACAmp
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::joystickACAmp, auxAttribute);
+
+	// --- controlID::joystickBDAmp
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::joystickBDAmp, auxAttribute);
+
+	// --- controlID::osc2ExciterMode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc2ExciterMode, auxAttribute);
+
+	// --- controlID::osc3ExciterMode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc3ExciterMode, auxAttribute);
+
+	// --- controlID::osc4ExciterMode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc4ExciterMode, auxAttribute);
+
+	// --- controlID::resonator2Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::resonator2Decay, auxAttribute);
+
+	// --- controlID::resonator3Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::resonator3Decay, auxAttribute);
+
+	// --- controlID::resonator4Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::resonator4Decay, auxAttribute);
+
+	// --- controlID::exciter2Release_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter2Release_msec, auxAttribute);
+
+	// --- controlID::exciter3Release_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter3Release_msec, auxAttribute);
+
+	// --- controlID::exciter4Release_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter4Release_msec, auxAttribute);
+
+	// --- controlID::exciter2Hold_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter2Hold_msec, auxAttribute);
+
+	// --- controlID::exciter3Hold_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter3Hold_msec, auxAttribute);
+
+	// --- controlID::exciter4Hold_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter4Hold_msec, auxAttribute);
+
+	// --- controlID::exciter2Attack_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter2Attack_msec, auxAttribute);
+
+	// --- controlID::exciter3Attack_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter3Attack_msec, auxAttribute);
+
+	// --- controlID::exciter4Attack_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter4Attack_msec, auxAttribute);
+
 
 	// **--0xEDA5--**
    
@@ -972,11 +1197,14 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->ampEGParameters->autoRetrigger = eg1AutoRetrigger;
 	engineParams.voiceParameters->ampEGParameters->manualRetrigger = eg1ManualTrigger;
 
+	// Moog Filter
 	engineParams.voiceParameters->moogFilterParameters->fc = fc1_hertz;
 	engineParams.voiceParameters->moogFilterParameters->Q = q1Control;
 	engineParams.voiceParameters->moogFilterParameters->enableKeyTrack = (enableKeyTrack == 1);
 	engineParams.voiceParameters->moogFilterParameters->keyTrackRatio = keyTrackRatio;
 
+
+	// Mod matrix
 	engineParams.setMM_SourceMasterIntensity(kLFO1_Normal, lfo1Amplitude);
 	engineParams.setMM_SourceMasterIntensity(kEG1_Normal, eg1ModOut);
 
@@ -987,17 +1215,41 @@ void PluginCore::updateParameters()
 	engineParams.setMM_DestMasterIntensity(kOsc1_fo, osc1FoModIn);
 	engineParams.setMM_DestMasterIntensity(kOsc2_fo, osc2FoModIn);
 
+	// Rotor
+	engineParams.voiceParameters->jsLFOACParameters->frequency_Hz = joystickACRate_hertz;
+	engineParams.voiceParameters->jsLFOBDParameters->frequency_Hz = joystickBDRate_hertz;
+	engineParams.voiceParameters->jsLFOACParameters->outputAmplitude = joystickACAmp;
+	engineParams.voiceParameters->jsLFOBDParameters->outputAmplitude = joystickBDAmp;
 
 	// Synth Mode; Unison, Mono, Poly
 	engineParams.mode = convertIntToEnum(mode, synthMode);
 	engineParams.masterUnisonDetune_Cents = unisonDetune_Cents;
 
+
+	// Physical Modeling
+	engineParams.voiceParameters->osc1Parameters->exciterInput = convertIntToEnum(osc1ExciterMode, ExciterMode);
 	engineParams.voiceParameters->osc1Parameters->noiseEGAttack = exciter1Attack_msec;
 	engineParams.voiceParameters->osc1Parameters->noiseEGHold = exciter1Hold_msec;
 	engineParams.voiceParameters->osc1Parameters->noiseEGRelease = exciter1Release_msec;
-
-	engineParams.voiceParameters->osc1Parameters->exciterInput = convertIntToEnum(osc1ExciterMode, ExciterMode);
 	engineParams.voiceParameters->osc1Parameters->resonatorDecay = resonator1Decay;
+
+	engineParams.voiceParameters->osc2Parameters->exciterInput = convertIntToEnum(osc2ExciterMode, ExciterMode);
+	engineParams.voiceParameters->osc2Parameters->noiseEGAttack = exciter2Attack_msec;
+	engineParams.voiceParameters->osc2Parameters->noiseEGHold = exciter2Hold_msec;
+	engineParams.voiceParameters->osc2Parameters->noiseEGRelease = exciter2Release_msec;
+	engineParams.voiceParameters->osc2Parameters->resonatorDecay = resonator2Decay;
+
+	engineParams.voiceParameters->osc3Parameters->exciterInput = convertIntToEnum(osc3ExciterMode, ExciterMode);
+	engineParams.voiceParameters->osc3Parameters->noiseEGAttack = exciter3Attack_msec;
+	engineParams.voiceParameters->osc3Parameters->noiseEGHold = exciter3Hold_msec;
+	engineParams.voiceParameters->osc3Parameters->noiseEGRelease = exciter3Release_msec;
+	engineParams.voiceParameters->osc3Parameters->resonatorDecay = resonator3Decay;
+
+	engineParams.voiceParameters->osc4Parameters->exciterInput = convertIntToEnum(osc4ExciterMode, ExciterMode);
+	engineParams.voiceParameters->osc4Parameters->noiseEGAttack = exciter4Attack_msec;
+	engineParams.voiceParameters->osc4Parameters->noiseEGHold = exciter4Hold_msec;
+	engineParams.voiceParameters->osc4Parameters->noiseEGRelease = exciter4Release_msec;
+	engineParams.voiceParameters->osc4Parameters->resonatorDecay = resonator4Decay;
 
 
 	// --- THE update - this trickles all param updates
@@ -1406,11 +1658,30 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::eg2Mode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::mode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::unisonDetune_Cents, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter1Attack_msec, 5.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter1Hold_msec, 100.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter1Release_msec, 500.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter1Attack_msec, 100.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter1Hold_msec, 250.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter1Release_msec, 1000.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc1ExciterMode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::resonator1Decay, 1.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickACRate_hertz, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBDRate_hertz, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickACAmp, 0.250000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBDAmp, 0.500000);
+	setPresetParameter(preset->presetParameters, controlID::osc2ExciterMode, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc3ExciterMode, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc4ExciterMode, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::resonator2Decay, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::resonator3Decay, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::resonator4Decay, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter2Release_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter3Release_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter4Release_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter2Hold_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter3Hold_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter4Hold_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter2Attack_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter3Attack_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter4Attack_msec, 0.000000);
 	addPreset(preset);
 
 

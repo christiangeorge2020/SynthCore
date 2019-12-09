@@ -81,6 +81,12 @@ bool WaveTableOsc::doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_
 	return true;
 }
 
+bool WaveTableOsc::setUnison(double unisonDetune)
+{
+	unisonDetune_cents = unisonDetune;
+	return true;
+}
+
 bool WaveTableOsc::update(bool updateAllModRoutings)
 {
 	// --- Run priority modulators 
@@ -117,6 +123,7 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 
 	// --- calculate combined tuning offsets by simply adding values in semitones
 	double currentPitchModSemitones = glideMod + 
+		(unisonDetune_cents / 100) +
 		fmodInput +
 		midiPitchBend +
 		masterTuning +

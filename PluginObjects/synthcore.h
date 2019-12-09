@@ -28,6 +28,9 @@ enum modSource
 	kLFO2_Normal,
 	kLFO2_QuadPhase,
 
+	kjsLFOAC_Normal,
+	kjsLFOBD_Normal,
+
 	// --- EGs here
 	kEG1_Normal,	// EG1 = amp EG
 	kEG1_Biased,
@@ -109,6 +112,10 @@ struct SynthVoiceParameters
 		moogFilterParameters = params.moogFilterParameters;
 
 		lfo1Parameters = params.lfo1Parameters;
+		lfo2Parameters = params.lfo2Parameters;
+		jsLFOACParameters = params.jsLFOACParameters;
+		jsLFOBDParameters = params.jsLFOBDParameters;
+
 		ampEGParameters = params.ampEGParameters;
 		vectorJSData = params.vectorJSData;
 
@@ -141,6 +148,9 @@ struct SynthVoiceParameters
 	// --- LFO oscillators
 	std::shared_ptr<SynthLFOParameters> lfo1Parameters = std::make_shared<SynthLFOParameters>();
 	std::shared_ptr<SynthLFOParameters> lfo2Parameters = std::make_shared<SynthLFOParameters>();
+
+	std::shared_ptr<SynthLFOParameters> jsLFOACParameters = std::make_shared<SynthLFOParameters>();
+	std::shared_ptr<SynthLFOParameters> jsLFOBDParameters = std::make_shared<SynthLFOParameters>();
 
 	// --- filters: **MOOG**
 	std::shared_ptr<MoogFilterParameters> moogFilterParameters = std::make_shared<MoogFilterParameters>();
@@ -265,6 +275,8 @@ public:
 	bool doNoteOn(midiEvent& event);
 	bool doNoteOff(midiEvent& event);
 
+	bool setUnison(double unisonDetune);
+
 	// --- specialized getters
 	bool isVoiceActive() { return voiceIsRunning; }
 
@@ -289,6 +301,8 @@ public:
 
 	bool voiceIsStealing() { return stealPending; }
 
+
+
 protected:
 	// --- parameters
 	std::shared_ptr<SynthVoiceParameters> parameters = nullptr;
@@ -308,6 +322,7 @@ protected:
 	// --- run the matrix
 	void runModulationMatrix(bool updateAllModRoutings);
 
+
 	// --- clear arrays
 	void clearModMatrixArrays()
 	{
@@ -326,9 +341,13 @@ protected:
 		
 		// LFO2 -> LFO1
 		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
+		modSourceData[kjsLFOAC_Normal] = &jsOutput_AC.modulationOutputs[kLFONormalOutput];
+		modSourceData[kjsLFOBD_Normal] = &jsOutput_BD.modulationOutputs[kLFONormalOutput];
 
 		modSourceData[kJoystickAC] = &parameters->vectorJSData.vectorACMix;
 		modSourceData[kJoystickBD] = &parameters->vectorJSData.vectorBDMix;
+
+		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
 
 		
 
@@ -354,6 +373,8 @@ protected:
 	// --- mod source data: --- modulators ---
 	ModOutputData lfo1Output;
 	ModOutputData lfo2Output;
+	ModOutputData jsOutput_AC;
+	ModOutputData jsOutput_BD;
 	ModOutputData ampEGOutput;
 
 	// --- mod source data: --- filter ---
@@ -392,6 +413,11 @@ protected:
 	// --- LFOs
 	std::unique_ptr<SynthLFO> lfo1;
 	std::unique_ptr<SynthLFO> lfo2;
+
+	std::unique_ptr<SynthLFO> jsLFO_AC;
+	std::unique_ptr<SynthLFO> jsLFO_BD;
+
+	double cookedVectorA = 0.0, cookedVectorB = 0.0, cookedVectorC = 0.0, cookedVectorD = 0.0;
 
 
 
