@@ -131,7 +131,7 @@ const OscillatorOutputData KarplusOsc::renderAudioOutput()
 
 	// --- noise-grain generation
 	ModOutputData noiseEGOutput = noiseEG->renderModulatorOutput();
-	// ModOutputData windowEGOutput = windowEG->renderModulatorOutput();
+	//ModOutputData windowEGOutput = windowEG->renderModulatorOutput();
 	
 	double egOut = noiseEGOutput.modulationOutputs[kEGNormalOutput];
 	

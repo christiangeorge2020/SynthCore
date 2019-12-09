@@ -239,6 +239,7 @@
     <ClInclude Include="..\PluginObjects\fxobjects.h" />
     <ClInclude Include="..\PluginObjects\filters.h" />
     <ClInclude Include="..\PluginObjects\limiter.h" />
+    <ClInclude Include="..\PluginObjects\resonator.h" />
     <ClInclude Include="..\PluginObjects\rotor.h" />
     <ClInclude Include="..\PluginObjects\synthcore.h" />
     <ClInclude Include="..\PluginObjects\synthdefs.h" />

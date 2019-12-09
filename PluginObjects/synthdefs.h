@@ -1043,6 +1043,7 @@ protected:
 	uint32_t endMIDINote = 0;
 };
 
+enum class ExciterMode { kNone, kNoise, kWave };
 
 
 
@@ -1084,6 +1085,14 @@ struct SynthOscParameters
 
 		morphModulation = params.morphModulation;
 
+		noiseEGAttack = params.noiseEGAttack;
+		noiseEGHold = params.noiseEGHold;
+		noiseEGRelease = params.noiseEGRelease;
+
+		exciterInput = params.exciterInput;
+
+		resonatorDecay = params.resonatorDecay;
+
 		return *this;
 	}
 
@@ -1111,6 +1120,15 @@ struct SynthOscParameters
 	double fmRatio = 1.0;				// [1, +???]
 	bool enableHardSync = false;		// [1, +???]
 	bool enableFreeRunMode = false;		// [1, +???]
+
+	// --- for the noise EG
+	double noiseEGAttack = 5.0;
+	double noiseEGHold = 100.0;
+	double noiseEGRelease = 500.0;
+
+	ExciterMode exciterInput = ExciterMode::kNone;
+
+	double resonatorDecay = 1.0;
 };
 
 /**

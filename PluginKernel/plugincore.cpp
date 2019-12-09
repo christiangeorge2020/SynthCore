@@ -464,6 +464,33 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&unisonDetune_Cents, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
+	// --- continuous control: Exciter1 Attack
+	piParam = new PluginParameter(controlID::exciter1Attack_msec, "Exciter1 Attack", "mSec", controlVariableType::kDouble, 0.000000, 100.000000, 5.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter1Attack_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter1 Hold
+	piParam = new PluginParameter(controlID::exciter1Hold_msec, "Exciter1 Hold", "msec", controlVariableType::kDouble, 0.000000, 1000.000000, 100.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter1Hold_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter1 Release
+	piParam = new PluginParameter(controlID::exciter1Release_msec, "Exciter1 Release", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 500.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter1Release_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc1 Model
+	piParam = new PluginParameter(controlID::osc1ExciterMode, "Osc1 Model", "None,Noise,Waveform", "None");
+	piParam->setBoundVariable(&osc1ExciterMode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -768,6 +795,26 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::unisonDetune_Cents, auxAttribute);
 
+	// --- controlID::exciter1Attack_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter1Attack_msec, auxAttribute);
+
+	// --- controlID::exciter1Hold_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter1Hold_msec, auxAttribute);
+
+	// --- controlID::exciter1Release_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter1Release_msec, auxAttribute);
+
+	// --- controlID::osc1ExciterMode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc1ExciterMode, auxAttribute);
+
 
 	// **--0xEDA5--**
    
@@ -933,7 +980,12 @@ void PluginCore::updateParameters()
 	engineParams.mode = convertIntToEnum(mode, synthMode);
 	engineParams.masterUnisonDetune_Cents = unisonDetune_Cents;
 
-	
+	engineParams.voiceParameters->osc1Parameters->noiseEGAttack = exciter1Attack_msec;
+	engineParams.voiceParameters->osc1Parameters->noiseEGHold = exciter1Hold_msec;
+	engineParams.voiceParameters->osc1Parameters->noiseEGRelease = exciter1Release_msec;
+
+	engineParams.voiceParameters->osc1Parameters->exciterInput = convertIntToEnum(osc1ExciterMode, ExciterMode);
+
 
 	// --- THE update - this trickles all param updates
 	// via the setParameters( ) of each
@@ -1341,6 +1393,10 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::eg2Mode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::mode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::unisonDetune_Cents, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter1Attack_msec, 5.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter1Hold_msec, 100.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter1Release_msec, 500.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc1ExciterMode, -0.000000);
 	addPreset(preset);
 
 

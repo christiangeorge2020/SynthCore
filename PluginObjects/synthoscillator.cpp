@@ -20,6 +20,18 @@ SynthOsc::SynthOsc(const std::shared_ptr<MidiInputData> _midiInputData,
 
 	// --- **7**
 	wavetableOscillator->setBankSet(BANK_SET_0);
+
+	// --- randomize the PN register
+	pnRegister = rand();
+
+	noiseEGParameters->egContourType = egType::kAHR;
+	noiseEGParameters->attackTime_mSec = parameters->noiseEGAttack;
+	noiseEGParameters->holdTime_mSec = parameters->noiseEGHold;
+	noiseEGParameters->releaseTime_mSec = parameters->noiseEGRelease;
+
+	noiseEG.reset(new EnvelopeGenerator(midiInputData, noiseEGParameters));
+	
+	resonator.reset(new Resonator());
 }
 
 // --- **7**
@@ -53,7 +65,10 @@ bool SynthOsc::reset(double _sampleRate)
 	wavetableOscillator->reset(_sampleRate);
 	wavetableOscillator->setModulators(modulators);
 
-	// --- for noise generation
+	noiseEG->reset(_sampleRate);
+	resonator->reset(_sampleRate);
+
+	//// --- for noise generation
 	srand(time(NULL));
 
 	return true;
@@ -62,6 +77,11 @@ bool SynthOsc::reset(double _sampleRate)
 bool SynthOsc::doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity)
 {
 	wavetableOscillator->doNoteOn(midiPitch, _midiNoteNumber, midiNoteVelocity);
+	//midiNotePitch = midiPitch;
+
+	// --- for noise resonator
+	noiseEG->doNoteOn(midiPitch, _midiNoteNumber, midiNoteVelocity);
+	resonator->doNoteOn(midiPitch, _midiNoteNumber, midiNoteVelocity);
 	
 	return true;
 }
@@ -80,6 +100,17 @@ bool SynthOsc::update(bool updateAllModRoutings)
 {
 	wavetableOscillator->update(updateAllModRoutings);
 
+	// --- EG update
+	noiseEG->update(updateAllModRoutings);
+
+	resonator->setDecay(parameters->resonatorDecay);
+	//resonator->setResonatorTuning_Hz(midiNotePitch);
+
+	noiseEGParameters->egContourType = egType::kAHR;
+	noiseEGParameters->attackTime_mSec = parameters->noiseEGAttack;
+	noiseEGParameters->holdTime_mSec = parameters->noiseEGHold;
+	noiseEGParameters->releaseTime_mSec = parameters->noiseEGRelease;
+
 	return true;
 }
 
@@ -89,7 +120,49 @@ const OscillatorOutputData SynthOsc::renderAudioOutput()
 	oscillatorAudioData.outputs[0] = 0.0;
 	oscillatorAudioData.outputs[1] = 0.0;
 
+	// --- exciter generation
+	double noise = 0.0;
+
+	if (parameters->exciterInput == ExciterMode::kNone) {
+		oscillatorAudioData = wavetableOscillator->renderAudioOutput();
+		return oscillatorAudioData;
+	}
+	else if (parameters->exciterInput == ExciterMode::kNoise) {
+		// --- noise-grain generation
+		ModOutputData noiseEGOutput = noiseEG->renderModulatorOutput();
+		double egOut = noiseEGOutput.modulationOutputs[kEGNormalOutput];
+		noise = doWhiteNoise() * egOut;
+
+		oscillatorAudioData.outputs[0] = resonator->processAudioSample(noise);
+		oscillatorAudioData.outputs[1] = oscillatorAudioData.outputs[0];
+
+		return oscillatorAudioData;
+	}
+	else if (parameters->exciterInput == ExciterMode::kWave) {
+		oscillatorAudioData = wavetableOscillator->renderAudioOutput();
+
+		ModOutputData noiseEGOutput = noiseEG->renderModulatorOutput();
+		double egOut = noiseEGOutput.modulationOutputs[kEGNormalOutput];
+
+		oscillatorAudioData = egOut * wavetableOscillator->renderAudioOutput();
+
+		oscillatorAudioData.outputs[0] = resonator->processAudioSample(oscillatorAudioData.outputs[0]);
+		oscillatorAudioData.outputs[1] = oscillatorAudioData.outputs[0];
+
+		return oscillatorAudioData;
+
+	}
+	
+
+	// ModOutputData windowEGOutput = windowEG->renderModulatorOutput();
+
+	//// --- scale by amplitude
+	//oscillatorAudioData.outputs[0] *= parameters->outputAmplitude;
+
 	oscillatorAudioData = wavetableOscillator->renderAudioOutput();
+
+	oscillatorAudioData.outputs[0] = resonator->processAudioSample(oscillatorAudioData.outputs[0]);
+	oscillatorAudioData.outputs[1] = oscillatorAudioData.outputs[0];
 	
 	return oscillatorAudioData;
 }

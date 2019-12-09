@@ -148,6 +148,8 @@ struct SynthVoiceParameters
 	// --- EGs
 	std::shared_ptr<EGParameters> ampEGParameters = std::make_shared<EGParameters>();
 
+	
+
 	// --- DCA
 	std::shared_ptr<DCAParameters> dcaParameters = std::make_shared<DCAParameters>();
 

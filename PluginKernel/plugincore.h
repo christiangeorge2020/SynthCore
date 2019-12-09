@@ -80,7 +80,11 @@ enum controlID {
 	eg1Mode = 60,
 	eg2Mode = 70,
 	mode = 2,
-	unisonDetune_Cents = 4
+	unisonDetune_Cents = 4,
+	exciter1Attack_msec = 81,
+	exciter1Hold_msec = 82,
+	exciter1Release_msec = 83,
+	osc1ExciterMode = 80
 };
 
 	// **--0x0F1F--**
@@ -224,6 +228,9 @@ private:
 	double eg1Offset = 0.0;
 	double eg2Offset = 0.0;
 	double unisonDetune_Cents = 0.0;
+	double exciter1Attack_msec = 0.0;
+	double exciter1Hold_msec = 0.0;
+	double exciter1Release_msec = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -303,6 +310,9 @@ private:
 
 	int mode = 0;
 	enum class modeEnum { Poly,Mono,Unison };	// to compare: if(compareEnumToInt(modeEnum::Poly, mode)) etc... 
+
+	int osc1ExciterMode = 0;
+	enum class osc1ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc1ExciterModeEnum::None, osc1ExciterMode)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables
