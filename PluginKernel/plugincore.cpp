@@ -465,21 +465,21 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- continuous control: Exciter1 Attack
-	piParam = new PluginParameter(controlID::exciter1Attack_msec, "Exciter1 Attack", "mSec", controlVariableType::kDouble, 0.000000, 100.000000, 5.000000, taper::kLinearTaper);
+	piParam = new PluginParameter(controlID::exciter1Attack_msec, "Exciter1 Attack", "mSec", controlVariableType::kDouble, 0.000000, 500.000000, 100.000000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&exciter1Attack_msec, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
 	// --- continuous control: Exciter1 Hold
-	piParam = new PluginParameter(controlID::exciter1Hold_msec, "Exciter1 Hold", "msec", controlVariableType::kDouble, 0.000000, 1000.000000, 100.000000, taper::kLinearTaper);
+	piParam = new PluginParameter(controlID::exciter1Hold_msec, "Exciter1 Hold", "msec", controlVariableType::kDouble, 0.000000, 5000.000000, 250.000000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&exciter1Hold_msec, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
 	// --- continuous control: Exciter1 Release
-	piParam = new PluginParameter(controlID::exciter1Release_msec, "Exciter1 Release", "mSec", controlVariableType::kDouble, 0.000000, 2000.000000, 500.000000, taper::kLinearTaper);
+	piParam = new PluginParameter(controlID::exciter1Release_msec, "Exciter1 Release", "mSec", controlVariableType::kDouble, 0.000000, 5000.000000, 1000.000000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&exciter1Release_msec, boundVariableType::kDouble);
@@ -489,6 +489,13 @@ bool PluginCore::initPluginParameters()
 	piParam = new PluginParameter(controlID::osc1ExciterMode, "Osc1 Model", "None,Noise,Waveform", "None");
 	piParam->setBoundVariable(&osc1ExciterMode, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Tube1 Decay
+	piParam = new PluginParameter(controlID::resonator1Decay, "Tube1 Decay", "", controlVariableType::kDouble, 0.750000, 1.000000, 1.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&resonator1Decay, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
 	// --- Aux Attributes
@@ -815,6 +822,11 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(805306368);
 	setParamAuxAttribute(controlID::osc1ExciterMode, auxAttribute);
 
+	// --- controlID::resonator1Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::resonator1Decay, auxAttribute);
+
 
 	// **--0xEDA5--**
    
@@ -985,6 +997,7 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->osc1Parameters->noiseEGRelease = exciter1Release_msec;
 
 	engineParams.voiceParameters->osc1Parameters->exciterInput = convertIntToEnum(osc1ExciterMode, ExciterMode);
+	engineParams.voiceParameters->osc1Parameters->resonatorDecay = resonator1Decay;
 
 
 	// --- THE update - this trickles all param updates
@@ -1397,6 +1410,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::exciter1Hold_msec, 100.000000);
 	setPresetParameter(preset->presetParameters, controlID::exciter1Release_msec, 500.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc1ExciterMode, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::resonator1Decay, 1.000000);
 	addPreset(preset);
 
 

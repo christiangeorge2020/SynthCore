@@ -144,7 +144,9 @@ const OscillatorOutputData SynthOsc::renderAudioOutput()
 		ModOutputData noiseEGOutput = noiseEG->renderModulatorOutput();
 		double egOut = noiseEGOutput.modulationOutputs[kEGNormalOutput];
 
-		oscillatorAudioData = egOut * wavetableOscillator->renderAudioOutput();
+		oscillatorAudioData = wavetableOscillator->renderAudioOutput();
+
+		oscillatorAudioData.outputs[0] *= egOut;
 
 		oscillatorAudioData.outputs[0] = resonator->processAudioSample(oscillatorAudioData.outputs[0]);
 		oscillatorAudioData.outputs[1] = oscillatorAudioData.outputs[0];

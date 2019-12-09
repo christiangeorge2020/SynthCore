@@ -84,7 +84,8 @@ enum controlID {
 	exciter1Attack_msec = 81,
 	exciter1Hold_msec = 82,
 	exciter1Release_msec = 83,
-	osc1ExciterMode = 80
+	osc1ExciterMode = 80,
+	resonator1Decay = 84
 };
 
 	// **--0x0F1F--**
@@ -231,6 +232,7 @@ private:
 	double exciter1Attack_msec = 0.0;
 	double exciter1Hold_msec = 0.0;
 	double exciter1Release_msec = 0.0;
+	double resonator1Decay = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
