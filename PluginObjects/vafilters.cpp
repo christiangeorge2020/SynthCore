@@ -55,7 +55,7 @@ bool MoogFilter::update(bool updateAllModRoutings)
 
 	// --- perform modulation by multiplying Fc by the offset in semitones
 	//double fc1 = parameters->fc * pitchShiftTableLookup(freqModSemitones_fc1);
-	double fc1 = parameters->enableKeyTrack ? (keyTrackPitch * parameters->keyTrackRatio) : parameters->fc; //Check if key tracking is enabled.
+	double fc1 = parameters->enableKeyTrack	? (keyTrackPitch * parameters->keyTrackRatio) : parameters->fc; //Check if key tracking is enabled.
 	fc1 *= pitchShiftTableLookup(freqModSemitones_fc1);
 	
 	boundValue(fc1, freqModLow, freqModHigh);

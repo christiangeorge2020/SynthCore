@@ -31,12 +31,14 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 	lfo1.reset(new SynthLFO(midiInputData, parameters->lfo1Parameters));
 	lfo2.reset(new SynthLFO(midiInputData, parameters->lfo2Parameters));
 
-	//rotorX_lfo.reset(new SynthLFO(midiInputData, parameters->rotorX_lfoParameters));
-	//rotorY_lfo.reset(new SynthLFO(midiInputData, parameters->rotorY_lfoParameters));
-	//rotor.reset(new Rotor(midiInputData, parameters->rotorParameters, rotorX_lfo, rotorY_lfo));
+	jsLFO_AC.reset(new SynthLFO(midiInputData, parameters->jsLFOACParameters));
+	jsLFO_BD.reset(new SynthLFO(midiInputData, parameters->jsLFOBDParameters));
+
+	//ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
 
 	// **MOOG**
-	moogFilter.reset(new MoogFilter(midiInputData, parameters->moogFilterParameters));
+	moogFilter1.reset(new MoogFilter(midiInputData, parameters->moogFilter1Parameters));
+	moogFilter2.reset(new MoogFilter(midiInputData, parameters->moogFilter2Parameters));
 
 	// **ENVELOPE GENERATORS**
 	EG1.reset(new EnvelopeGenerator(midiInputData, parameters->EG1Parameters));
@@ -115,14 +117,16 @@ bool SynthVoice::reset(double _sampleRate)
 	//rotorX_lfo->reset(_sampleRate);
 	//rotorY_lfo->reset(_sampleRate);
 
-	//rotor->reset(_sampleRate);
+	jsLFO_AC->reset(_sampleRate);
+	jsLFO_BD->reset(_sampleRate);
 
 	EG1->reset(_sampleRate);
 
 	dca->reset(_sampleRate);
 
 	// **MOOG**
-	moogFilter->reset(_sampleRate);
+	moogFilter1->reset(_sampleRate);
+	moogFilter2->reset(_sampleRate);
 
 	/// Reset grain count
 	updateGranularity = 64; ///< update every 128 render-cycles
@@ -131,6 +135,9 @@ bool SynthVoice::reset(double _sampleRate)
 	/// Clear modulator output arrays
 	lfo1Output.clear();
 	lfo2Output.clear();
+	jsOutput_AC.clear();
+	jsOutput_BD.clear();
+
 	EG1Output.clear();
 	
 	// --- filter EG goes here (add more)
@@ -197,9 +204,12 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	lfo2->update(updateAllModRoutings);
 	lfo2Output = lfo2->renderModulatorOutput();
 
-	//rotorX_lfo->update(updateAllModRoutings);
-	//rotor->update(updateAllModRoutings);
-	//rotorOutput = rotor->renderModulatorOutput();
+	// --- update/render (add more here)
+	jsLFO_AC->update(updateAllModRoutings);
+	jsOutput_AC = jsLFO_AC->renderModulatorOutput();
+
+	jsLFO_BD->update(updateAllModRoutings);
+	jsOutput_BD = jsLFO_BD->renderModulatorOutput();
 	
 	// --- update/render (add more here)
 	EG1->update(updateAllModRoutings);
@@ -208,6 +218,17 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	// --- do all mods	
 	runModulationMatrix(updateAllModRoutings);
 
+	//cookedVectorA = S * parameters->vectorJSData.vectorA;
+	//cookedVectorA = parameters->vectorJSData.vectorA + jsOutput_AC.modulationOutputs[kjsLFOAC_Normal];
+	//cookedVectorC = parameters->vectorJSData.vectorC - jsOutput_AC.modulationOutputs[kjsLFOAC_Normal];
+	//cookedVectorB = parameters->vectorJSData.vectorB + jsOutput_BD.modulationOutputs[kjsLFOBD_Normal];
+	//cookedVectorD = parameters->vectorJSData.vectorC - jsOutput_BD.modulationOutputs[kjsLFOBD_Normal];
+
+	boundValue(cookedVectorA, 0, 1);
+	boundValue(cookedVectorB, 0, 1);
+	boundValue(cookedVectorC, 0, 1);
+	boundValue(cookedVectorD, 0, 1);
+
 	// --- update modulate-ees (add more here)
 	osc1->update(updateAllModRoutings);
 	osc2->update(updateAllModRoutings);
@@ -215,7 +236,8 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	osc4->update(updateAllModRoutings);
 
 	// --- FILTER **MOOG**	
-	moogFilter->update(updateAllModRoutings);
+	moogFilter1->update(updateAllModRoutings);
+	moogFilter2->update(updateAllModRoutings);
 
 	dca->update(updateAllModRoutings);
 
@@ -243,10 +265,14 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 
 	// **MOOG**
 	// --- run through filter
-	moogFilter->processSynthAudio(&audioData);
+	moogFilter1->processSynthAudio(&audioData); //returns to audioData.outputs
+	audioData.inputs[0] = audioData.outputs[0];
+	audioData.inputs[1] = audioData.outputs[1];
+
+	moogFilter2->processSynthAudio(&audioData); //returns to audioData.outputs
 
 	// --- inline, copy MONO output back to input
-	audioData.inputs[0] = audioData.outputs[0];
+	audioData.inputs[0] = audioData.outputs[0]; 
 	audioData.numOutputChannels = 2;// stereo out
 
 	// --- dca will make stereo and pan
@@ -329,7 +355,8 @@ bool SynthVoice::doNoteOn(midiEvent& event)
 
 	//rotor->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
-	moogFilter->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+	moogFilter1->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+	moogFilter2->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
 	// --- set the flag
 	voiceIsRunning = true; // we are ON
@@ -351,6 +378,16 @@ bool SynthVoice::doNoteOff(midiEvent& event)
 
 	// --- set our current state; the EG1 will determine the final state
 	voiceNoteState = voiceState::kNoteOffState;
+	return true;
+}
+
+bool SynthVoice::setUnison(double unisonDetune) {
+
+	osc1->setUnison(unisonDetune);
+	osc2->setUnison(unisonDetune);
+	osc3->setUnison(unisonDetune);
+	osc4->setUnison(unisonDetune);
+
 	return true;
 }
 
@@ -642,10 +679,14 @@ bool SynthEngine::processMIDIEvent(midiEvent& event)
 			// --- UNISON mode is heavily dependent on the manufacturer's 
 			//     implementation and decision
 			//     for the synth core, we will use 3 voices detuned as: -parameters.unisonDetune_Cents, 0, +parameters.unisonDetune_Cents
-			for (int i = 0; i < parameters.numUnisonVoices; i++)
-			{
-				synthVoices[i]->processMIDIEvent(event);
-			}
+			//for (int i = 0; i < parameters.numUnisonVoices; i++)
+		//	{
+		//		synthVoices[i]->processMIDIEvent(event);
+		//	}
+      synthVoices[0]->processMIDIEvent(event);
+			synthVoices[1]->processMIDIEvent(event);
+			synthVoices[2]->processMIDIEvent(event);
+			synthVoices[3]->processMIDIEvent(event);
 		}
 
 		// --- need to store these for things like portamento
@@ -698,10 +739,15 @@ bool SynthEngine::processMIDIEvent(midiEvent& event)
       // Adjustable Num of Voices? Vector, maybe?
       // vector<synthVoices> unisonStack;
 
-			for (int i = 0; i < parameters.numUnisonVoices; i++)
-			{
-				synthVoices[i]->processMIDIEvent(event);
-			}
+			//for (int i = 0; i < parameters.numUnisonVoices; i++)
+			//{
+			//	synthVoices[i]->processMIDIEvent(event);
+			//}
+      	// --- this will get complicated with voice stealing.
+			synthVoices[0]->processMIDIEvent(event);
+			synthVoices[1]->processMIDIEvent(event);
+			synthVoices[2]->processMIDIEvent(event);
+			synthVoices[3]->processMIDIEvent(event);
 
 			return true;
 		}
@@ -799,6 +845,7 @@ void SynthEngine::setParameters(const SynthEngineParameters& _parameters)
 	// --- map -8192 -> 8191 to MIDI 14-bit
 	bipolarIntToMIDI14_bit(mtFine, -8192, 8191, midiInputData->globalMIDIData[kMIDIMasterTuneFineLSB], midiInputData->globalMIDIData[kMIDIMasterTuneFineMSB]);
 
+	double unisonDetune;
 	// --- now trickle down the voice parameters
 	for (unsigned int i = 0; i < MAX_VOICES; i++)
 	{
@@ -812,22 +859,40 @@ void SynthEngine::setParameters(const SynthEngineParameters& _parameters)
 				{
 					parameters.voiceParameters->voiceUnisonDetune_Cents = 0.0;
 					parameters.voiceParameters->dcaParameters->panValue = 0.5;
+
+					unisonDetune = 0.0;
+					synthVoices[i]->setUnison(unisonDetune);
 				}
 				else if (i == 1)
 				{
 					parameters.voiceParameters->voiceUnisonDetune_Cents = parameters.masterUnisonDetune_Cents;
 					parameters.voiceParameters->dcaParameters->panValue = -1.0;
+
+					unisonDetune = parameters.masterUnisonDetune_Cents;
+					synthVoices[i]->setUnison(unisonDetune);
 				}
 				else if (i == 2)
 				{
 					parameters.voiceParameters->voiceUnisonDetune_Cents = -parameters.masterUnisonDetune_Cents;
 					parameters.voiceParameters->dcaParameters->panValue = 1.0;
+
+					unisonDetune = -parameters.masterUnisonDetune_Cents;
+					synthVoices[i]->setUnison(unisonDetune);
 				}
 				else if (i == 3)
 				{
 					parameters.voiceParameters->voiceUnisonDetune_Cents = 0.707*parameters.masterUnisonDetune_Cents;
 					parameters.voiceParameters->dcaParameters->panValue = -0.5;
+
+					unisonDetune = 0.707*parameters.masterUnisonDetune_Cents;
+					synthVoices[i]->setUnison(unisonDetune);
 				}
+
+				/*parameters.voiceParameters->osc1Parameters->unisonDetuneCents = parameters.voiceParameters->voiceUnisonDetune_Cents;
+				parameters.voiceParameters->osc2Parameters->unisonDetuneCents = parameters.voiceParameters->voiceUnisonDetune_Cents;
+				parameters.voiceParameters->osc3Parameters->unisonDetuneCents = parameters.voiceParameters->voiceUnisonDetune_Cents;
+				parameters.voiceParameters->osc4Parameters->unisonDetuneCents = parameters.voiceParameters->voiceUnisonDetune_Cents;*/
+
 			}
 			else
 			{
@@ -857,38 +922,36 @@ int SynthEngine::getVoiceIndexToSteal()
 	// --- find oldest note
 	int index = -1;
 
+	int maxTime = 0, secondLongest = 0;
+	int maxTimeIndex = -1, secondLongestIndex = -1, lowPitchIndex = -1;
+	int lowPitch = 150;
+
 	// --- add your heuristic code here to return the index of the voice to steal
-	// Note Protection
-	// - protect all (aka voice stealing off)
+	for (int i = 0; i < MAX_VOICES; i++) {
+		if (synthVoices[i]->getTimestamp() > maxTime) {
+			secondLongestIndex = maxTimeIndex;
+			secondLongest = maxTime;
 
-	// - protect none
+			maxTimeIndex = i;
+			maxTime = synthVoices[i]->getTimestamp();
+		}
+		else if (synthVoices[i]->getTimestamp() > secondLongest && synthVoices[i]->getTimestamp() != maxTime) {
+			secondLongest = synthVoices[i]->getTimestamp();
+			secondLongestIndex = i;
+		}
+	}
 
-	// - protect lowest
+	for (int i = 0; i < MAX_VOICES; i++) {
+		if (synthVoices[i]->getMIDINoteNumber() < lowPitch) {
+			lowPitch = synthVoices[i]->getMIDINoteNumber();
+			lowPitchIndex = i;
+		}
+	}
 
-	// - protect highest
-
-
-	// Stealing Priority
-	// - random
-	//if (stealMode == kStealMode_Random)
-	index = rand() % MAX_VOICES;
-
-	// - oldest
-	//else if (stealMode == kStealMode_OldestNote)
-	//check timestamps of each note
-
-
-	// - newest
-	//else if (stealMode == kStealMode_NewestNote)
-	//check timestamps of each note
-
-	// - closest to new note
-	//else if (stealMode == kStealMode_ClosestNote)
-	//check MIDI pitches of each note
-
-	// - quietest note
-	//else if (stealMode == kStealMode_ClosestNote)
-	//check MIDI velocities of each note
+	if (lowPitchIndex == maxTimeIndex)
+		index = secondLongestIndex;
+	else
+		index = maxTimeIndex;
 
 	// --- index should always be >= 0
 	return index;

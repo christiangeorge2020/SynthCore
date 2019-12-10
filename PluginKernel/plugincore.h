@@ -34,7 +34,7 @@ enum controlID {
 	lfo2Frequency_Hz = 52,
 	lfo1Shape = 45,
 	lfo1ShapeSplit = 46,
-	scaleMode = 47,
+	ScaleMode = 47,
 	enableRhythmicBreaks = 48,
 	lfo2Shape = 53,
 	lfo2ShapeSplit = 54,
@@ -323,7 +323,27 @@ enum controlID {
 	exciter1Attack_msec = 81,
 	exciter1Hold_msec = 82,
 	exciter1Release_msec = 83,
-	resonator1Decay = 84
+	resonator1Decay = 84,
+	osc2ExciterMode = 90,
+	osc3ExciterMode = 100,
+	osc4ExciterMode = 110,
+	exciter2Attack_msec = 91,
+	exciter2Hold_msec = 92,
+	exciter2Release_msec = 93,
+	resonator2Decay = 94,
+	exciter3Attack_msec = 101,
+	exciter3Hold_msec = 102,
+	exciter3Release_msec = 103,
+	resonator3Decay = 104,
+	exciter4Attack_msec = 111,
+	exciter4Hold_msec = 112,
+	exciter4Release_msec = 113,
+	resonator4Decay = 114,
+	fc2_hertz = 15,
+	q2Control = 16,
+	filter1Algorithm = 25,
+	filter2Algorithm = 35,
+	enableGainCompensation = 17
 };
 
 	// **--0x0F1F--**
@@ -503,6 +523,20 @@ private:
 	double exciter1Hold_msec = 0.0;
 	double exciter1Release_msec = 0.0;
 	double resonator1Decay = 0.0;
+	double exciter2Attack_msec = 0.0;
+	double exciter2Hold_msec = 0.0;
+	double exciter2Release_msec = 0.0;
+	double resonator2Decay = 0.0;
+	double exciter3Attack_msec = 0.0;
+	double exciter3Hold_msec = 0.0;
+	double exciter3Release_msec = 0.0;
+	double resonator3Decay = 0.0;
+	double exciter4Attack_msec = 0.0;
+	double exciter4Hold_msec = 0.0;
+	double exciter4Release_msec = 0.0;
+	double resonator4Decay = 0.0;
+	double fc2_hertz = 0.0;
+	double q2Control = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -517,8 +551,8 @@ private:
 	int lfo2Waveform = 0;
 	enum class lfo2WaveformEnum { Triangle,Sin,Saw,RSH,QRSH,Noise,QRNoise };	// to compare: if(compareEnumToInt(lfo2WaveformEnum::Triangle, lfo2Waveform)) etc... 
 
-	int scaleMode = 0;
-	enum class scaleModeEnum { None,Ionian,Dorian,Phrygian,Lydian,Mixolydian,Aeolian,Locrian,Chromatic };	// to compare: if(compareEnumToInt(scaleModeEnum::None, scaleMode)) etc... 
+	int ScaleMode = 0;
+	enum class ScaleModeEnum { None,Ionian,Dorian,Phrygian,Lydian,Mixolydian,Aeolian,Locrian,Chromatic };	// to compare: if(compareEnumToInt(ScaleModeEnum::None, ScaleMode)) etc... 
 
 	int enableRhythmicBreaks = 0;
 	enum class enableRhythmicBreaksEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(enableRhythmicBreaksEnum::SWITCH_OFF, enableRhythmicBreaks)) etc... 
@@ -1203,6 +1237,24 @@ private:
 
 	int osc1ExciterMode = 0;
 	enum class osc1ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc1ExciterModeEnum::None, osc1ExciterMode)) etc... 
+
+	int osc2ExciterMode = 0;
+	enum class osc2ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc2ExciterModeEnum::None, osc2ExciterMode)) etc... 
+
+	int osc3ExciterMode = 0;
+	enum class osc3ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc3ExciterModeEnum::None, osc3ExciterMode)) etc... 
+
+	int osc4ExciterMode = 0;
+	enum class osc4ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc4ExciterModeEnum::None, osc4ExciterMode)) etc... 
+
+	int filter1Algorithm = 0;
+	enum class filter1AlgorithmEnum { LPF2,HPF2,LPF4,HPF4 };	// to compare: if(compareEnumToInt(filter1AlgorithmEnum::LPF2, filter1Algorithm)) etc... 
+
+	int filter2Algorithm = 0;
+	enum class filter2AlgorithmEnum { LPF2,HPF2,LPF4,HPF4 };	// to compare: if(compareEnumToInt(filter2AlgorithmEnum::LPF2, filter2Algorithm)) etc... 
+
+	int enableGainCompensation = 0;
+	enum class enableGainCompensationEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(enableGainCompensationEnum::SWITCH_OFF, enableGainCompensation)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

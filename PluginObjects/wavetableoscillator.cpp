@@ -81,6 +81,12 @@ bool WaveTableOsc::doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_
 	return true;
 }
 
+bool WaveTableOsc::setUnison(double unisonDetune)
+{
+	unisonDetune_cents = unisonDetune;
+	return true;
+}
+
 bool WaveTableOsc::update(bool updateAllModRoutings)
 {
 	// --- Run priority modulators 
@@ -187,13 +193,83 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 		}
 	}
 	*/
+  // Major Modes
+	double Ionian[15] = { -12.0, -10.0, -8.0, -7.0, -5.0, -3.0, -1.0, 0.0, 2.0, 4.0, 5.0, 7.0, 9.0, 11.0, 12.0 };
+	double Dorian[15] = { -12.0, -10.0, -9.0, -7.0, -5.0, -3.0, -2.0, 0.0, 2.0, 3.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
+	double Phrygian[15] = { -12.0, -11.0, -9.0, -7.0, -5.0, -3.0, -2.0, 0.0, 1.0, 3.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
+	double Lydian[15] = { -12.0, -10.0, -8.0, -6.0, -5.0, -3.0, -1.0, 0.0, 2.0, 4.0, 6.0, 7.0, 9.0, 11.0, 12.0 };
+	double Mixolydian[15] = { -12.0, -10.0, -8.0, -7.0, -5.0, -3.0, -2.0, 0.0, 2.0, 4.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
+	double Aeolian[15] = { -12.0, -10.0, -9.0, -7.0, -5.0, -4.0, -2.0, 0.0, 2.0, 3.0, 5.0, 7.0, 8.0, 10.0, 12.0 };
+	double Locrian[15] = { -12.0, -11.0, -9.0, -7.0, -6.0, -4.0, -2.0, 0.0, 1.0, 3.0, 5.0, 6.0, 8.0, 10.0, 12.0 };
+	double diff[15] = { 0.0 };
+	double scale[15] = { 0.0 };
+	double quantFMod, smallestDiff = 0.0;
+	if (parameters->scaleSelect != scaleMode::kNone)
+	{
+		if (parameters->scaleSelect == scaleMode::kIonian)
+		{
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Ionian[i];
+		}
+		else if (parameters->scaleSelect == scaleMode::kDorian)
+		{
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Dorian[i];
+		}
+		else if (parameters->scaleSelect == scaleMode::kPhrygian)
+		{
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Phrygian[i];
+		}
+		else if (parameters->scaleSelect == scaleMode::kLydian)
+		{
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Lydian[i];
+		}
+		else if (parameters->scaleSelect == scaleMode::kMixolydian)
+		{
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Mixolydian[15];
+		}
+		else if (parameters->scaleSelect == scaleMode::kAeolian)
+		{
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Aeolian[15];
+		}
+		else if (parameters->scaleSelect == scaleMode::kLocrian)
+		{
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Locrian[15];
+		}
+
+		// Quantize
+		for (int i = 0; i <= 15; i++)
+		{
+			diff[i] = abs(scale[i] - fmodInput);
+		}
+
+
+		double smallestDiff = diff[0];
+
+		for (int i = 1; i <= 15; i++)
+		{
+			if (smallestDiff > diff[i])
+			{
+				smallestDiff = diff[i];
+				quantFMod = scale[i];
+			}
+		}
+	}
+
+	if (parameters->scaleSelect == scaleMode::kNone)
+		quantFMod = fmodInput;
 
 	// --- calculate combined tuning offsets by simply adding values in semitones
 	double currentPitchModSemitones = glideMod + 
-		fmodInput +
+		(unisonDetune_cents / 100) +
+		quantFMod +
 		midiPitchBend +
 		masterTuning +
-		//temperamentOffsetCents +
 		(parameters->detuneOctaves* 12) +						/* octave*12 = semitones */
 		(parameters->detuneSemitones) +							/* semitones */
 		(parameters->unisonDetuneCents / 100.0);				/* cents/100 = semitones */
@@ -247,6 +323,7 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 
 	//pTableLen = &tableLen;
 
+	/*
 	// SHAPE MODULATION --- from LFO code
 	double shapeModulation = modulators->modulationInputs[kShapeModBipolar];
 	double shapeRange = (0.98 - 0.01) / 2.0;
@@ -267,6 +344,7 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	else
 		oscillatorFrequency *= oscillatorShape_second;
 
+	*/
 
 
 	// --- note that we neex the current table length for this calculation, and we save it

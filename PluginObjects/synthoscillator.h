@@ -4,6 +4,8 @@
 // --- we need these
 #include "synthdefs.h"
 #include "wavetableoscillator.h"
+#include "resonator.h"
+#include "dca_eg.h"
 
 /**
 \class SynthOsc
@@ -28,6 +30,7 @@ public:
 	virtual bool update(bool updateAllModRoutings = true);
 	virtual bool doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
 	virtual bool doNoteOff(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNoteVelocity);
+	virtual bool setUnison(double unisonDetune_cents);
 	
 	// --- **7**
 	virtual std::vector<std::string> getWaveformNames(uint32_t bankIndex);
@@ -74,6 +77,20 @@ protected:
 
 	// --- smart pointers to the oscillator object
 	std::unique_ptr<WaveTableOsc> wavetableOscillator = nullptr;
+
+	// --- resonator tube
+	std::unique_ptr<Resonator> resonator;
+	
+	// --- for the noise EG
+	std::shared_ptr<EGParameters> noiseEGParameters = std::make_shared<EGParameters>();
+
+	double midiNotePitch = 0.0;
+
+	// --- resonator tube
+	std::unique_ptr<EnvelopeGenerator> noiseEG;
+
+	// --- 32-bit register for RS&H
+	uint32_t pnRegister = 0;			///< 32 bit register for PN oscillator
 };
 
 

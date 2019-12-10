@@ -177,10 +177,14 @@ struct SynthVoiceParameters
 
 		dcaParameters = params.dcaParameters;
 
-		moogFilterParameters = params.moogFilterParameters;
+		moogFilter1Parameters = params.moogFilter1Parameters;
+		moogFilter2Parameters = params.moogFilter2Parameters;
 
 		lfo1Parameters = params.lfo1Parameters;
-		//rotorParameters = params.rotorParameters;
+		lfo2Parameters = params.lfo2Parameters;
+		jsLFOACParameters = params.jsLFOACParameters;
+		jsLFOBDParameters = params.jsLFOBDParameters;
+
 		EG1Parameters = params.EG1Parameters;
 		vectorJSData = params.vectorJSData;
 
@@ -214,10 +218,8 @@ struct SynthVoiceParameters
 	std::shared_ptr<SynthLFOParameters> lfo1Parameters = std::make_shared<SynthLFOParameters>();
 	std::shared_ptr<SynthLFOParameters> lfo2Parameters = std::make_shared<SynthLFOParameters>();
 
-	// --- ROTOR
-	
-	//std::shared_ptr<SynthLFOParameters> rotorX_lfoParameters = std::make_shared<SynthLFOParameters>();
-	//std::shared_ptr<SynthLFOParameters> rotorY_lfoParameters = std::make_shared<SynthLFOParameters>();
+	std::shared_ptr<SynthLFOParameters> jsLFOACParameters = std::make_shared<SynthLFOParameters>();
+	std::shared_ptr<SynthLFOParameters> jsLFOBDParameters = std::make_shared<SynthLFOParameters>();
 
 	//std::shared_ptr<RotorParameters> rotorParameters = std::make_shared<RotorParameters>();
 
@@ -225,7 +227,8 @@ struct SynthVoiceParameters
 	std::shared_ptr<EGParameters> EG1Parameters = std::make_shared<EGParameters>();
 
 	// --- Filters
-	std::shared_ptr<MoogFilterParameters> moogFilterParameters = std::make_shared<MoogFilterParameters>();
+	std::shared_ptr<MoogFilterParameters> moogFilter1Parameters = std::make_shared<MoogFilterParameters>();
+	std::shared_ptr<MoogFilterParameters> moogFilter2Parameters = std::make_shared<MoogFilterParameters>();
 
 	// --- DCA
 	std::shared_ptr<DCAParameters> dcaParameters = std::make_shared<DCAParameters>();
@@ -342,6 +345,8 @@ public:
 	bool doNoteOn(midiEvent& event);
 	bool doNoteOff(midiEvent& event);
 
+	bool setUnison(double unisonDetune);
+
 	// --- specialized getters
 	bool isVoiceActive() { return voiceIsRunning; }
 
@@ -401,6 +406,8 @@ protected:
 		modSourceData[kLFO1_QuadPhase] = &lfo1Output.modulationOutputs[kLFOQuadPhaseOutput];
 		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
 		modSourceData[kLFO2_QuadPhase] = &lfo2Output.modulationOutputs[kLFONormalOutput];
+		//modSourceData[kjsLFOAC_Normal] = &jsOutput_AC.modulationOutputs[kLFONormalOutput];
+		//modSourceData[kjsLFOBD_Normal] = &jsOutput_BD.modulationOutputs[kLFONormalOutput];
 
 		// EG's
 		modSourceData[kEG1_Normal] = &EG1Output.modulationOutputs[kEGNormalOutput];
@@ -468,14 +475,16 @@ protected:
 		modDestinationData[kEG1_Sustain] = &(EG1->getModulators()->modulationInputs[kEGSustainMod]);
 		modDestinationData[kEG1_Release] = &(EG1->getModulators()->modulationInputs[kEGReleaseMod]);*/
 
+		// Filter's
+		modDestinationData[kFilter1_fc] = &(moogFilter1->getModulators()->modulationInputs[kBipolarMod]);
+		modDestinationData[kFilter2_fc] = &(moogFilter2->getModulators()->modulationInputs[kBipolarMod]);
 
+		// DCA
 		modDestinationData[kDCA_EGMod] = &(dca->getModulators()->modulationInputs[kEGMod]);
 		modDestinationData[kDCA_AmpMod] = &(dca->getModulators()->modulationInputs[kMaxDownAmpMod]);
+		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxBipolarMod_1]);
 
 		//modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
-
-		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxBipolarMod_1]);
-		modDestinationData[kFilter1_fc] = &(moogFilter->getModulators()->modulationInputs[kBipolarMod]);
 	}
 
 	// --- arrays to hold source/destination
@@ -485,6 +494,8 @@ protected:
 	// --- mod source data: --- modulators ---
 	ModOutputData lfo1Output;
 	ModOutputData lfo2Output;
+  ModOutputData jsOutput_AC;
+	ModOutputData jsOutput_BD;
 	ModOutputData rotorOutput;
 	ModOutputData EG1Output;
 
@@ -516,7 +527,8 @@ protected:
 	// add here....
 
 	// --- filters: **MOOG**
-	std::unique_ptr<MoogFilter> moogFilter;
+	std::unique_ptr<MoogFilter> moogFilter1;
+	std::unique_ptr<MoogFilter> moogFilter2;
 	// Smart pointers delete themselves when no one is holding a copy of them. Smart pointers use an overloaded equals to increment its
 	// reference count, and an overloaded destructor to decrement. A unique pointer is a smart pointer that can only be owned by one object;
 	// nothing else can point to its value. 
@@ -528,6 +540,11 @@ protected:
 	//std::unique_ptr<SynthLFO> rotorX_lfo;
 	//std::unique_ptr<SynthLFO> rotorY_lfo;
 	//std::unique_ptr<Rotor> rotor;
+  std::unique_ptr<SynthLFO> jsLFO_AC;
+	std::unique_ptr<SynthLFO> jsLFO_BD;
+
+	double cookedVectorA = 0.0, cookedVectorB = 0.0, cookedVectorC = 0.0, cookedVectorD = 0.0;
+
 
 	// --- EGs
 	std::unique_ptr<EnvelopeGenerator> EG1;
