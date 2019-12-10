@@ -50,7 +50,7 @@ enum controlID {
 	osc1Detune_cents = 3,
 	fc1_hertz = 5,
 	q1Control = 6,
-	lfo1Amplitude = 170,
+	lfo1ModOut = 170,
 	eg1ModOut = 180,
 	osc1FoModIn = 161,
 	osc2FoModIn = 162,
@@ -104,7 +104,14 @@ enum controlID {
 	exciter4Hold_msec = 112,
 	exciter2Attack_msec = 91,
 	exciter3Attack_msec = 101,
-	exciter4Attack_msec = 111
+	exciter4Attack_msec = 111,
+	filterFoModIn = 163,
+	eg1AttackModIn = 167,
+	eg1HoldModIn = 168,
+	eg1ReleaseModIn = 169,
+	lfo1FreqModIn = 164,
+	joystickACModOut = 190,
+	joystickBDModOut = 200
 };
 
 	// **--0x0F1F--**
@@ -228,7 +235,7 @@ private:
 	double osc1Detune_cents = 0.0;
 	double fc1_hertz = 0.0;
 	double q1Control = 0.0;
-	double lfo1Amplitude = 0.0;
+	double lfo1ModOut = 0.0;
 	double eg1ModOut = 0.0;
 	double osc1FoModIn = 0.0;
 	double osc2FoModIn = 0.0;
@@ -268,6 +275,13 @@ private:
 	double exciter2Attack_msec = 0.0;
 	double exciter3Attack_msec = 0.0;
 	double exciter4Attack_msec = 0.0;
+	double filterFoModIn = 0.0;
+	double eg1AttackModIn = 0.0;
+	double eg1HoldModIn = 0.0;
+	double eg1ReleaseModIn = 0.0;
+	double lfo1FreqModIn = 0.0;
+	double joystickACModOut = 0.0;
+	double joystickBDModOut = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;

@@ -259,10 +259,10 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- continuous control: LFO1 Out
-	piParam = new PluginParameter(controlID::lfo1ModOut, "LFO1 Out", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam = new PluginParameter(controlID::lfo1Amplitude, "LFO1 Out", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&lfo1ModOut, boundVariableType::kDouble);
+	piParam->setBoundVariable(&lfo1Amplitude, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
 	// --- continuous control: EG1 Out
@@ -628,55 +628,6 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&exciter4Attack_msec, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
-	// --- continuous control: Filter Fo In
-	piParam = new PluginParameter(controlID::filterFoModIn, "Filter Fo In", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&filterFoModIn, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: EG1 Attack In
-	piParam = new PluginParameter(controlID::eg1AttackModIn, "EG1 Attack In", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&eg1AttackModIn, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: EG1 Hold In
-	piParam = new PluginParameter(controlID::eg1HoldModIn, "EG1 Hold In", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&eg1HoldModIn, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: EG1 Release In
-	piParam = new PluginParameter(controlID::eg1ReleaseModIn, "EG1 Release In", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&eg1ReleaseModIn, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: LFO1 F In
-	piParam = new PluginParameter(controlID::lfo1FreqModIn, "LFO1 F In", "", controlVariableType::kDouble, -1.000000, 0.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&lfo1FreqModIn, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: Joystick AC Out
-	piParam = new PluginParameter(controlID::joystickACModOut, "Joystick AC Out", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&joystickACModOut, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
-	// --- continuous control: Joystick BD Out
-	piParam = new PluginParameter(controlID::joystickBDModOut, "Joystick BD Out", "", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
-	piParam->setParameterSmoothing(false);
-	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&joystickBDModOut, boundVariableType::kDouble);
-	addPluginParameter(piParam);
-
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -826,10 +777,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::q1Control, auxAttribute);
 
-	// --- controlID::lfo1ModOut
+	// --- controlID::lfo1Amplitude
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::lfo1ModOut, auxAttribute);
+	setParamAuxAttribute(controlID::lfo1Amplitude, auxAttribute);
 
 	// --- controlID::eg1ModOut
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -1101,41 +1052,6 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::exciter4Attack_msec, auxAttribute);
 
-	// --- controlID::filterFoModIn
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::filterFoModIn, auxAttribute);
-
-	// --- controlID::eg1AttackModIn
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::eg1AttackModIn, auxAttribute);
-
-	// --- controlID::eg1HoldModIn
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::eg1HoldModIn, auxAttribute);
-
-	// --- controlID::eg1ReleaseModIn
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::eg1ReleaseModIn, auxAttribute);
-
-	// --- controlID::lfo1FreqModIn
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::lfo1FreqModIn, auxAttribute);
-
-	// --- controlID::joystickACModOut
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::joystickACModOut, auxAttribute);
-
-	// --- controlID::joystickBDModOut
-	auxAttribute.reset(auxGUIIdentifier::guiControlData);
-	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::joystickBDModOut, auxAttribute);
-
 
 	// **--0xEDA5--**
    
@@ -1289,23 +1205,15 @@ void PluginCore::updateParameters()
 
 
 	// Mod matrix
-	engineParams.setMM_SourceMasterIntensity(kLFO1_Normal, lfo1ModOut);
+	engineParams.setMM_SourceMasterIntensity(kLFO1_Normal, lfo1Amplitude);
 	engineParams.setMM_SourceMasterIntensity(kEG1_Normal, eg1ModOut);
-	engineParams.setMM_SourceMasterIntensity(kJoystickAC, joystickACModOut);
-	engineParams.setMM_SourceMasterIntensity(kJoystickBD, joystickBDModOut);
 
 	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc1_fo, lfo1_to_osc1Fo);
 	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc2_fo, lfo1_to_osc2Fo);
 	engineParams.setMM_ChannelEnable(kEG1_Normal, kOsc1_fo, eg1_to_osc1Fo);
 
-
 	engineParams.setMM_DestMasterIntensity(kOsc1_fo, osc1FoModIn);
 	engineParams.setMM_DestMasterIntensity(kOsc2_fo, osc2FoModIn);
-	engineParams.setMM_DestMasterIntensity(kEG1_attack, eg1AttackModIn);
-	engineParams.setMM_DestMasterIntensity(kEG1_hold, eg1HoldModIn);
-	engineParams.setMM_DestMasterIntensity(kEG1_release, eg1ReleaseModIn);
-
-
 
 	// Rotor
 	engineParams.voiceParameters->jsLFOACParameters->frequency_Hz = joystickACRate_hertz;
@@ -1719,7 +1627,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::osc1Detune_cents, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::fc1_hertz, 880.000000);
 	setPresetParameter(preset->presetParameters, controlID::q1Control, 1.000000);
-	setPresetParameter(preset->presetParameters, controlID::lfo1ModOut, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1Amplitude, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::eg1ModOut, 1.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc1FoModIn, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::osc2FoModIn, 0.000000);
@@ -1759,28 +1667,21 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::joystickBDRate_hertz, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::joystickACAmp, 0.250000);
 	setPresetParameter(preset->presetParameters, controlID::joystickBDAmp, 0.500000);
-	setPresetParameter(preset->presetParameters, controlID::osc2ExciterMode, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::osc3ExciterMode, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::osc4ExciterMode, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::resonator2Decay, 1.000000);
-	setPresetParameter(preset->presetParameters, controlID::resonator3Decay, 1.000000);
-	setPresetParameter(preset->presetParameters, controlID::resonator4Decay, 0.750000);
-	setPresetParameter(preset->presetParameters, controlID::exciter2Release_msec, 1000.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter3Release_msec, 1000.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter4Release_msec, 1000.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter2Hold_msec, 250.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter3Hold_msec, 250.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter4Hold_msec, 250.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter2Attack_msec, 100.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter3Attack_msec, 100.000000);
-	setPresetParameter(preset->presetParameters, controlID::exciter4Attack_msec, 100.000000);
-	setPresetParameter(preset->presetParameters, controlID::filterFoModIn, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1AttackModIn, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1HoldModIn, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1ReleaseModIn, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::lfo1FreqModIn, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::joystickACModOut, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::joystickBDModOut, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc2ExciterMode, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc3ExciterMode, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc4ExciterMode, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::resonator2Decay, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::resonator3Decay, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::resonator4Decay, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter2Release_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter3Release_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter4Release_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter2Hold_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter3Hold_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter4Hold_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter2Attack_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter3Attack_msec, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter4Attack_msec, 0.000000);
 	addPreset(preset);
 
 

@@ -71,6 +71,9 @@ enum modDestination
 	kDCA_EGMod, // EG Input
 	kDCA_AmpMod,// Amp Mod Input
 	kDCA_SampleHoldMod, // Bipolar clamping mod input
+	kEG1_attack,
+	kEG1_hold,
+	kEG1_release,
 
 	// --- remain last, will always be the size of modulator array
 	kNumModDestinations
