@@ -253,15 +253,18 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 
 	// --- this voice is MONO up to this point
 	SynthProcessorData audioData;
+	
+	audioData.inputs[0] = oscOut;
 	audioData.numInputChannels = 1; // mono in
 	audioData.numOutputChannels = 2;// stereo out
-	audioData.inputs[0] = oscOut;
 
 	// **MOOG**
 	// --- run through filter
 	moogFilter->processSynthAudio(&audioData);
 
-	// --- inline, copy MONO output back to input
+	
+
+	//// --- inline, copy MONO output back to input
 	audioData.inputs[0] = audioData.outputs[0];
 	audioData.numOutputChannels = 2;// stereo out
 
@@ -441,7 +444,7 @@ SynthEngine::SynthEngine()
 
 	// --- HARDWIRED MOD ROUTINGS --- //
 	
-	parameters.setMM_HardwiredRouting(kJoystickAC, kFilter1_fc);
+	//parameters.setMM_HardwiredRouting(kJoystickAC, kFilter1_fc);
 	// --- kEG1_Normal -> kDCA_EGMod
 	parameters.setMM_HardwiredRouting(kEG1_Normal, kDCA_EGMod);
 

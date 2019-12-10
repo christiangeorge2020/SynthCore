@@ -1200,8 +1200,8 @@ void PluginCore::updateParameters()
 	// Moog Filter
 	engineParams.voiceParameters->moogFilterParameters->fc = fc1_hertz;
 	engineParams.voiceParameters->moogFilterParameters->Q = q1Control;
-	engineParams.voiceParameters->moogFilterParameters->enableKeyTrack = (enableKeyTrack == 1);
-	engineParams.voiceParameters->moogFilterParameters->keyTrackRatio = keyTrackRatio;
+	/*engineParams.voiceParameters->moogFilterParameters->enableKeyTrack = (enableKeyTrack == 1);
+	engineParams.voiceParameters->moogFilterParameters->keyTrackRatio = keyTrackRatio;*/
 
 
 	// Mod matrix
