@@ -122,27 +122,67 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	double glideMod = glideModulator.getNextGlideModSemitones();
 
 	// Major Modes
-	double Ionian[15] = { -12.0, -10.0, -8.0, -7.0, -5.0, -3.0, -1.0, 0.0, 2.0, 4.0, 5.0, 7.0, 9.0, 11.0, 12.0 };
-	double diff[15] = { 0.0 };
-
-	// Quantize
-	for (int i = 0; i <= 15; i++) {
-		diff[i] = abs(Ionian[i] - fmodInput);
-	}
 
 	double quantFMod;
-	double smallestDiff = diff[0];
-	for (int i = 1; i <= 15; i++) {
-		if (smallestDiff > diff[i]) {
-			smallestDiff = diff[i];
-			quantFMod = Ionian[i];
+
+	if (parameters->scaleSelect != ScaleMode::kNone) {
+		double Ionian[15] = { -12.0, -10.0, -8.0, -7.0, -5.0, -3.0, -1.0, 0.0, 2.0, 4.0, 5.0, 7.0, 9.0, 11.0, 12.0 };
+		double Dorian[15] = { -12.0, -10.0, -9.0, -7.0, -5.0, -3.0, -2.0, 0.0, 2.0, 3.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
+		double Phrygian[15] = { -12.0, -11.0, -9.0, -7.0, -5.0, -3.0, -2.0, 0.0, 1.0, 3.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
+		double Lydian[15] = { -12.0, -10.0, -8.0, -6.0, -5.0, -3.0, -1.0, 0.0, 2.0, 4.0, 6.0, 7.0, 9.0, 11.0, 12.0 };
+		double Mixolydian[15] = { -12.0, -10.0, -8.0, -7.0, -5.0, -3.0, -2.0, 0.0, 2.0, 4.0, 5.0, 7.0, 9.0, 10.0, 12.0 };
+		double Aeolian[15] = { -12.0, -10.0, -9.0, -7.0, -5.0, -4.0, -2.0, 0.0, 2.0, 3.0, 5.0, 7.0, 8.0, 10.0, 12.0 };
+		double Locrian[15] = { -12.0, -11.0, -9.0, -7.0, -6.0, -4.0, -2.0, 0.0, 1.0, 3.0, 5.0, 6.0, 8.0, 10.0, 12.0 };
+		double diff[15] = { 0.0 };
+		double  scale[15] = { 0.0 };
+
+		if (parameters->scaleSelect == ScaleMode::kIonian) {
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Ionian[i];
+		}
+		else if (parameters->scaleSelect == ScaleMode::kDorian) {
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Dorian[i];
+		}
+		else if (parameters->scaleSelect == ScaleMode::kPhrygian) {
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Phrygian[i];
+		}
+		else if (parameters->scaleSelect == ScaleMode::kLydian) {
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Lydian[i];
+		}
+		else if (parameters->scaleSelect == ScaleMode::kMixolydian) {
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Mixolydian[15];
+		}
+		else if (parameters->scaleSelect == ScaleMode::kAeolian) {
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Aeolian[15];
+		}
+		else if (parameters->scaleSelect == ScaleMode::kLocrian) {
+			for (int i = 0; i <= 15; i++)
+				scale[i] = Locrian[15];
+		}
+
+		// Quantize
+		for (int i = 0; i <= 15; i++) {
+			diff[i] = abs(scale[i] - fmodInput);
+		}
+
+		
+		double smallestDiff = diff[0];
+
+		for (int i = 1; i <= 15; i++) {
+			if (smallestDiff > diff[i]) {
+				smallestDiff = diff[i];
+				quantFMod = scale[i];
+			}
 		}
 	}
 
-
-
-
-
+	if (parameters->scaleSelect == ScaleMode::kNone)
+		quantFMod = fmodInput;
 
 
 	// --- calculate combined tuning offsets by simply adding values in semitones
