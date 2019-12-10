@@ -31,7 +31,9 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 	lfo1.reset(new SynthLFO(midiInputData, parameters->lfo1Parameters));
 	lfo2.reset(new SynthLFO(midiInputData, parameters->lfo2Parameters));
 
-	rotor.reset(new Rotor(midiInputData, parameters->rotorParameters));
+	//rotorX_lfo.reset(new SynthLFO(midiInputData, parameters->rotorX_lfoParameters));
+	//rotorY_lfo.reset(new SynthLFO(midiInputData, parameters->rotorY_lfoParameters));
+	//rotor.reset(new Rotor(midiInputData, parameters->rotorParameters, rotorX_lfo, rotorY_lfo));
 
 	// **MOOG**
 	moogFilter.reset(new MoogFilter(midiInputData, parameters->moogFilterParameters));
@@ -110,8 +112,10 @@ bool SynthVoice::reset(double _sampleRate)
 	/// LFO Reset
 	lfo1->reset(_sampleRate);
 	lfo2->reset(_sampleRate);
+	//rotorX_lfo->reset(_sampleRate);
+	//rotorY_lfo->reset(_sampleRate);
 
-	rotor->reset(_sampleRate);
+	//rotor->reset(_sampleRate);
 
 	ampEG->reset(_sampleRate);
 
@@ -193,8 +197,9 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	lfo2->update(updateAllModRoutings);
 	lfo2Output = lfo2->renderModulatorOutput();
 
-	rotor->update(updateAllModRoutings);
-	rotorOutput = rotor->renderModulatorOutput();
+	//rotorX_lfo->update(updateAllModRoutings);
+	//rotor->update(updateAllModRoutings);
+	//rotorOutput = rotor->renderModulatorOutput();
 	
 	// --- update/render (add more here)
 	ampEG->update(updateAllModRoutings);
@@ -321,7 +326,8 @@ bool SynthVoice::doNoteOn(midiEvent& event)
 	lfo1->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 	lfo2->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
-	rotor->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+
+	//rotor->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
 	moogFilter->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
@@ -415,7 +421,11 @@ SynthEngine::SynthEngine()
 	// --- HARDWIRED MOD ROUTINGS --- //
 	//
 	// --- kEG1_Normal -> kDCA_EGMod
+
+	//TRY TO OVERRIDE MOD MATRIX MASTER INTENSITY.
 	parameters.setMM_HardwiredRouting(kEG1_Normal, kDCA_EGMod);
+	//master takes priority
+	//parameters.setMM_ChannelIntensity(kEG1_Normal, kDCA_EGMod, 1.0);
 
 	//parameters.setMM_HardwiredRouting(kEG1_Normal, kFilter1_fc);
 
@@ -643,10 +653,10 @@ bool SynthEngine::processMIDIEvent(midiEvent& event)
 			// --- UNISON mode is heavily dependent on the manufacturer's 
 			//     implementation and decision
 			//     for the synth core, we will use 3 voices detuned as: -parameters.unisonDetune_Cents, 0, +parameters.unisonDetune_Cents
-			synthVoices[0]->processMIDIEvent(event);
-			synthVoices[1]->processMIDIEvent(event);
-			synthVoices[2]->processMIDIEvent(event);
-			synthVoices[3]->processMIDIEvent(event);
+			for (int i = 0; i < parameters.numUnisonVoices; i++)
+			{
+				synthVoices[i]->processMIDIEvent(event);
+			}
 		}
 
 		// --- need to store these for things like portamento
@@ -699,10 +709,10 @@ bool SynthEngine::processMIDIEvent(midiEvent& event)
       // Adjustable Num of Voices? Vector, maybe?
       // vector<synthVoices> unisonStack;
 
-			synthVoices[0]->processMIDIEvent(event);
-			synthVoices[1]->processMIDIEvent(event);
-			synthVoices[2]->processMIDIEvent(event);
-			synthVoices[3]->processMIDIEvent(event);
+			for (int i = 0; i < parameters.numUnisonVoices; i++)
+			{
+				synthVoices[i]->processMIDIEvent(event);
+			}
 
 			return true;
 		}

@@ -51,14 +51,10 @@ enum controlID {
 	fc1_hertz = 5,
 	q1Control = 6,
 	lfo1Amplitude = 170,
-	eg1ModOut = 180,
 	osc1FoModIn = 161,
-	osc2FoModIn = 162,
 	enableKeyTrack = 7,
 	keyTrackRatio = 8,
 	lfo1_to_osc1Fo = 171,
-	lfo1_to_osc2Fo = 172,
-	eg1_to_osc1Fo = 181,
 	eg2DelayTime_mSec = 71,
 	eg2AttackTime_mSec = 72,
 	eg2HoldTime_mSec = 73,
@@ -80,7 +76,177 @@ enum controlID {
 	eg1Mode = 60,
 	eg2Mode = 70,
 	mode = 2,
-	unisonDetune_Cents = 4
+	unisonDetune_Cents = 4,
+	eg1ModOut = 190,
+	eg1_to_osc1Fo = 191,
+	lfo2Amplitude = 180,
+	eg2ModOut = 200,
+	joystickACModOut = 210,
+	joystickBDModOut = 220,
+	lfo1_to_osc2Fo = 173,
+	osc2FoModIn = 163,
+	osc1ShapeModIn = 162,
+	osc2ShapeModIn = 164,
+	filter1FoModIn = 165,
+	filter1QModIn = 166,
+	filter2FoModIn = 167,
+	filter2QModIn = 168,
+	lfo1_to_osc1Shape = 172,
+	lfo1_to_osc2Shape = 174,
+	lfo1_to_filter1Fo = 175,
+	lfo1_to_filter1Q = 176,
+	lfo1_to_filter2Fo = 177,
+	lfo1_to_filter2Q = 178,
+	lfo2_to_osc1Fo = 181,
+	lfo2_to_osc1Shape = 182,
+	lfo2_to_osc2Fo = 183,
+	lfo2_to_osc2Shape = 184,
+	lfo2_to_filter1Fo = 185,
+	lfo2_to_filter1Q = 186,
+	lfo2_to_filter2Fo = 187,
+	lfo2_to_filter2Q = 188,
+	eg1_to_osc1Shape = 192,
+	eg1_to_osc2Fo = 193,
+	eg1_to_osc2Shape = 194,
+	eg1_to_filter1Fo = 195,
+	eg1_to_filter1Q = 196,
+	eg1_to_filter2Fo = 197,
+	eg1_to_filter2Q = 198,
+	eg2_to_osc1Fo = 201,
+	eg2_to_osc1Shape = 202,
+	eg2_to_osc2Fo = 203,
+	eg2_to_osc2Shape = 204,
+	eg2_to_filter1Fo = 205,
+	eg2_to_filter1Q = 206,
+	eg2_to_filter2Fo = 207,
+	eg2_to_filter2Q = 208,
+	joystickAC_to_osc1Fo = 211,
+	joystickAC_to_osc1Shape = 212,
+	joystickAC_to_osc2Fo = 213,
+	joystickAC_to_osc2Shape = 214,
+	joystickAC_to_filter1Fo = 215,
+	joystickAC_to_filter1Q = 216,
+	joystickAC_to_filter2Fo = 217,
+	joystickAC_to_filter2Q = 218,
+	joystickBD_to_osc1Fo = 221,
+	joystickBD_to_osc1Shape = 222,
+	joystickBD_to_osc2Fo = 223,
+	joystickBD_to_osc2Shape = 224,
+	joystickBD_to_filter1Fo = 225,
+	joystickBD_to_filter1Q = 226,
+	joystickBD_to_filter2Fo = 227,
+	joystickBD_to_filter2Q = 228,
+	auxUnipolar1ModOut = 230,
+	auxUnipolar2ModOut = 240,
+	auxUnipolar3ModOut = 250,
+	auxUnipolar4ModOut = 260,
+	auxUnipolar5ModOut = 270,
+	auxUnipolar6ModOut = 280,
+	auxBipolar1ModOut = 290,
+	auxBipolar2ModOut = 300,
+	auxBipolar3ModOut = 310,
+	auxBipolar4ModOut = 320,
+	aux1ModIn = 169,
+	lfo1_to_aux1ModIn = 179,
+	lfo2_to_aux1ModIn = 189,
+	joystickAC_to_aux1ModIn = 219,
+	joystickBD_to_aux1ModIn = 229,
+	auxUnipolar1Mod_to_osc1Fo = 231,
+	auxUnipolar1Mod_to_osc1Shape = 232,
+	auxUnipolar1Mod_to_osc2Fo = 233,
+	auxUnipolar1Mod_to_osc2Shape = 234,
+	auxUnipolar1Mod_to_filter1Fo = 235,
+	auxUnipolar1Mod_to_filter1Q = 236,
+	auxUnipolar1Mod_to_filter2Fo = 237,
+	auxUnipolar1Mod_to_filter2Q = 238,
+	auxUnipolar1Mod_to_aux1ModIn = 239,
+	auxUnipolar2Mod_to_osc1Fo = 241,
+	auxUnipolar2Mod_to_osc1Shape = 242,
+	auxUnipolar2Mod_to_osc2Fo = 243,
+	auxUnipolar2Mod_to_osc2Shape = 244,
+	auxUnipolar2Mod_to_filter1Fo = 245,
+	auxUnipolar2Mod_to_filter1Q = 246,
+	auxUnipolar2Mod_to_filter2Fo = 247,
+	auxUnipolar2Mod_to_filter2Q = 248,
+	auxUnipolar2Mod_to_aux1ModIn = 249,
+	auxUnipolar3Mod_to_osc1Fo = 251,
+	auxUnipolar3Mod_to_osc1Shape = 252,
+	auxUnipolar3Mod_to_osc2Fo = 253,
+	auxUnipolar3Mod_to_osc2Shape = 254,
+	auxUnipolar3Mod_to_filter1Fo = 255,
+	auxUnipolar3Mod_to_filter1Q = 256,
+	auxUnipolar3Mod_to_filter2Fo = 257,
+	auxUnipolar3Mod_to_filter2Q = 258,
+	auxUnipolar3Mod_to_aux1ModIn = 259,
+	auxUnipolar4Mod_to_osc1Fo = 261,
+	auxUnipolar4Mod_to_osc1Shape = 262,
+	auxUnipolar4Mod_to_osc2Fo = 263,
+	auxUnipolar4Mod_to_osc2Shape = 264,
+	auxUnipolar4Mod_to_filter1Fo = 265,
+	auxUnipolar4Mod_to_filter1Q = 266,
+	auxUnipolar4Mod_to_filter2Fo = 267,
+	auxUnipolar4Mod_to_filter2Q = 268,
+	auxUnipolar4Mod_to_aux1ModIn = 269,
+	auxUnipolar5Mod_to_osc1Fo = 271,
+	auxUnipolar5Mod_to_osc1Shape = 272,
+	auxUnipolar5Mod_to_osc2Fo = 273,
+	auxUnipolar5Mod_to_osc2Shape = 274,
+	auxUnipolar5Mod_to_filter1Fo = 275,
+	auxUnipolar5Mod_to_filter1Q = 276,
+	auxUnipolar5Mod_to_filter2Fo = 277,
+	auxUnipolar5Mod_to_filter2Q = 278,
+	auxUnipolar5Mod_to_aux1ModIn = 279,
+	auxUnipolar6Mod_to_osc1Fo = 281,
+	auxUnipolar6Mod_to_osc1Shape = 282,
+	auxUnipolar6Mod_to_osc2Fo = 283,
+	auxUnipolar6Mod_to_osc2Shape = 284,
+	auxUnipolar6Mod_to_filter1Fo = 285,
+	auxUnipolar6Mod_to_filter1Q = 286,
+	auxUnipolar6Mod_to_filter2Fo = 287,
+	auxUnipolar6Mod_to_filter2Q = 288,
+	auxUnipolar6Mod_to_aux1ModIn = 289,
+	auxBipolar1Mod_to_osc1Fo = 291,
+	auxBipolar1Mod_to_osc1Shape = 292,
+	auxBipolar1Mod_to_osc2Fo = 293,
+	auxBipolar1Mod_to_osc2Shape = 294,
+	auxBipolar1Mod_to_filter1Fo = 295,
+	auxBipolar1Mod_to_filter1Q = 296,
+	auxBipolar1Mod_to_filter2Fo = 297,
+	auxBipolar1Mod_to_filter2Q = 298,
+	auxBipolar1Mod_to_aux1ModIn = 299,
+	auxBipolar2Mod_to_osc1Fo = 301,
+	auxBipolar2Mod_to_osc1Shape = 302,
+	auxBipolar2Mod_to_osc2Fo = 303,
+	auxBipolar2Mod_to_osc2Shape = 304,
+	auxBipolar2Mod_to_filter1Fo = 305,
+	auxBipolar2Mod_to_filter1Q = 306,
+	auxBipolar2Mod_to_filter2Fo = 307,
+	auxBipolar2Mod_to_filter2Q = 308,
+	auxBipolar2Mod_to_aux1ModIn = 309,
+	auxBipolar3Mod_to_osc1Fo = 311,
+	auxBipolar3Mod_to_osc1Shape = 312,
+	auxBipolar3Mod_to_osc2Fo = 313,
+	auxBipolar3Mod_to_osc2Shape = 314,
+	auxBipolar3Mod_to_filter1Fo = 315,
+	auxBipolar3Mod_to_filter1Q = 316,
+	auxBipolar3Mod_to_filter2Fo = 317,
+	auxBipolar3Mod_to_filter2Q = 318,
+	auxBipolar3Mod_to_aux1ModIn = 319,
+	auxBipolar4Mod_to_osc1Fo = 321,
+	auxBipolar4Mod_to_osc1Shape = 322,
+	auxBipolar4Mod_to_osc2Fo = 323,
+	auxBipolar4Mod_to_osc2Shape = 324,
+	auxBipolar4Mod_to_filter1Fo = 325,
+	auxBipolar4Mod_to_filter1Q = 326,
+	auxBipolar4Mod_to_filter2Fo = 327,
+	auxBipolar4Mod_to_filter2Q = 328,
+	auxBipolar4Mod_to_aux1ModIn = 329,
+	eg1_to_aux1ModIn = 199,
+	eg2_to_aux1ModIn = 209,
+	lfo1ShapeModIn = 341,
+	lfo1ShapeSplitModIn = 342,
+	lfo2ShapeModIn = 343,
+	lfo2ShapeSplitModIn = 344
 };
 
 	// **--0x0F1F--**
@@ -205,9 +371,7 @@ private:
 	double fc1_hertz = 0.0;
 	double q1Control = 0.0;
 	double lfo1Amplitude = 0.0;
-	double eg1ModOut = 0.0;
 	double osc1FoModIn = 0.0;
-	double osc2FoModIn = 0.0;
 	double keyTrackRatio = 0.0;
 	double eg2DelayTime_mSec = 0.0;
 	double eg2AttackTime_mSec = 0.0;
@@ -224,6 +388,33 @@ private:
 	double eg1Offset = 0.0;
 	double eg2Offset = 0.0;
 	double unisonDetune_Cents = 0.0;
+	double eg1ModOut = 0.0;
+	double lfo2Amplitude = 0.0;
+	double eg2ModOut = 0.0;
+	double joystickACModOut = 0.0;
+	double joystickBDModOut = 0.0;
+	double osc2FoModIn = 0.0;
+	double osc1ShapeModIn = 0.0;
+	double osc2ShapeModIn = 0.0;
+	double filter1FoModIn = 0.0;
+	double filter1QModIn = 0.0;
+	double filter2FoModIn = 0.0;
+	double filter2QModIn = 0.0;
+	double auxUnipolar1ModOut = 0.0;
+	double auxUnipolar2ModOut = 0.0;
+	double auxUnipolar3ModOut = 0.0;
+	double auxUnipolar4ModOut = 0.0;
+	double auxUnipolar5ModOut = 0.0;
+	double auxUnipolar6ModOut = 0.0;
+	double auxBipolar1ModOut = 0.0;
+	double auxBipolar2ModOut = 0.0;
+	double auxBipolar3ModOut = 0.0;
+	double auxBipolar4ModOut = 0.0;
+	double aux1ModIn = 0.0;
+	double lfo1ShapeModIn = 0.0;
+	double lfo1ShapeSplitModIn = 0.0;
+	double lfo2ShapeModIn = 0.0;
+	double lfo2ShapeSplitModIn = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -277,12 +468,6 @@ private:
 	int lfo1_to_osc1Fo = 0;
 	enum class lfo1_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_osc1FoEnum::SWITCH_OFF, lfo1_to_osc1Fo)) etc... 
 
-	int lfo1_to_osc2Fo = 0;
-	enum class lfo1_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_osc2FoEnum::SWITCH_OFF, lfo1_to_osc2Fo)) etc... 
-
-	int eg1_to_osc1Fo = 0;
-	enum class eg1_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_osc1FoEnum::SWITCH_OFF, eg1_to_osc1Fo)) etc... 
-
 	int eg2AutoTrigger = 0;
 	enum class eg2AutoTriggerEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2AutoTriggerEnum::SWITCH_OFF, eg2AutoTrigger)) etc... 
 
@@ -303,6 +488,435 @@ private:
 
 	int mode = 0;
 	enum class modeEnum { Poly,Mono,Unison };	// to compare: if(compareEnumToInt(modeEnum::Poly, mode)) etc... 
+
+	int eg1_to_osc1Fo = 0;
+	enum class eg1_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_osc1FoEnum::SWITCH_OFF, eg1_to_osc1Fo)) etc... 
+
+	int lfo1_to_osc2Fo = 0;
+	enum class lfo1_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_osc2FoEnum::SWITCH_OFF, lfo1_to_osc2Fo)) etc... 
+
+	int lfo1_to_osc1Shape = 0;
+	enum class lfo1_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_osc1ShapeEnum::SWITCH_OFF, lfo1_to_osc1Shape)) etc... 
+
+	int lfo1_to_osc2Shape = 0;
+	enum class lfo1_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_osc2ShapeEnum::SWITCH_OFF, lfo1_to_osc2Shape)) etc... 
+
+	int lfo1_to_filter1Fo = 0;
+	enum class lfo1_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_filter1FoEnum::SWITCH_OFF, lfo1_to_filter1Fo)) etc... 
+
+	int lfo1_to_filter1Q = 0;
+	enum class lfo1_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_filter1QEnum::SWITCH_OFF, lfo1_to_filter1Q)) etc... 
+
+	int lfo1_to_filter2Fo = 0;
+	enum class lfo1_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_filter2FoEnum::SWITCH_OFF, lfo1_to_filter2Fo)) etc... 
+
+	int lfo1_to_filter2Q = 0;
+	enum class lfo1_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_filter2QEnum::SWITCH_OFF, lfo1_to_filter2Q)) etc... 
+
+	int lfo2_to_osc1Fo = 0;
+	enum class lfo2_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_osc1FoEnum::SWITCH_OFF, lfo2_to_osc1Fo)) etc... 
+
+	int lfo2_to_osc1Shape = 0;
+	enum class lfo2_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_osc1ShapeEnum::SWITCH_OFF, lfo2_to_osc1Shape)) etc... 
+
+	int lfo2_to_osc2Fo = 0;
+	enum class lfo2_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_osc2FoEnum::SWITCH_OFF, lfo2_to_osc2Fo)) etc... 
+
+	int lfo2_to_osc2Shape = 0;
+	enum class lfo2_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_osc2ShapeEnum::SWITCH_OFF, lfo2_to_osc2Shape)) etc... 
+
+	int lfo2_to_filter1Fo = 0;
+	enum class lfo2_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_filter1FoEnum::SWITCH_OFF, lfo2_to_filter1Fo)) etc... 
+
+	int lfo2_to_filter1Q = 0;
+	enum class lfo2_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_filter1QEnum::SWITCH_OFF, lfo2_to_filter1Q)) etc... 
+
+	int lfo2_to_filter2Fo = 0;
+	enum class lfo2_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_filter2FoEnum::SWITCH_OFF, lfo2_to_filter2Fo)) etc... 
+
+	int lfo2_to_filter2Q = 0;
+	enum class lfo2_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_filter2QEnum::SWITCH_OFF, lfo2_to_filter2Q)) etc... 
+
+	int eg1_to_osc1Shape = 0;
+	enum class eg1_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_osc1ShapeEnum::SWITCH_OFF, eg1_to_osc1Shape)) etc... 
+
+	int eg1_to_osc2Fo = 0;
+	enum class eg1_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_osc2FoEnum::SWITCH_OFF, eg1_to_osc2Fo)) etc... 
+
+	int eg1_to_osc2Shape = 0;
+	enum class eg1_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_osc2ShapeEnum::SWITCH_OFF, eg1_to_osc2Shape)) etc... 
+
+	int eg1_to_filter1Fo = 0;
+	enum class eg1_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_filter1FoEnum::SWITCH_OFF, eg1_to_filter1Fo)) etc... 
+
+	int eg1_to_filter1Q = 0;
+	enum class eg1_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_filter1QEnum::SWITCH_OFF, eg1_to_filter1Q)) etc... 
+
+	int eg1_to_filter2Fo = 0;
+	enum class eg1_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_filter2FoEnum::SWITCH_OFF, eg1_to_filter2Fo)) etc... 
+
+	int eg1_to_filter2Q = 0;
+	enum class eg1_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_filter2QEnum::SWITCH_OFF, eg1_to_filter2Q)) etc... 
+
+	int eg2_to_osc1Fo = 0;
+	enum class eg2_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_osc1FoEnum::SWITCH_OFF, eg2_to_osc1Fo)) etc... 
+
+	int eg2_to_osc1Shape = 0;
+	enum class eg2_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_osc1ShapeEnum::SWITCH_OFF, eg2_to_osc1Shape)) etc... 
+
+	int eg2_to_osc2Fo = 0;
+	enum class eg2_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_osc2FoEnum::SWITCH_OFF, eg2_to_osc2Fo)) etc... 
+
+	int eg2_to_osc2Shape = 0;
+	enum class eg2_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_osc2ShapeEnum::SWITCH_OFF, eg2_to_osc2Shape)) etc... 
+
+	int eg2_to_filter1Fo = 0;
+	enum class eg2_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_filter1FoEnum::SWITCH_OFF, eg2_to_filter1Fo)) etc... 
+
+	int eg2_to_filter1Q = 0;
+	enum class eg2_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_filter1QEnum::SWITCH_OFF, eg2_to_filter1Q)) etc... 
+
+	int eg2_to_filter2Fo = 0;
+	enum class eg2_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_filter2FoEnum::SWITCH_OFF, eg2_to_filter2Fo)) etc... 
+
+	int eg2_to_filter2Q = 0;
+	enum class eg2_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_filter2QEnum::SWITCH_OFF, eg2_to_filter2Q)) etc... 
+
+	int joystickAC_to_osc1Fo = 0;
+	enum class joystickAC_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_osc1FoEnum::SWITCH_OFF, joystickAC_to_osc1Fo)) etc... 
+
+	int joystickAC_to_osc1Shape = 0;
+	enum class joystickAC_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_osc1ShapeEnum::SWITCH_OFF, joystickAC_to_osc1Shape)) etc... 
+
+	int joystickAC_to_osc2Fo = 0;
+	enum class joystickAC_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_osc2FoEnum::SWITCH_OFF, joystickAC_to_osc2Fo)) etc... 
+
+	int joystickAC_to_osc2Shape = 0;
+	enum class joystickAC_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_osc2ShapeEnum::SWITCH_OFF, joystickAC_to_osc2Shape)) etc... 
+
+	int joystickAC_to_filter1Fo = 0;
+	enum class joystickAC_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_filter1FoEnum::SWITCH_OFF, joystickAC_to_filter1Fo)) etc... 
+
+	int joystickAC_to_filter1Q = 0;
+	enum class joystickAC_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_filter1QEnum::SWITCH_OFF, joystickAC_to_filter1Q)) etc... 
+
+	int joystickAC_to_filter2Fo = 0;
+	enum class joystickAC_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_filter2FoEnum::SWITCH_OFF, joystickAC_to_filter2Fo)) etc... 
+
+	int joystickAC_to_filter2Q = 0;
+	enum class joystickAC_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_filter2QEnum::SWITCH_OFF, joystickAC_to_filter2Q)) etc... 
+
+	int joystickBD_to_osc1Fo = 0;
+	enum class joystickBD_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_osc1FoEnum::SWITCH_OFF, joystickBD_to_osc1Fo)) etc... 
+
+	int joystickBD_to_osc1Shape = 0;
+	enum class joystickBD_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_osc1ShapeEnum::SWITCH_OFF, joystickBD_to_osc1Shape)) etc... 
+
+	int joystickBD_to_osc2Fo = 0;
+	enum class joystickBD_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_osc2FoEnum::SWITCH_OFF, joystickBD_to_osc2Fo)) etc... 
+
+	int joystickBD_to_osc2Shape = 0;
+	enum class joystickBD_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_osc2ShapeEnum::SWITCH_OFF, joystickBD_to_osc2Shape)) etc... 
+
+	int joystickBD_to_filter1Fo = 0;
+	enum class joystickBD_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_filter1FoEnum::SWITCH_OFF, joystickBD_to_filter1Fo)) etc... 
+
+	int joystickBD_to_filter1Q = 0;
+	enum class joystickBD_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_filter1QEnum::SWITCH_OFF, joystickBD_to_filter1Q)) etc... 
+
+	int joystickBD_to_filter2Fo = 0;
+	enum class joystickBD_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_filter2FoEnum::SWITCH_OFF, joystickBD_to_filter2Fo)) etc... 
+
+	int joystickBD_to_filter2Q = 0;
+	enum class joystickBD_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_filter2QEnum::SWITCH_OFF, joystickBD_to_filter2Q)) etc... 
+
+	int lfo1_to_aux1ModIn = 0;
+	enum class lfo1_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_aux1ModInEnum::SWITCH_OFF, lfo1_to_aux1ModIn)) etc... 
+
+	int lfo2_to_aux1ModIn = 0;
+	enum class lfo2_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_aux1ModInEnum::SWITCH_OFF, lfo2_to_aux1ModIn)) etc... 
+
+	int joystickAC_to_aux1ModIn = 0;
+	enum class joystickAC_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_aux1ModInEnum::SWITCH_OFF, joystickAC_to_aux1ModIn)) etc... 
+
+	int joystickBD_to_aux1ModIn = 0;
+	enum class joystickBD_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_aux1ModInEnum::SWITCH_OFF, joystickBD_to_aux1ModIn)) etc... 
+
+	int auxUnipolar1Mod_to_osc1Fo = 0;
+	enum class auxUnipolar1Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar1Mod_to_osc1Fo)) etc... 
+
+	int auxUnipolar1Mod_to_osc1Shape = 0;
+	enum class auxUnipolar1Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_osc1ShapeEnum::SWITCH_OFF, auxUnipolar1Mod_to_osc1Shape)) etc... 
+
+	int auxUnipolar1Mod_to_osc2Fo = 0;
+	enum class auxUnipolar1Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_osc2FoEnum::SWITCH_OFF, auxUnipolar1Mod_to_osc2Fo)) etc... 
+
+	int auxUnipolar1Mod_to_osc2Shape = 0;
+	enum class auxUnipolar1Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_osc2ShapeEnum::SWITCH_OFF, auxUnipolar1Mod_to_osc2Shape)) etc... 
+
+	int auxUnipolar1Mod_to_filter1Fo = 0;
+	enum class auxUnipolar1Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_filter1FoEnum::SWITCH_OFF, auxUnipolar1Mod_to_filter1Fo)) etc... 
+
+	int auxUnipolar1Mod_to_filter1Q = 0;
+	enum class auxUnipolar1Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_filter1QEnum::SWITCH_OFF, auxUnipolar1Mod_to_filter1Q)) etc... 
+
+	int auxUnipolar1Mod_to_filter2Fo = 0;
+	enum class auxUnipolar1Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_filter2FoEnum::SWITCH_OFF, auxUnipolar1Mod_to_filter2Fo)) etc... 
+
+	int auxUnipolar1Mod_to_filter2Q = 0;
+	enum class auxUnipolar1Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar1Mod_to_filter2Q)) etc... 
+
+	int auxUnipolar1Mod_to_aux1ModIn = 0;
+	enum class auxUnipolar1Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar1Mod_to_aux1ModIn)) etc... 
+
+	int auxUnipolar2Mod_to_osc1Fo = 0;
+	enum class auxUnipolar2Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar2Mod_to_osc1Fo)) etc... 
+
+	int auxUnipolar2Mod_to_osc1Shape = 0;
+	enum class auxUnipolar2Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_osc1ShapeEnum::SWITCH_OFF, auxUnipolar2Mod_to_osc1Shape)) etc... 
+
+	int auxUnipolar2Mod_to_osc2Fo = 0;
+	enum class auxUnipolar2Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_osc2FoEnum::SWITCH_OFF, auxUnipolar2Mod_to_osc2Fo)) etc... 
+
+	int auxUnipolar2Mod_to_osc2Shape = 0;
+	enum class auxUnipolar2Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_osc2ShapeEnum::SWITCH_OFF, auxUnipolar2Mod_to_osc2Shape)) etc... 
+
+	int auxUnipolar2Mod_to_filter1Fo = 0;
+	enum class auxUnipolar2Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_filter1FoEnum::SWITCH_OFF, auxUnipolar2Mod_to_filter1Fo)) etc... 
+
+	int auxUnipolar2Mod_to_filter1Q = 0;
+	enum class auxUnipolar2Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_filter1QEnum::SWITCH_OFF, auxUnipolar2Mod_to_filter1Q)) etc... 
+
+	int auxUnipolar2Mod_to_filter2Fo = 0;
+	enum class auxUnipolar2Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_filter2FoEnum::SWITCH_OFF, auxUnipolar2Mod_to_filter2Fo)) etc... 
+
+	int auxUnipolar2Mod_to_filter2Q = 0;
+	enum class auxUnipolar2Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar2Mod_to_filter2Q)) etc... 
+
+	int auxUnipolar2Mod_to_aux1ModIn = 0;
+	enum class auxUnipolar2Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar2Mod_to_aux1ModIn)) etc... 
+
+	int auxUnipolar3Mod_to_osc1Fo = 0;
+	enum class auxUnipolar3Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar3Mod_to_osc1Fo)) etc... 
+
+	int auxUnipolar3Mod_to_osc1Shape = 0;
+	enum class auxUnipolar3Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_osc1ShapeEnum::SWITCH_OFF, auxUnipolar3Mod_to_osc1Shape)) etc... 
+
+	int auxUnipolar3Mod_to_osc2Fo = 0;
+	enum class auxUnipolar3Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_osc2FoEnum::SWITCH_OFF, auxUnipolar3Mod_to_osc2Fo)) etc... 
+
+	int auxUnipolar3Mod_to_osc2Shape = 0;
+	enum class auxUnipolar3Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_osc2ShapeEnum::SWITCH_OFF, auxUnipolar3Mod_to_osc2Shape)) etc... 
+
+	int auxUnipolar3Mod_to_filter1Fo = 0;
+	enum class auxUnipolar3Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_filter1FoEnum::SWITCH_OFF, auxUnipolar3Mod_to_filter1Fo)) etc... 
+
+	int auxUnipolar3Mod_to_filter1Q = 0;
+	enum class auxUnipolar3Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_filter1QEnum::SWITCH_OFF, auxUnipolar3Mod_to_filter1Q)) etc... 
+
+	int auxUnipolar3Mod_to_filter2Fo = 0;
+	enum class auxUnipolar3Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_filter2FoEnum::SWITCH_OFF, auxUnipolar3Mod_to_filter2Fo)) etc... 
+
+	int auxUnipolar3Mod_to_filter2Q = 0;
+	enum class auxUnipolar3Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar3Mod_to_filter2Q)) etc... 
+
+	int auxUnipolar3Mod_to_aux1ModIn = 0;
+	enum class auxUnipolar3Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar3Mod_to_aux1ModIn)) etc... 
+
+	int auxUnipolar4Mod_to_osc1Fo = 0;
+	enum class auxUnipolar4Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar4Mod_to_osc1Fo)) etc... 
+
+	int auxUnipolar4Mod_to_osc1Shape = 0;
+	enum class auxUnipolar4Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_osc1ShapeEnum::SWITCH_OFF, auxUnipolar4Mod_to_osc1Shape)) etc... 
+
+	int auxUnipolar4Mod_to_osc2Fo = 0;
+	enum class auxUnipolar4Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_osc2FoEnum::SWITCH_OFF, auxUnipolar4Mod_to_osc2Fo)) etc... 
+
+	int auxUnipolar4Mod_to_osc2Shape = 0;
+	enum class auxUnipolar4Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_osc2ShapeEnum::SWITCH_OFF, auxUnipolar4Mod_to_osc2Shape)) etc... 
+
+	int auxUnipolar4Mod_to_filter1Fo = 0;
+	enum class auxUnipolar4Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_filter1FoEnum::SWITCH_OFF, auxUnipolar4Mod_to_filter1Fo)) etc... 
+
+	int auxUnipolar4Mod_to_filter1Q = 0;
+	enum class auxUnipolar4Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_filter1QEnum::SWITCH_OFF, auxUnipolar4Mod_to_filter1Q)) etc... 
+
+	int auxUnipolar4Mod_to_filter2Fo = 0;
+	enum class auxUnipolar4Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_filter2FoEnum::SWITCH_OFF, auxUnipolar4Mod_to_filter2Fo)) etc... 
+
+	int auxUnipolar4Mod_to_filter2Q = 0;
+	enum class auxUnipolar4Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar4Mod_to_filter2Q)) etc... 
+
+	int auxUnipolar4Mod_to_aux1ModIn = 0;
+	enum class auxUnipolar4Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar4Mod_to_aux1ModIn)) etc... 
+
+	int auxUnipolar5Mod_to_osc1Fo = 0;
+	enum class auxUnipolar5Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar5Mod_to_osc1Fo)) etc... 
+
+	int auxUnipolar5Mod_to_osc1Shape = 0;
+	enum class auxUnipolar5Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_osc1ShapeEnum::SWITCH_OFF, auxUnipolar5Mod_to_osc1Shape)) etc... 
+
+	int auxUnipolar5Mod_to_osc2Fo = 0;
+	enum class auxUnipolar5Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_osc2FoEnum::SWITCH_OFF, auxUnipolar5Mod_to_osc2Fo)) etc... 
+
+	int auxUnipolar5Mod_to_osc2Shape = 0;
+	enum class auxUnipolar5Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_osc2ShapeEnum::SWITCH_OFF, auxUnipolar5Mod_to_osc2Shape)) etc... 
+
+	int auxUnipolar5Mod_to_filter1Fo = 0;
+	enum class auxUnipolar5Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_filter1FoEnum::SWITCH_OFF, auxUnipolar5Mod_to_filter1Fo)) etc... 
+
+	int auxUnipolar5Mod_to_filter1Q = 0;
+	enum class auxUnipolar5Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_filter1QEnum::SWITCH_OFF, auxUnipolar5Mod_to_filter1Q)) etc... 
+
+	int auxUnipolar5Mod_to_filter2Fo = 0;
+	enum class auxUnipolar5Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_filter2FoEnum::SWITCH_OFF, auxUnipolar5Mod_to_filter2Fo)) etc... 
+
+	int auxUnipolar5Mod_to_filter2Q = 0;
+	enum class auxUnipolar5Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar5Mod_to_filter2Q)) etc... 
+
+	int auxUnipolar5Mod_to_aux1ModIn = 0;
+	enum class auxUnipolar5Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar5Mod_to_aux1ModIn)) etc... 
+
+	int auxUnipolar6Mod_to_osc1Fo = 0;
+	enum class auxUnipolar6Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar6Mod_to_osc1Fo)) etc... 
+
+	int auxUnipolar6Mod_to_osc1Shape = 0;
+	enum class auxUnipolar6Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_osc1ShapeEnum::SWITCH_OFF, auxUnipolar6Mod_to_osc1Shape)) etc... 
+
+	int auxUnipolar6Mod_to_osc2Fo = 0;
+	enum class auxUnipolar6Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_osc2FoEnum::SWITCH_OFF, auxUnipolar6Mod_to_osc2Fo)) etc... 
+
+	int auxUnipolar6Mod_to_osc2Shape = 0;
+	enum class auxUnipolar6Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_osc2ShapeEnum::SWITCH_OFF, auxUnipolar6Mod_to_osc2Shape)) etc... 
+
+	int auxUnipolar6Mod_to_filter1Fo = 0;
+	enum class auxUnipolar6Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_filter1FoEnum::SWITCH_OFF, auxUnipolar6Mod_to_filter1Fo)) etc... 
+
+	int auxUnipolar6Mod_to_filter1Q = 0;
+	enum class auxUnipolar6Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_filter1QEnum::SWITCH_OFF, auxUnipolar6Mod_to_filter1Q)) etc... 
+
+	int auxUnipolar6Mod_to_filter2Fo = 0;
+	enum class auxUnipolar6Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_filter2FoEnum::SWITCH_OFF, auxUnipolar6Mod_to_filter2Fo)) etc... 
+
+	int auxUnipolar6Mod_to_filter2Q = 0;
+	enum class auxUnipolar6Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar6Mod_to_filter2Q)) etc... 
+
+	int auxUnipolar6Mod_to_aux1ModIn = 0;
+	enum class auxUnipolar6Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar6Mod_to_aux1ModIn)) etc... 
+
+	int auxBipolar1Mod_to_osc1Fo = 0;
+	enum class auxBipolar1Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_osc1FoEnum::SWITCH_OFF, auxBipolar1Mod_to_osc1Fo)) etc... 
+
+	int auxBipolar1Mod_to_osc1Shape = 0;
+	enum class auxBipolar1Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_osc1ShapeEnum::SWITCH_OFF, auxBipolar1Mod_to_osc1Shape)) etc... 
+
+	int auxBipolar1Mod_to_osc2Fo = 0;
+	enum class auxBipolar1Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_osc2FoEnum::SWITCH_OFF, auxBipolar1Mod_to_osc2Fo)) etc... 
+
+	int auxBipolar1Mod_to_osc2Shape = 0;
+	enum class auxBipolar1Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_osc2ShapeEnum::SWITCH_OFF, auxBipolar1Mod_to_osc2Shape)) etc... 
+
+	int auxBipolar1Mod_to_filter1Fo = 0;
+	enum class auxBipolar1Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_filter1FoEnum::SWITCH_OFF, auxBipolar1Mod_to_filter1Fo)) etc... 
+
+	int auxBipolar1Mod_to_filter1Q = 0;
+	enum class auxBipolar1Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_filter1QEnum::SWITCH_OFF, auxBipolar1Mod_to_filter1Q)) etc... 
+
+	int auxBipolar1Mod_to_filter2Fo = 0;
+	enum class auxBipolar1Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_filter2FoEnum::SWITCH_OFF, auxBipolar1Mod_to_filter2Fo)) etc... 
+
+	int auxBipolar1Mod_to_filter2Q = 0;
+	enum class auxBipolar1Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_filter2QEnum::SWITCH_OFF, auxBipolar1Mod_to_filter2Q)) etc... 
+
+	int auxBipolar1Mod_to_aux1ModIn = 0;
+	enum class auxBipolar1Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_aux1ModInEnum::SWITCH_OFF, auxBipolar1Mod_to_aux1ModIn)) etc... 
+
+	int auxBipolar2Mod_to_osc1Fo = 0;
+	enum class auxBipolar2Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_osc1FoEnum::SWITCH_OFF, auxBipolar2Mod_to_osc1Fo)) etc... 
+
+	int auxBipolar2Mod_to_osc1Shape = 0;
+	enum class auxBipolar2Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_osc1ShapeEnum::SWITCH_OFF, auxBipolar2Mod_to_osc1Shape)) etc... 
+
+	int auxBipolar2Mod_to_osc2Fo = 0;
+	enum class auxBipolar2Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_osc2FoEnum::SWITCH_OFF, auxBipolar2Mod_to_osc2Fo)) etc... 
+
+	int auxBipolar2Mod_to_osc2Shape = 0;
+	enum class auxBipolar2Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_osc2ShapeEnum::SWITCH_OFF, auxBipolar2Mod_to_osc2Shape)) etc... 
+
+	int auxBipolar2Mod_to_filter1Fo = 0;
+	enum class auxBipolar2Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_filter1FoEnum::SWITCH_OFF, auxBipolar2Mod_to_filter1Fo)) etc... 
+
+	int auxBipolar2Mod_to_filter1Q = 0;
+	enum class auxBipolar2Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_filter1QEnum::SWITCH_OFF, auxBipolar2Mod_to_filter1Q)) etc... 
+
+	int auxBipolar2Mod_to_filter2Fo = 0;
+	enum class auxBipolar2Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_filter2FoEnum::SWITCH_OFF, auxBipolar2Mod_to_filter2Fo)) etc... 
+
+	int auxBipolar2Mod_to_filter2Q = 0;
+	enum class auxBipolar2Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_filter2QEnum::SWITCH_OFF, auxBipolar2Mod_to_filter2Q)) etc... 
+
+	int auxBipolar2Mod_to_aux1ModIn = 0;
+	enum class auxBipolar2Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_aux1ModInEnum::SWITCH_OFF, auxBipolar2Mod_to_aux1ModIn)) etc... 
+
+	int auxBipolar3Mod_to_osc1Fo = 0;
+	enum class auxBipolar3Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_osc1FoEnum::SWITCH_OFF, auxBipolar3Mod_to_osc1Fo)) etc... 
+
+	int auxBipolar3Mod_to_osc1Shape = 0;
+	enum class auxBipolar3Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_osc1ShapeEnum::SWITCH_OFF, auxBipolar3Mod_to_osc1Shape)) etc... 
+
+	int auxBipolar3Mod_to_osc2Fo = 0;
+	enum class auxBipolar3Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_osc2FoEnum::SWITCH_OFF, auxBipolar3Mod_to_osc2Fo)) etc... 
+
+	int auxBipolar3Mod_to_osc2Shape = 0;
+	enum class auxBipolar3Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_osc2ShapeEnum::SWITCH_OFF, auxBipolar3Mod_to_osc2Shape)) etc... 
+
+	int auxBipolar3Mod_to_filter1Fo = 0;
+	enum class auxBipolar3Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_filter1FoEnum::SWITCH_OFF, auxBipolar3Mod_to_filter1Fo)) etc... 
+
+	int auxBipolar3Mod_to_filter1Q = 0;
+	enum class auxBipolar3Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_filter1QEnum::SWITCH_OFF, auxBipolar3Mod_to_filter1Q)) etc... 
+
+	int auxBipolar3Mod_to_filter2Fo = 0;
+	enum class auxBipolar3Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_filter2FoEnum::SWITCH_OFF, auxBipolar3Mod_to_filter2Fo)) etc... 
+
+	int auxBipolar3Mod_to_filter2Q = 0;
+	enum class auxBipolar3Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_filter2QEnum::SWITCH_OFF, auxBipolar3Mod_to_filter2Q)) etc... 
+
+	int auxBipolar3Mod_to_aux1ModIn = 0;
+	enum class auxBipolar3Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_aux1ModInEnum::SWITCH_OFF, auxBipolar3Mod_to_aux1ModIn)) etc... 
+
+	int auxBipolar4Mod_to_osc1Fo = 0;
+	enum class auxBipolar4Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_osc1FoEnum::SWITCH_OFF, auxBipolar4Mod_to_osc1Fo)) etc... 
+
+	int auxBipolar4Mod_to_osc1Shape = 0;
+	enum class auxBipolar4Mod_to_osc1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_osc1ShapeEnum::SWITCH_OFF, auxBipolar4Mod_to_osc1Shape)) etc... 
+
+	int auxBipolar4Mod_to_osc2Fo = 0;
+	enum class auxBipolar4Mod_to_osc2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_osc2FoEnum::SWITCH_OFF, auxBipolar4Mod_to_osc2Fo)) etc... 
+
+	int auxBipolar4Mod_to_osc2Shape = 0;
+	enum class auxBipolar4Mod_to_osc2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_osc2ShapeEnum::SWITCH_OFF, auxBipolar4Mod_to_osc2Shape)) etc... 
+
+	int auxBipolar4Mod_to_filter1Fo = 0;
+	enum class auxBipolar4Mod_to_filter1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_filter1FoEnum::SWITCH_OFF, auxBipolar4Mod_to_filter1Fo)) etc... 
+
+	int auxBipolar4Mod_to_filter1Q = 0;
+	enum class auxBipolar4Mod_to_filter1QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_filter1QEnum::SWITCH_OFF, auxBipolar4Mod_to_filter1Q)) etc... 
+
+	int auxBipolar4Mod_to_filter2Fo = 0;
+	enum class auxBipolar4Mod_to_filter2FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_filter2FoEnum::SWITCH_OFF, auxBipolar4Mod_to_filter2Fo)) etc... 
+
+	int auxBipolar4Mod_to_filter2Q = 0;
+	enum class auxBipolar4Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_filter2QEnum::SWITCH_OFF, auxBipolar4Mod_to_filter2Q)) etc... 
+
+	int auxBipolar4Mod_to_aux1ModIn = 0;
+	enum class auxBipolar4Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_aux1ModInEnum::SWITCH_OFF, auxBipolar4Mod_to_aux1ModIn)) etc... 
+
+	int eg1_to_aux1ModIn = 0;
+	enum class eg1_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_aux1ModInEnum::SWITCH_OFF, eg1_to_aux1ModIn)) etc... 
+
+	int eg2_to_aux1ModIn = 0;
+	enum class eg2_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_aux1ModInEnum::SWITCH_OFF, eg2_to_aux1ModIn)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

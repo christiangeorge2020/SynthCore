@@ -244,13 +244,26 @@ enum {
 	kBipolarMod,
 	kFrequencyMod,
 	kPhaseMod,
+	kShapeMod,
 	kAmpMod,
 	kMaxDownAmpMod,
 	kWaveMorphMod,
 	kAuxUnipolarMod_1, // spares, eg for twin filter with two mods
 	kAuxUnipolarMod_2,
+	kAuxUnipolarMod_3,
+	kAuxUnipolarMod_4,
+	kAuxUnipolarMod_5,
+	kAuxUnipolarMod_6,
+	kAuxUnipolarMod_7,
+	kAuxUnipolarMod_8,
 	kAuxBipolarMod_1,
 	kAuxBipolarMod_2,
+	kAuxBipolarMod_3,
+	kAuxBipolarMod_4,
+	kAuxBipolarMod_5,
+	kAuxBipolarMod_6,
+	kAuxBipolarMod_7,
+	kAuxBipolarMod_8,
 	kNumModulators
 };
 
@@ -888,6 +901,7 @@ inline double midiNoteNumberToOscFrequency(uint32_t midiNoteNumber, double frequ
 /** calculate the current phase inc */
 inline double calculateWaveTablePhaseInc(double oscFrequency, double sampleRate, uint32_t wavetableLength)
 {
+	
 	// --- for wavetables, inc = (kWaveTableLength)*(fo/fs)
 	return wavetableLength*(oscFrequency / sampleRate);
 }
@@ -1225,6 +1239,7 @@ struct SynthOscParameters
 		outputAmplitude = params.outputAmplitude;
 
 		oscillatorShape = params.oscillatorShape;
+		oscillatorShapeSplitPoint = params.oscillatorShapeSplitPoint;
 		hardSyncRatio = params.hardSyncRatio;
 		fmRatio = params.fmRatio;
 		enableHardSync = params.enableHardSync;
@@ -1252,7 +1267,8 @@ struct SynthOscParameters
 	double pulseWidth_Pct = 50.0;		// sqr wave only
 	double outputAmplitude = 1.0;		// raw value, NOT dB
 	
-	double oscillatorShape = 0.0;		// [-1, +1]
+	double oscillatorShape = 0.0;		// [-1, +1] <- Old // [0, 1] <- Current implementation.
+	double oscillatorShapeSplitPoint = 0.5; // [0, 1]
 	double morphModulation = 0.0;		// [0, +1]
 
 	double hardSyncRatio = 1.0;			// [1, +???]

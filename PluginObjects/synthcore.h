@@ -38,9 +38,9 @@ enum modSource
 
 	// --- oscillators here
 	kOsc1_Normal, // osc 1 output
-  kOsc2_Normal,
-  kOsc3_Normal,
-  kOsc4_Normal,
+	kOsc2_Normal,
+	kOsc3_Normal,
+	kOsc4_Normal,
 
 	// --- other modulators (e.g. filter output) here
 
@@ -50,13 +50,33 @@ enum modSource
 	// --- vector joystick
 	// AC, BD
 	kJoystickAC,
-	kJoystickBD,
-  // Individual A, B, C, D
-  kJoystickA,
-  kJoystickB,
-  kJoystickC,
-  kJoystickD,
+	kJoystickBD
+	,
+	// Individual A, B, C, D
+	kJoystickA,
+	kJoystickB,
+	kJoystickC,
+	kJoystickD,
 
+	// Extra's
+
+	kAuxUnipolarModOut1,
+	kAuxUnipolarModOut2,
+	kAuxUnipolarModOut3,
+	kAuxUnipolarModOut4,
+	kAuxUnipolarModOut5,
+	kAuxUnipolarModOut6,
+	kAuxUnipolarModOut7,
+	kAuxUnipolarModOut8,
+
+	kAuxBipolarModOut1,
+	kAuxBipolarModOut2,
+	kAuxBipolarModOut3,
+	kAuxBipolarModOut4,
+	kAuxBipolarModOut5,
+	kAuxBipolarModOut6,
+	kAuxBipolarModOut7,
+	kAuxBipolarModOut8,
 
 	// --- remain last, will always be the size of modulator array
 	kNumModSources
@@ -83,17 +103,23 @@ enum modDestination
 
 	// --- LFO
 	kLFO1_fo,
-  kLFO2_fo,
+	kLFO2_fo,
+	kLFO3_fo,
+	kLFO4_fo,
 
 	// --- FILTER (add more here)
 	kFilter1_fc, // Fc
 	kFilter2_fc,
+	kFilter3_fc,
+	kFilter4_fc,
 
 	kFilter1_Q,
 	kFilter2_Q,
+	kFilter3_Q,
+	kFilter4_Q,
 
 	kLFO1_Shape,
-  kLFO2_Shape,
+	kLFO2_Shape,
 
 	// --- DCA (add more here)
 	kDCA_EGMod, // EG Input
@@ -140,7 +166,7 @@ struct SynthVoiceParameters
 		moogFilterParameters = params.moogFilterParameters;
 
 		lfo1Parameters = params.lfo1Parameters;
-		rotorParameters = params.rotorParameters;
+		//rotorParameters = params.rotorParameters;
 		ampEGParameters = params.ampEGParameters;
 		vectorJSData = params.vectorJSData;
 
@@ -174,8 +200,12 @@ struct SynthVoiceParameters
 	std::shared_ptr<SynthLFOParameters> lfo1Parameters = std::make_shared<SynthLFOParameters>();
 	std::shared_ptr<SynthLFOParameters> lfo2Parameters = std::make_shared<SynthLFOParameters>();
 
-  // --- ROTOR
-	std::shared_ptr<RotorParameters> rotorParameters = std::make_shared<RotorParameters>();
+	// --- ROTOR
+	
+	//std::shared_ptr<SynthLFOParameters> rotorX_lfoParameters = std::make_shared<SynthLFOParameters>();
+	//std::shared_ptr<SynthLFOParameters> rotorY_lfoParameters = std::make_shared<SynthLFOParameters>();
+
+	//std::shared_ptr<RotorParameters> rotorParameters = std::make_shared<RotorParameters>();
 
 	// --- EGs
 	std::shared_ptr<EGParameters> ampEGParameters = std::make_shared<EGParameters>();
@@ -351,24 +381,28 @@ protected:
 	// --- wire up source and destination arrays
 	void initModMatrix()
 	{
-		// --- wire the source array slots
+		// --- Source array slots
+		// LFO's
 		modSourceData[kLFO1_Normal] = &lfo1Output.modulationOutputs[kLFONormalOutput];
 		modSourceData[kLFO1_QuadPhase] = &lfo1Output.modulationOutputs[kLFOQuadPhaseOutput];
+		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
+		modSourceData[kLFO2_QuadPhase] = &lfo2Output.modulationOutputs[kLFONormalOutput];
+
+		// EG's
 		modSourceData[kEG1_Normal] = &ampEGOutput.modulationOutputs[kEGNormalOutput];
 		modSourceData[kEG1_Biased] = &ampEGOutput.modulationOutputs[kEGBiasedOutput];
+		modSourceData[kEG2_Normal] = &ampEGOutput.modulationOutputs[kEGNormalOutput];
+		modSourceData[kEG2_Biased] = &ampEGOutput.modulationOutputs[kEGBiasedOutput];
 		
-		// LFO2 -> LFO1
-		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
-		
-		// Rotor
-		modSourceData[kRotor_X] = &rotorOutput.modulationOutputs[kRotorXOutput];
-		modSourceData[kRotor_Y] = &rotorOutput.modulationOutputs[kRotorYOutput];
-		
-		// Vector joystick as a modulation source
+		// Vector joystick
 		modSourceData[kJoystickAC] = &parameters->vectorJSData.vectorACMix;
 		modSourceData[kJoystickBD] = &parameters->vectorJSData.vectorBDMix;
 
-		// --- destinations
+		// Rotor
+		//modSourceData[kRotor_X] = &rotorOutput.modulationOutputs[kRotorXOutput];
+		//modSourceData[kRotor_Y] = &rotorOutput.modulationOutputs[kRotorYOutput];
+
+		// --- Destination array slots
 		modDestinationData[kOsc1_fo] = &(osc1->getModulators()->modulationInputs[kBipolarMod]);
 		modDestinationData[kOsc2_fo] = &(osc2->getModulators()->modulationInputs[kBipolarMod]);
 		modDestinationData[kOsc3_fo] = &(osc3->getModulators()->modulationInputs[kBipolarMod]);
@@ -377,7 +411,7 @@ protected:
 		modDestinationData[kDCA_EGMod] = &(dca->getModulators()->modulationInputs[kEGMod]);
 		modDestinationData[kDCA_AmpMod] = &(dca->getModulators()->modulationInputs[kMaxDownAmpMod]);
 
-		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
+		//modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
 
 		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxBipolarMod_1]);
 		modDestinationData[kLFO1_Shape] = &(lfo1->getModulators()->modulationInputs[kAuxBipolarMod_2]);
@@ -432,7 +466,9 @@ protected:
 	std::unique_ptr<SynthLFO> lfo1;
 	std::unique_ptr<SynthLFO> lfo2;
 
-	std::unique_ptr<Rotor> rotor;
+	//std::unique_ptr<SynthLFO> rotorX_lfo;
+	//std::unique_ptr<SynthLFO> rotorY_lfo;
+	//std::unique_ptr<Rotor> rotor;
 
 	// --- EGs
 	std::unique_ptr<EnvelopeGenerator> ampEG;
@@ -535,6 +571,8 @@ struct SynthEngineParameters
 
 	// --- unison Detune - this is the max detuning value NOTE a standard (or RPN or NRPN) parameter :/
 	double masterUnisonDetune_Cents = 0.0;
+
+	int numUnisonVoices = MAX_VOICES;
 
 	// --- VOICE layer parameters
 	std::shared_ptr<SynthVoiceParameters> voiceParameters = std::make_shared<SynthVoiceParameters>();

@@ -37,6 +37,7 @@ bool DCA::update(bool updateAllModRoutings)
 	if (!updateAllModRoutings)
 		return true;
 
+	// HARDCODED MOD
 	// --- apply Max Down modulator
 	double ampMod = doUnipolarModulationFromMax(modulators->modulationInputs[kMaxDownAmpMod], 0.0, 1.0);
 
@@ -45,6 +46,7 @@ bool DCA::update(bool updateAllModRoutings)
 
 	// --- calculate the final raw gain value
 	//     multiply the various gains together: MIDI Velocity * EG Mod * Amp Mod * gain_dB (from GUI, next code line)
+	// HARDCODED MOD
 	gainRaw = midiVelocityGain * modulators->modulationInputs[kEGMod] * ampMod;
 
 	// --- apply final output gain
@@ -53,10 +55,12 @@ bool DCA::update(bool updateAllModRoutings)
 	else
 		gainRaw = 0.0; // OFF
 
-	// --- Run priority modulators 
+	// --- Run priority modulators
+	// HARDCODED MOD
 	double sampleHoldMod = modulators->modulationInputs[kAuxBipolarMod_1];
 	
-	if (parameters->modRoute == ModRouting::Rhythmic_Breaks || parameters->modRoute == ModRouting::Both) {
+	// if parameters->enableRythmicBreaks
+	//if (parameters->modRoute == ModRouting::Rhythmic_Breaks || parameters->modRoute == ModRouting::Both) {
 		if (increment >= offTime_ms && increment >= onTime_ms) {
 			if (sampleHoldMod > 0.9)
 				offTime_ms = ms_perB; ///< Whole Note
@@ -67,7 +71,7 @@ bool DCA::update(bool updateAllModRoutings)
 			else if (0.2 < sampleHoldMod && sampleHoldMod <= 0.5)
 				offTime_ms = 0.5 * ms_perB; ///< Eighth Note
 			else if (0.0 < sampleHoldMod && sampleHoldMod <= 0.2)
-				offTime_ms = 0.25 * ms_perB; ///< Sizteenth Note
+				offTime_ms = 0.25 * ms_perB; ///< Sixteenth Note
 
 			if (-1.0 <= sampleHoldMod && sampleHoldMod <= -0.7)
 				onTime_ms = 4 * ms_perB; ///< Whole Note
@@ -105,7 +109,7 @@ bool DCA::update(bool updateAllModRoutings)
 		else if (increment < onTime_ms) {
 			increment++;
 		}
-	}
+	
 
 	/*if (sampleHoldMod < 0.0)
 		gainRaw = 0.0;*/
@@ -114,6 +118,7 @@ bool DCA::update(bool updateAllModRoutings)
 	if (parameters->mute) gainRaw = 0.0;
 
 	// --- now process pan modifiers
+	// HARDCODED MOD
 	double panTotal = panValue + modulators->modulationInputs[kBipolarMod];
 
 	// --- limit in case pan control is biased

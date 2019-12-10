@@ -16,7 +16,7 @@ struct DCAParameters
 		mute = params.mute; 
 		panValue = params.panValue;
 
-		modRoute = params.modRoute;
+		//modRoute = params.modRoute;
 
 		return *this;
 	}
@@ -27,7 +27,7 @@ struct DCAParameters
 	double panValue = 0.0;		// --- [-1, +1] --> [left -> right]
 	double bpm = 120;
 
-	ModRouting modRoute = ModRouting::None;
+	//ModRouting modRoute = ModRouting::None;
 };
 
 /**

@@ -173,6 +173,28 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 
 	//pTableLen = &tableLen;
 
+	//// SHAPE MODULATION --- from LFO code
+	//double shapeModulation = modulators->modulationInputs[kShapeMod];
+	//double shapeRange = (0.98 - 0.01) / 2.0;
+	//shapeModulation *= shapeRange;
+
+	//double cookedShape = parameters->oscillatorShape;
+	////if (parameters->modRoute == ModRouting::LFO1_Shape || parameters->modRoute == ModRouting::Both)
+	//cookedShape += shapeModulation;
+
+	//boundValue(cookedShape, 0.01, 0.98);
+
+	//// Full period frequency of fundamental lfo frequency
+	//oscillatorShape_first = 1 / (2 * cookedShape);
+	//oscillatorShape_second = 1 / (2 * (1 - cookedShape));
+
+	//if (modCounter <= parameters->oscillatorShapeSplitPoint)
+	//	oscillatorFrequency *= oscillatorShape_first;
+	//else
+	//	oscillatorFrequency *= oscillatorShape_second;
+
+
+
 	// --- note that we neex the current table length for this calculation, and we save it
 	phaseInc = calculateWaveTablePhaseInc(oscillatorFrequency, sampleRate, currentTableLength);
 	phaseIncDetune = calculateWaveTablePhaseInc(oscillatorFrequencyDetuned, sampleRate, currentTableLength);

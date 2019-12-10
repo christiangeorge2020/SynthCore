@@ -15,18 +15,18 @@ bool SynthLFO::update(bool updateAllModRoutings)
 	double bipolarFMMod = modulators->modulationInputs[kFrequencyMod];
 	double range = (20.0 - 0.02) / 2.0;
 	double modulationValue = range * bipolarFMMod;
-	if (parameters->modRoute == ModRouting::LFO1_Fo || parameters->modRoute == ModRouting::Both)
-		cookedFrequency += modulationValue;
+	//if (parameters->modRoute == ModRouting::LFO1_Fo || parameters->modRoute == ModRouting::Both)
+	cookedFrequency += modulationValue;
 
 	boundValue(cookedFrequency, 0.01, 20.0);
 
-	double shapeModulation = modulators->modulationInputs[kAuxBipolarMod_2];
+	double shapeModulation = modulators->modulationInputs[kShapeMod];
 	double shapeRange = (0.98 - 0.01) / 2.0;
 	shapeModulation *= shapeRange;
 	
 	double cookedShape = parameters->lfoShape;
-	if (parameters->modRoute == ModRouting::LFO1_Shape || parameters->modRoute == ModRouting::Both)
-		cookedShape += shapeModulation;
+	//if (parameters->modRoute == ModRouting::LFO1_Shape || parameters->modRoute == ModRouting::Both)
+	cookedShape += shapeModulation;
 
 	boundValue(cookedShape, 0.01, 0.98);
 

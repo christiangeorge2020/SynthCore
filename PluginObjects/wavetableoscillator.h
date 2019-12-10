@@ -111,6 +111,12 @@ protected:
 	double waveTableReadIndex = 0.0;		
 	double tableReadIndexDetune = 0.0;///< wavetable read location
 
+	// --- shape modulation variables
+	double oscillatorShape_first = 0.5; //???
+	double oscillatorShape_second = 0.5;
+
+	double oscillatorShapeSplitPoint = 0.5;
+
 	uint32_t currentTableLength = kDefaultWaveTableLength;
 
 	uint32_t currentTableLengthDetune = kDefaultWaveTableLength;

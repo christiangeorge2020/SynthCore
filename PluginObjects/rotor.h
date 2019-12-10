@@ -5,6 +5,17 @@
 #include "guiconstants.h"
 
 /**
+\enum RotorOutput
+\ingroup SynthDefs
+\brief Enumerations determining the rotor outputs.
+*/
+enum
+{
+	kRotorXOutput, // 0
+	kRotorYOutput, // 1 etc...
+};
+
+/**
 \struct RotorParameters
 \ingroup SynthStructures
 \brief LFO Parameter Structure for Recieving GUI and User Data
@@ -59,8 +70,8 @@ class Rotor : public ISynthModulator
 		, parameters(_parameters)
 		{
 	
-		lfoX.reset(new SynthLFO(midiInputData, parameters->lfoXParameters));
-		lfoY.reset(new SynthLFO(midiInputData, parameters->lfoYParameters));
+		_lfoX.reset(new SynthLFO(midiInputData, parameters->lfoXParameters));
+		_lfoY.reset(new SynthLFO(midiInputData, parameters->lfoYParameters));
 	} /* C-TOR */
 	
 	virtual ~Rotor() {}				/* D-TOR */
@@ -83,7 +94,6 @@ class Rotor : public ISynthModulator
 	{
 		lfoX->doNoteOn(midiPitch, _midiNoteNumber, midiNoteVelocity);
 		lfoY->doNoteOn(midiPitch, _midiNoteNumber, midiNoteVelocity);
-
 		return true;
 	}
 
@@ -121,6 +131,6 @@ protected:
 	double sampleRate = 0.0;			///< sample rate
 
 
-	std::unique_ptr<SynthLFO> lfoX;
-	std::unique_ptr<SynthLFO> lfoY;
+	SynthLFO *lfoX;
+	SynthLFO *lfoY;
 };
