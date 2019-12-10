@@ -153,11 +153,11 @@
 		<control-tag name="controlID::auxBipolar2ModOut" tag="300" />
 		<control-tag name="controlID::auxBipolar3ModOut" tag="310" />
 		<control-tag name="controlID::auxBipolar4ModOut" tag="320" />
-		<control-tag name="controlID::aux1ModIn" tag="169" />
-		<control-tag name="controlID::lfo1_to_aux1ModIn" tag="179" />
-		<control-tag name="controlID::lfo2_to_aux1ModIn" tag="189" />
-		<control-tag name="controlID::joystickAC_to_aux1ModIn" tag="219" />
-		<control-tag name="controlID::joystickBD_to_aux1ModIn" tag="229" />
+		<control-tag name="controlID::DCASampleHoldModIn" tag="169" />
+		<control-tag name="controlID::lfo1_to_DCASampleHoldModIn" tag="179" />
+		<control-tag name="controlID::lfo2_to_DCASampleHoldModIn" tag="189" />
+		<control-tag name="controlID::joystickAC_to_DCASampleHoldModIn" tag="219" />
+		<control-tag name="controlID::joystickBD_to_DCASampleHoldModIn" tag="229" />
 		<control-tag name="controlID::auxUnipolar1Mod_to_osc1Fo" tag="231" />
 		<control-tag name="controlID::auxUnipolar1Mod_to_osc1Shape" tag="232" />
 		<control-tag name="controlID::auxUnipolar1Mod_to_osc2Fo" tag="233" />
@@ -166,7 +166,7 @@
 		<control-tag name="controlID::auxUnipolar1Mod_to_filter1Q" tag="236" />
 		<control-tag name="controlID::auxUnipolar1Mod_to_filter2Fo" tag="237" />
 		<control-tag name="controlID::auxUnipolar1Mod_to_filter2Q" tag="238" />
-		<control-tag name="controlID::auxUnipolar1Mod_to_aux1ModIn" tag="239" />
+		<control-tag name="controlID::auxUnipolar1Mod_to_DCASampleHoldModIn" tag="239" />
 		<control-tag name="controlID::auxUnipolar2Mod_to_osc1Fo" tag="241" />
 		<control-tag name="controlID::auxUnipolar2Mod_to_osc1Shape" tag="242" />
 		<control-tag name="controlID::auxUnipolar2Mod_to_osc2Fo" tag="243" />
@@ -175,7 +175,7 @@
 		<control-tag name="controlID::auxUnipolar2Mod_to_filter1Q" tag="246" />
 		<control-tag name="controlID::auxUnipolar2Mod_to_filter2Fo" tag="247" />
 		<control-tag name="controlID::auxUnipolar2Mod_to_filter2Q" tag="248" />
-		<control-tag name="controlID::auxUnipolar2Mod_to_aux1ModIn" tag="249" />
+		<control-tag name="controlID::auxUnipolar2Mod_to_DCASampleHoldModIn" tag="249" />
 		<control-tag name="controlID::auxUnipolar3Mod_to_osc1Fo" tag="251" />
 		<control-tag name="controlID::auxUnipolar3Mod_to_osc1Shape" tag="252" />
 		<control-tag name="controlID::auxUnipolar3Mod_to_osc2Fo" tag="253" />
@@ -184,7 +184,7 @@
 		<control-tag name="controlID::auxUnipolar3Mod_to_filter1Q" tag="256" />
 		<control-tag name="controlID::auxUnipolar3Mod_to_filter2Fo" tag="257" />
 		<control-tag name="controlID::auxUnipolar3Mod_to_filter2Q" tag="258" />
-		<control-tag name="controlID::auxUnipolar3Mod_to_aux1ModIn" tag="259" />
+		<control-tag name="controlID::auxUnipolar3Mod_to_DCASampleHoldModIn" tag="259" />
 		<control-tag name="controlID::auxUnipolar4Mod_to_osc1Fo" tag="261" />
 		<control-tag name="controlID::auxUnipolar4Mod_to_osc1Shape" tag="262" />
 		<control-tag name="controlID::auxUnipolar4Mod_to_osc2Fo" tag="263" />
@@ -193,7 +193,7 @@
 		<control-tag name="controlID::auxUnipolar4Mod_to_filter1Q" tag="266" />
 		<control-tag name="controlID::auxUnipolar4Mod_to_filter2Fo" tag="267" />
 		<control-tag name="controlID::auxUnipolar4Mod_to_filter2Q" tag="268" />
-		<control-tag name="controlID::auxUnipolar4Mod_to_aux1ModIn" tag="269" />
+		<control-tag name="controlID::auxUnipolar4Mod_to_DCASampleHoldModIn" tag="269" />
 		<control-tag name="controlID::auxUnipolar5Mod_to_osc1Fo" tag="271" />
 		<control-tag name="controlID::auxUnipolar5Mod_to_osc1Shape" tag="272" />
 		<control-tag name="controlID::auxUnipolar5Mod_to_osc2Fo" tag="273" />
@@ -202,7 +202,7 @@
 		<control-tag name="controlID::auxUnipolar5Mod_to_filter1Q" tag="276" />
 		<control-tag name="controlID::auxUnipolar5Mod_to_filter2Fo" tag="277" />
 		<control-tag name="controlID::auxUnipolar5Mod_to_filter2Q" tag="278" />
-		<control-tag name="controlID::auxUnipolar5Mod_to_aux1ModIn" tag="279" />
+		<control-tag name="controlID::auxUnipolar5Mod_to_DCASampleHoldModIn" tag="279" />
 		<control-tag name="controlID::auxUnipolar6Mod_to_osc1Fo" tag="281" />
 		<control-tag name="controlID::auxUnipolar6Mod_to_osc1Shape" tag="282" />
 		<control-tag name="controlID::auxUnipolar6Mod_to_osc2Fo" tag="283" />
@@ -211,7 +211,7 @@
 		<control-tag name="controlID::auxUnipolar6Mod_to_filter1Q" tag="286" />
 		<control-tag name="controlID::auxUnipolar6Mod_to_filter2Fo" tag="287" />
 		<control-tag name="controlID::auxUnipolar6Mod_to_filter2Q" tag="288" />
-		<control-tag name="controlID::auxUnipolar6Mod_to_aux1ModIn" tag="289" />
+		<control-tag name="controlID::auxUnipolar6Mod_to_DCASampleHoldModIn" tag="289" />
 		<control-tag name="controlID::auxBipolar1Mod_to_osc1Fo" tag="291" />
 		<control-tag name="controlID::auxBipolar1Mod_to_osc1Shape" tag="292" />
 		<control-tag name="controlID::auxBipolar1Mod_to_osc2Fo" tag="293" />
@@ -220,7 +220,7 @@
 		<control-tag name="controlID::auxBipolar1Mod_to_filter1Q" tag="296" />
 		<control-tag name="controlID::auxBipolar1Mod_to_filter2Fo" tag="297" />
 		<control-tag name="controlID::auxBipolar1Mod_to_filter2Q" tag="298" />
-		<control-tag name="controlID::auxBipolar1Mod_to_aux1ModIn" tag="299" />
+		<control-tag name="controlID::auxBipolar1Mod_to_DCASampleHoldModIn" tag="299" />
 		<control-tag name="controlID::auxBipolar2Mod_to_osc1Fo" tag="301" />
 		<control-tag name="controlID::auxBipolar2Mod_to_osc1Shape" tag="302" />
 		<control-tag name="controlID::auxBipolar2Mod_to_osc2Fo" tag="303" />
@@ -229,7 +229,7 @@
 		<control-tag name="controlID::auxBipolar2Mod_to_filter1Q" tag="306" />
 		<control-tag name="controlID::auxBipolar2Mod_to_filter2Fo" tag="307" />
 		<control-tag name="controlID::auxBipolar2Mod_to_filter2Q" tag="308" />
-		<control-tag name="controlID::auxBipolar2Mod_to_aux1ModIn" tag="309" />
+		<control-tag name="controlID::auxBipolar2Mod_to_DCASampleHoldModIn" tag="309" />
 		<control-tag name="controlID::auxBipolar3Mod_to_osc1Fo" tag="311" />
 		<control-tag name="controlID::auxBipolar3Mod_to_osc1Shape" tag="312" />
 		<control-tag name="controlID::auxBipolar3Mod_to_osc2Fo" tag="313" />
@@ -238,7 +238,7 @@
 		<control-tag name="controlID::auxBipolar3Mod_to_filter1Q" tag="316" />
 		<control-tag name="controlID::auxBipolar3Mod_to_filter2Fo" tag="317" />
 		<control-tag name="controlID::auxBipolar3Mod_to_filter2Q" tag="318" />
-		<control-tag name="controlID::auxBipolar3Mod_to_aux1ModIn" tag="319" />
+		<control-tag name="controlID::auxBipolar3Mod_to_DCASampleHoldModIn" tag="319" />
 		<control-tag name="controlID::auxBipolar4Mod_to_osc1Fo" tag="321" />
 		<control-tag name="controlID::auxBipolar4Mod_to_osc1Shape" tag="322" />
 		<control-tag name="controlID::auxBipolar4Mod_to_osc2Fo" tag="323" />
@@ -247,13 +247,90 @@
 		<control-tag name="controlID::auxBipolar4Mod_to_filter1Q" tag="326" />
 		<control-tag name="controlID::auxBipolar4Mod_to_filter2Fo" tag="327" />
 		<control-tag name="controlID::auxBipolar4Mod_to_filter2Q" tag="328" />
-		<control-tag name="controlID::auxBipolar4Mod_to_aux1ModIn" tag="329" />
-		<control-tag name="controlID::eg1_to_aux1ModIn" tag="199" />
-		<control-tag name="controlID::eg2_to_aux1ModIn" tag="209" />
+		<control-tag name="controlID::auxBipolar4Mod_to_DCASampleHoldModIn" tag="329" />
+		<control-tag name="controlID::eg1_to_DCASampleHoldModIn" tag="199" />
+		<control-tag name="controlID::eg2_to_DCASampleHoldModIn" tag="209" />
 		<control-tag name="controlID::lfo1ShapeModIn" tag="341" />
 		<control-tag name="controlID::lfo1ShapeSplitModIn" tag="342" />
 		<control-tag name="controlID::lfo2ShapeModIn" tag="343" />
 		<control-tag name="controlID::lfo2ShapeSplitModIn" tag="344" />
+		<control-tag name="controlID::eg1AttackModIn" tag="345" />
+		<control-tag name="controlID::eg1HoldModIn" tag="346" />
+		<control-tag name="controlID::eg1DecayModIn" tag="347" />
+		<control-tag name="controlID::eg1SustainModIn" tag="348" />
+		<control-tag name="controlID::eg1ReleaseModIn" tag="349" />
+		<control-tag name="controlID::unisonDetuneModIn" tag="340" />
+		<control-tag name="controlID::lfo1_to_lfo1Shape" tag="351" />
+		<control-tag name="controlID::lfo2_to_lfo1Shape" tag="361" />
+		<control-tag name="controlID::eg1_to_lfo1Shape" tag="371" />
+		<control-tag name="controlID::eg2_to_lfo1Shape" tag="381" />
+		<control-tag name="controlID::joystickAC_to_lfo1Shape" tag="391" />
+		<control-tag name="controlID::joystickBD_to_lfo1Shape" tag="401" />
+		<control-tag name="controlID::auxUnipolar1Mod_to_lfo1Shape" tag="411" />
+		<control-tag name="controlID::auxUnipolar2Mod_to_lfo1Shape" tag="421" />
+		<control-tag name="controlID::auxUnipolar3Mod_to_lfo1Shape" tag="431" />
+		<control-tag name="controlID::auxUnipolar4Mod_to_lfo1Shape" tag="441" />
+		<control-tag name="controlID::auxUnipolar5Mod_to_lfo1Shape" tag="451" />
+		<control-tag name="controlID::auxUnipolar6Mod_to_lfo1Shape" tag="461" />
+		<control-tag name="controlID::auxBipolar1Mod_to_lfo1Shape" tag="471" />
+		<control-tag name="controlID::auxBipolar2Mod_to_lfo1Shape" tag="481" />
+		<control-tag name="controlID::auxBipolar3Mod_to_lfo1Shape" tag="491" />
+		<control-tag name="controlID::auxBipolar4Mod_to_lfo1Shape" tag="501" />
+		<control-tag name="controlID::lfo1_to_unisonDetune" tag="350" />
+		<control-tag name="controlID::lfo2_to_unisonDetune" tag="360" />
+		<control-tag name="controlID::eg1_to_unisonDetune" tag="370" />
+		<control-tag name="controlID::eg2_to_unisonDetune" tag="380" />
+		<control-tag name="controlID::joystickAC_to_unisonDetune" tag="390" />
+		<control-tag name="controlID::joystickBD_to_unisonDetune" tag="400" />
+		<control-tag name="controlID::lfo1_to_lfo1ShapeSplit" tag="352" />
+		<control-tag name="controlID::lfo2_to_lfo1ShapeSplit" tag="362" />
+		<control-tag name="controlID::eg1_to_lfo1ShapeSplit" tag="372" />
+		<control-tag name="controlID::eg2_to_lfo1ShapeSplit" tag="382" />
+		<control-tag name="controlID::joystickAC_to_lfo1ShapeSplit" tag="392" />
+		<control-tag name="controlID::joystickBD_to_lfo1ShapeSplit" tag="402" />
+		<control-tag name="controlID::lfo1_to_lfo2Shape" tag="353" />
+		<control-tag name="controlID::lfo2_to_lfo2Shape" tag="363" />
+		<control-tag name="controlID::eg1_to_lfo2Shape" tag="373" />
+		<control-tag name="controlID::eg2_to_lfo2Shape" tag="383" />
+		<control-tag name="controlID::joystickAC_to_lfo2Shape" tag="393" />
+		<control-tag name="controlID::joystickBD_to_lfo2Shape" tag="403" />
+		<control-tag name="controlID::lfo1_to_lfo2ShapeSplit" tag="354" />
+		<control-tag name="controlID::lfo2_to_lfo2ShapeSplit" tag="364" />
+		<control-tag name="controlID::eg1_to_lfo2ShapeSplit" tag="374" />
+		<control-tag name="controlID::eg2_to_lfo2ShapeSplit" tag="384" />
+		<control-tag name="controlID::joystickAC_to_lfo2ShapeSplit" tag="394" />
+		<control-tag name="controlID::joystickBD_to_lfo2ShapeSplit" tag="404" />
+		<control-tag name="controlID::lfo1_to_eg1Attack" tag="355" />
+		<control-tag name="controlID::lfo2_to_eg1Attack" tag="365" />
+		<control-tag name="controlID::joystickAC_to_eg1Attack" tag="395" />
+		<control-tag name="controlID::joystickBD_to_eg1Attack" tag="405" />
+		<control-tag name="controlID::eg2_to_eg1Attack" tag="385" />
+		<control-tag name="controlID::lfo1_to_eg1Hold" tag="356" />
+		<control-tag name="controlID::lfo2_to_eg1Hold" tag="366" />
+		<control-tag name="controlID::eg2_to_eg1Hold" tag="386" />
+		<control-tag name="controlID::joystickAC_to_eg1Hold" tag="396" />
+		<control-tag name="controlID::joystickBD_to_eg1Hold" tag="406" />
+		<control-tag name="controlID::lfo1_to_eg1Decay" tag="357" />
+		<control-tag name="controlID::lfo2_to_eg1Decay" tag="367" />
+		<control-tag name="controlID::eg2_to_eg1Decay" tag="387" />
+		<control-tag name="controlID::joystickAC_to_eg1Decay" tag="397" />
+		<control-tag name="controlID::joystickBD_to_eg1Decay" tag="407" />
+		<control-tag name="controlID::lfo1_to_eg1Sustain" tag="358" />
+		<control-tag name="controlID::lfo2_to_eg1Sustain" tag="368" />
+		<control-tag name="controlID::eg2_to_eg1Sustain" tag="388" />
+		<control-tag name="controlID::joystickAC_to_eg1Sustain" tag="398" />
+		<control-tag name="controlID::joystickBD_to_eg1Sustain" tag="408" />
+		<control-tag name="controlID::lfo1_to_eg1Release" tag="359" />
+		<control-tag name="controlID::lfo2_to_eg1Release" tag="369" />
+		<control-tag name="controlID::eg2_to_eg1Release" tag="389" />
+		<control-tag name="controlID::joystickAC_to_eg1Release" tag="399" />
+		<control-tag name="controlID::joystickBD_to_eg1Release" tag="409" />
+		<control-tag name="controlID::temperamentKeySelection" tag="39" />
+		<control-tag name="controlID::osc1ExciterMode" tag="80" />
+		<control-tag name="controlID::exciter1Attack_msec" tag="81" />
+		<control-tag name="controlID::exciter1Hold_msec" tag="82" />
+		<control-tag name="controlID::exciter1Release_msec" tag="83" />
+		<control-tag name="controlID::resonator1Decay" tag="84" />
 		<control-tag name="XY_TRACKPAD" tag="131073" />
 		<control-tag name="VECTOR_JOYSTICK" tag="131074" />
 		<control-tag name="PRESET_NAME" tag="131075" />

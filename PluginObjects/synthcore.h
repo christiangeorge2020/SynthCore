@@ -59,8 +59,7 @@ enum modSource
 	kJoystickD,
 
 	// Extra's
-
-	kAuxUnipolarModOut1,
+	kAuxUnipolarModOut1, 
 	kAuxUnipolarModOut2,
 	kAuxUnipolarModOut3,
 	kAuxUnipolarModOut4,
@@ -96,16 +95,31 @@ enum modDestination
 	kOsc3_fo,
 	kOsc4_fo,
 
-	kOsc1_shape,
-	kOsc2_shape,
-	kOsc3_shape,
-	kOsc4_shape,
+	kOsc1_Shape,
+	kOsc2_Shape,
+	kOsc3_Shape,
+	kOsc4_Shape,
 
 	// --- LFO
 	kLFO1_fo,
 	kLFO2_fo,
 	kLFO3_fo,
 	kLFO4_fo,
+	kLFO1_Shape,
+	kLFO2_Shape,
+	kLFO3_Shape,
+	kLFO4_Shape,
+	kLFO1_ShapeSplit,
+	kLFO2_ShapeSplit,
+	kLFO3_ShapeSplit,
+	kLFO4_ShapeSplit,
+
+	// --- EG
+	kEG1_Attack,
+	kEG1_Hold,
+	kEG1_Decay,
+	kEG1_Sustain,
+	kEG1_Release,
 
 	// --- FILTER (add more here)
 	kFilter1_fc, // Fc
@@ -118,13 +132,13 @@ enum modDestination
 	kFilter3_Q,
 	kFilter4_Q,
 
-	kLFO1_Shape,
-	kLFO2_Shape,
-
 	// --- DCA (add more here)
 	kDCA_EGMod, // EG Input
 	kDCA_AmpMod,// Amp Mod Input
 	kDCA_SampleHoldMod, // Bipolar clamping mod input
+
+	// --- Global Params
+	kUnisonDetune,
 
 	// --- remain last, will always be the size of modulator array
 	kNumModDestinations
@@ -167,7 +181,7 @@ struct SynthVoiceParameters
 
 		lfo1Parameters = params.lfo1Parameters;
 		//rotorParameters = params.rotorParameters;
-		ampEGParameters = params.ampEGParameters;
+		EG1Parameters = params.EG1Parameters;
 		vectorJSData = params.vectorJSData;
 
 		return *this;
@@ -208,7 +222,7 @@ struct SynthVoiceParameters
 	//std::shared_ptr<RotorParameters> rotorParameters = std::make_shared<RotorParameters>();
 
 	// --- EGs
-	std::shared_ptr<EGParameters> ampEGParameters = std::make_shared<EGParameters>();
+	std::shared_ptr<EGParameters> EG1Parameters = std::make_shared<EGParameters>();
 
 	// --- Filters
 	std::shared_ptr<MoogFilterParameters> moogFilterParameters = std::make_shared<MoogFilterParameters>();
@@ -389,24 +403,71 @@ protected:
 		modSourceData[kLFO2_QuadPhase] = &lfo2Output.modulationOutputs[kLFONormalOutput];
 
 		// EG's
-		modSourceData[kEG1_Normal] = &ampEGOutput.modulationOutputs[kEGNormalOutput];
-		modSourceData[kEG1_Biased] = &ampEGOutput.modulationOutputs[kEGBiasedOutput];
-		modSourceData[kEG2_Normal] = &ampEGOutput.modulationOutputs[kEGNormalOutput];
-		modSourceData[kEG2_Biased] = &ampEGOutput.modulationOutputs[kEGBiasedOutput];
+		modSourceData[kEG1_Normal] = &EG1Output.modulationOutputs[kEGNormalOutput];
+		modSourceData[kEG1_Biased] = &EG1Output.modulationOutputs[kEGBiasedOutput];
+
+		//modSourceData[kEG2_Normal] = &modEGOutput.modulationOutputs[kEGNormalOutput];
+		//modSourceData[kEG2_Biased] = &modEGOutput.modulationOutputs[kEGBiasedOutput];
 		
 		// Vector joystick
 		modSourceData[kJoystickAC] = &parameters->vectorJSData.vectorACMix;
 		modSourceData[kJoystickBD] = &parameters->vectorJSData.vectorBDMix;
+
+		// Aux Slots
+		//modSourceData[kAuxUnipolarModOut1] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxUnipolarModOut2] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxUnipolarModOut3] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxUnipolarModOut4] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxUnipolarModOut5] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxUnipolarModOut6] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxUnipolarModOut7] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxUnipolarModOut8] = &" ".modulationOutputs[k" "Output];
+
+		//modSourceData[kAuxBipolarModOut1] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxBipolarModOut2] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxBipolarModOut3] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxBipolarModOut4] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxBipolarModOut5] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxBipolarModOut6] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxBipolarModOut7] = &" ".modulationOutputs[k" "Output];
+		//modSourceData[kAuxBipolarModOut8] = &" ".modulationOutputs[k" "Output];
 
 		// Rotor
 		//modSourceData[kRotor_X] = &rotorOutput.modulationOutputs[kRotorXOutput];
 		//modSourceData[kRotor_Y] = &rotorOutput.modulationOutputs[kRotorYOutput];
 
 		// --- Destination array slots
+
+		// Oscillators
 		modDestinationData[kOsc1_fo] = &(osc1->getModulators()->modulationInputs[kBipolarMod]);
 		modDestinationData[kOsc2_fo] = &(osc2->getModulators()->modulationInputs[kBipolarMod]);
 		modDestinationData[kOsc3_fo] = &(osc3->getModulators()->modulationInputs[kBipolarMod]);
 		modDestinationData[kOsc4_fo] = &(osc4->getModulators()->modulationInputs[kBipolarMod]);
+		modDestinationData[kOsc1_Shape] = &(osc1->getModulators()->modulationInputs[kShapeModBipolar]);
+		modDestinationData[kOsc2_Shape] = &(osc2->getModulators()->modulationInputs[kShapeModBipolar]);
+		modDestinationData[kOsc3_Shape] = &(osc3->getModulators()->modulationInputs[kShapeModBipolar]);
+		modDestinationData[kOsc4_Shape] = &(osc4->getModulators()->modulationInputs[kShapeModBipolar]);
+
+
+		// LFO's
+		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
+		modDestinationData[kLFO2_fo] = &(lfo2->getModulators()->modulationInputs[kFrequencyMod]);
+		//modDestinationData[kLFO3_fo] = &(lfo3->getModulators()->modulationInputs[kFrequencyMod]);
+		//modDestinationData[kLFO4_fo] = &(lfo4->getModulators()->modulationInputs[kFrequencyMod]);
+
+		modDestinationData[kLFO1_Shape] = &(lfo1->getModulators()->modulationInputs[kShapeModBipolar]);
+		modDestinationData[kLFO2_Shape] = &(lfo2->getModulators()->modulationInputs[kShapeModBipolar]);
+		//modDestinationData[kLFO3_Shape] = &(lfo3->getModulators()->modulationInputs[kShapeModBipolar]);
+		//modDestinationData[kLFO4_Shape] = &(lfo4->getModulators()->modulationInputs[kShapeModBipolar]);
+
+
+		// EG's
+		//modDestinationData[kEG1_Attack] = &(EG1->getModulators()->modulationInputs[kEGAttackMod]);
+		/*modDestinationData[kEG1_Hold] = &(EG1->getModulators()->modulationInputs[kEGHoldMod]);
+		modDestinationData[kEG1_Decay] = &(EG1->getModulators()->modulationInputs[kEGDecayMod]);
+		modDestinationData[kEG1_Sustain] = &(EG1->getModulators()->modulationInputs[kEGSustainMod]);
+		modDestinationData[kEG1_Release] = &(EG1->getModulators()->modulationInputs[kEGReleaseMod]);*/
+
 
 		modDestinationData[kDCA_EGMod] = &(dca->getModulators()->modulationInputs[kEGMod]);
 		modDestinationData[kDCA_AmpMod] = &(dca->getModulators()->modulationInputs[kMaxDownAmpMod]);
@@ -414,8 +475,6 @@ protected:
 		//modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
 
 		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxBipolarMod_1]);
-		modDestinationData[kLFO1_Shape] = &(lfo1->getModulators()->modulationInputs[kAuxBipolarMod_2]);
-
 		modDestinationData[kFilter1_fc] = &(moogFilter->getModulators()->modulationInputs[kBipolarMod]);
 	}
 
@@ -427,7 +486,7 @@ protected:
 	ModOutputData lfo1Output;
 	ModOutputData lfo2Output;
 	ModOutputData rotorOutput;
-	ModOutputData ampEGOutput;
+	ModOutputData EG1Output;
 
 	// --- mod source data: --- filter ---
 	// --- ModOutputData filterEGOutput;
@@ -471,7 +530,8 @@ protected:
 	//std::unique_ptr<Rotor> rotor;
 
 	// --- EGs
-	std::unique_ptr<EnvelopeGenerator> ampEG;
+	std::unique_ptr<EnvelopeGenerator> EG1;
+	//std::unique_ptr<EnvelopeGenerator> modEG;
 
 	// --- DCA(s)
 	std::unique_ptr<DCA> dca;

@@ -115,11 +115,85 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	// --- do the portamento
 	double glideMod = glideModulator.getNextGlideModSemitones();
 
+	/*int temperamentOffsetIndex = (midiNoteNumber % 12) - keyNoteNumber;
+	double temperamentOffsetCents = temperamentOffsetIndex * 100;
+	switch (temperamentChoice)
+	{
+		case 0: //E.T, aka no change.
+		{
+			//temperamentOffsetCents -= temperamentCents_Equal[temperamentOffsetIndex]; //will be 0 each time.
+			//aka temperamentOffsetCents = 100 - temperamentCentsEqual[1] (100) = 0.
+			temperamentOffsetCents = 0.0;
+		}
+		case 1:
+		{
+			temperamentOffsetCents -= temperamentCents_Bach_Lehman[temperamentOffsetIndex];
+		}
+		case 2:
+		{
+			temperamentOffsetCents -= temperamentCents_1_6_PythagoreanComma[temperamentOffsetIndex];
+		}
+		case 3:
+		{
+			temperamentOffsetCents -= temperamentCents_Sorge1758[temperamentOffsetIndex];
+		}
+		case 4:
+		{
+			temperamentOffsetCents -= temperamentCents_Vallotti[temperamentOffsetIndex];
+		}
+		case 5:
+		{
+			temperamentOffsetCents -= temperamentCents_Barnes[temperamentOffsetIndex];
+		}
+		case 6:
+		{
+			temperamentOffsetCents -= temperamentCents_Kellner[temperamentOffsetIndex];
+		}
+		case 7:
+		{
+			temperamentOffsetCents -= temperamentCents_Young2[temperamentOffsetIndex];
+		}
+		case 8:
+		{
+			temperamentOffsetCents -= temperamentCents_Werckmeister3[temperamentOffsetIndex];
+		}
+		case 9:
+		{
+			temperamentOffsetCents -= temperamentCents_Kirnberger3[temperamentOffsetIndex];
+		}
+		case 10:
+		{
+			temperamentOffsetCents -= temperamentCents_1_4_SyntonicCommaMeantone[temperamentOffsetIndex];
+		}
+		case 11:
+		{
+			temperamentOffsetCents -= temperamentCents_Neidhardt21_BigCity[temperamentOffsetIndex];
+		}
+		case 12:
+		{
+			temperamentOffsetCents -= temperamentCents_Neidhardt21_SmallCity[temperamentOffsetIndex];
+		}
+		case 13:
+		{
+			temperamentOffsetCents -= temperamentCents_Neidhardt21_Village[temperamentOffsetIndex];
+		}
+		case 14:
+		{
+			temperamentOffsetCents -= temperamentCents_Neidhardt21_3rdCircle4[temperamentOffsetIndex];
+		}
+		case 15:
+		{
+			temperamentOffsetCents -= temperamentCents_Neidhardt21_5thCircle11[temperamentOffsetIndex];
+		}
+	}
+	*/
+
 	// --- calculate combined tuning offsets by simply adding values in semitones
 	double currentPitchModSemitones = glideMod + 
 		fmodInput +
 		midiPitchBend +
 		masterTuning +
+		//temperamentOffsetCents +
 		(parameters->detuneOctaves* 12) +						/* octave*12 = semitones */
 		(parameters->detuneSemitones) +							/* semitones */
 		(parameters->unisonDetuneCents / 100.0);				/* cents/100 = semitones */
@@ -173,25 +247,25 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 
 	//pTableLen = &tableLen;
 
-	//// SHAPE MODULATION --- from LFO code
-	//double shapeModulation = modulators->modulationInputs[kShapeMod];
-	//double shapeRange = (0.98 - 0.01) / 2.0;
-	//shapeModulation *= shapeRange;
+	// SHAPE MODULATION --- from LFO code
+	double shapeModulation = modulators->modulationInputs[kShapeModBipolar];
+	double shapeRange = (0.98 - 0.01) / 2.0;
+	shapeModulation *= shapeRange;
 
-	//double cookedShape = parameters->oscillatorShape;
-	////if (parameters->modRoute == ModRouting::LFO1_Shape || parameters->modRoute == ModRouting::Both)
-	//cookedShape += shapeModulation;
+	double cookedShape = parameters->oscillatorShape;
+	//if (parameters->modRoute == ModRouting::LFO1_Shape || parameters->modRoute == ModRouting::Both)
+	cookedShape += shapeModulation;
 
-	//boundValue(cookedShape, 0.01, 0.98);
+	boundValue(cookedShape, 0.01, 0.98);
 
-	//// Full period frequency of fundamental lfo frequency
-	//oscillatorShape_first = 1 / (2 * cookedShape);
-	//oscillatorShape_second = 1 / (2 * (1 - cookedShape));
+	// Full period frequency of fundamental lfo frequency
+	oscillatorShape_first = 1 / (2 * cookedShape);
+	oscillatorShape_second = 1 / (2 * (1 - cookedShape));
 
-	//if (modCounter <= parameters->oscillatorShapeSplitPoint)
-	//	oscillatorFrequency *= oscillatorShape_first;
-	//else
-	//	oscillatorFrequency *= oscillatorShape_second;
+	if (modCounter <= parameters->oscillatorShapeSplitPoint)
+		oscillatorFrequency *= oscillatorShape_first;
+	else
+		oscillatorFrequency *= oscillatorShape_second;
 
 
 

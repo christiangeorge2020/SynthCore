@@ -244,8 +244,13 @@ enum {
 	kBipolarMod,
 	kFrequencyMod,
 	kPhaseMod,
-	kShapeMod,
+	kShapeModBipolar,
 	kAmpMod,
+	kEGAttackMod,
+	kEGHoldMod,
+	kEGDecayMod,
+	kEGSustainMod,
+	kEGReleaseMod,
 	kMaxDownAmpMod,
 	kWaveMorphMod,
 	kAuxUnipolarMod_1, // spares, eg for twin filter with two mods
@@ -1246,6 +1251,8 @@ struct SynthOscParameters
 		enableFreeRunMode = params.enableFreeRunMode;
 
 		morphModulation = params.morphModulation;
+		keyNoteNumber = params.keyNoteNumber;
+		temperamentChoice = params.temperamentChoice;
 
 		return *this;
 	}
@@ -1270,6 +1277,9 @@ struct SynthOscParameters
 	double oscillatorShape = 0.0;		// [-1, +1] <- Old // [0, 1] <- Current implementation.
 	double oscillatorShapeSplitPoint = 0.5; // [0, 1]
 	double morphModulation = 0.0;		// [0, +1]
+
+	int keyNoteNumber = 0; //0 - 11
+	int temperamentChoice = 0; //0 - 15
 
 	double hardSyncRatio = 1.0;			// [1, +???]
 	double fmRatio = 1.0;				// [1, +???]

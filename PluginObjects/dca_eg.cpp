@@ -242,6 +242,7 @@ bool EnvelopeGenerator::update(bool updateAllModRoutings)
 		sustainUpdate = true;
 
 	holdTime_mSec = parameters->holdTime_mSec;
+	holdTime_mSec += modulators->modulationInputs[kEGHoldMod] * 1000;
 	holdTimer.setTargetValueInSamples((holdTime_mSec*sampleRate) / 1000.0);
 	
 	offTime_mSec = parameters->offTime_mSec;
@@ -254,17 +255,17 @@ bool EnvelopeGenerator::update(bool updateAllModRoutings)
 	if(delayTime_mSec == 0.0 && state == egState::kDelay)
 		state = egState::kAttack;
 	
-	sustainLevel = parameters->sustainLevel;
+	sustainLevel = parameters->sustainLevel + (modulators->modulationInputs[kEGSustainMod] * 1000);
 	resetToZero = parameters->resetToZero;
 
 	if (attackTime_mSec != parameters->attackTime_mSec)
-		calculateAttackTime(parameters->attackTime_mSec);
+		calculateAttackTime(parameters->attackTime_mSec + (modulators->modulationInputs[kEGAttackMod] * 1000));
 
 	if (sustainUpdate || (decayTime_mSec != parameters->decayTime_mSec))
-		calculateDecayTime(parameters->decayTime_mSec);
+		calculateDecayTime(parameters->decayTime_mSec + (modulators->modulationInputs[kEGDecayMod] * 1000));
 
 	if (releaseTime_mSec != parameters->releaseTime_mSec)
-		calculateReleaseTime(parameters->releaseTime_mSec);
+		calculateReleaseTime(parameters->releaseTime_mSec + (modulators->modulationInputs[kEGReleaseMod] * 1000));
 
 	// --- update MIDI stuff
 	setSustainOverride(midiInputData->ccMIDIData[SUSTAIN_PEDAL] > 63);

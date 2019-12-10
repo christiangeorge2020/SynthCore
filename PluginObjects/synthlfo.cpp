@@ -20,7 +20,7 @@ bool SynthLFO::update(bool updateAllModRoutings)
 
 	boundValue(cookedFrequency, 0.01, 20.0);
 
-	double shapeModulation = modulators->modulationInputs[kShapeMod];
+	double shapeModulation = modulators->modulationInputs[kShapeModBipolar];
 	double shapeRange = (0.98 - 0.01) / 2.0;
 	shapeModulation *= shapeRange;
 	

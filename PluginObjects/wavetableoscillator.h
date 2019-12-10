@@ -117,6 +117,10 @@ protected:
 
 	double oscillatorShapeSplitPoint = 0.5;
 
+	// --- temperament variables
+	int keyNoteNumber = 0; //0-11, 0 being C
+	int temperamentChoice = 0; //0-15, to choose from one of the temperament arrays in synthdefs.h
+
 	uint32_t currentTableLength = kDefaultWaveTableLength;
 
 	uint32_t currentTableLengthDetune = kDefaultWaveTableLength;

@@ -39,7 +39,7 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 	moogFilter.reset(new MoogFilter(midiInputData, parameters->moogFilterParameters));
 
 	// **ENVELOPE GENERATORS**
-	ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
+	EG1.reset(new EnvelopeGenerator(midiInputData, parameters->EG1Parameters));
 
 	dca.reset(new DCA(midiInputData, parameters->dcaParameters));
 
@@ -117,7 +117,7 @@ bool SynthVoice::reset(double _sampleRate)
 
 	//rotor->reset(_sampleRate);
 
-	ampEG->reset(_sampleRate);
+	EG1->reset(_sampleRate);
 
 	dca->reset(_sampleRate);
 
@@ -131,7 +131,7 @@ bool SynthVoice::reset(double _sampleRate)
 	/// Clear modulator output arrays
 	lfo1Output.clear();
 	lfo2Output.clear();
-	ampEGOutput.clear();
+	EG1Output.clear();
 	
 	// --- filter EG goes here (add more)
 
@@ -202,8 +202,8 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	//rotorOutput = rotor->renderModulatorOutput();
 	
 	// --- update/render (add more here)
-	ampEG->update(updateAllModRoutings);
-	ampEGOutput = ampEG->renderModulatorOutput();
+	EG1->update(updateAllModRoutings);
+	EG1Output = EG1->renderModulatorOutput();
 
 	// --- do all mods	
 	runModulationMatrix(updateAllModRoutings);
@@ -255,7 +255,7 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 	// --- check for note off condition
 	if (voiceIsRunning)
 	{
-		if (ampEG->getState() == egState::kOff)
+		if (EG1->getState() == egState::kOff)
 		{
 			// --- check for steal pending
 			if (stealPending)
@@ -320,7 +320,7 @@ bool SynthVoice::doNoteOn(midiEvent& event)
 	dca->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
 	//  EGs
-	ampEG->doNoteOn(midiPitch, event.midiData1, event.midiData2);
+	EG1->doNoteOn(midiPitch, event.midiData1, event.midiData2);
 
 	// --- needed forLFO  modes
 	lfo1->doNoteOn(midiPitch, event.midiData1, event.midiData2);
@@ -347,9 +347,9 @@ bool SynthVoice::doNoteOff(midiEvent& event)
 	double midiPitch = midiFreqTable[event.midiData1];
 
 	// --- stop the oscillators (for now... HINT: put EG into Release Phase, then stop oscillator after EG expires)
-	ampEG->doNoteOff(midiPitch, event.midiData1, event.midiData2);
+	EG1->doNoteOff(midiPitch, event.midiData1, event.midiData2);
 
-	// --- set our current state; the ampEG will determine the final state
+	// --- set our current state; the EG1 will determine the final state
 	voiceNoteState = voiceState::kNoteOffState;
 	return true;
 }
@@ -369,8 +369,8 @@ bool SynthVoice::processMIDIEvent(midiEvent& event)
 			// --- save information
 			voiceStealMIDIEvent = event;
 
-			// --- set amp EG into shutdown mode
-			ampEG->shutdown();
+			// --- set EG's into shutdown mode
+			EG1->shutdown();
 
 			// --- set the steal flag; see start of render operation for the rest of the code
 			stealPending = true; 
@@ -427,34 +427,23 @@ SynthEngine::SynthEngine()
 	//master takes priority
 	//parameters.setMM_ChannelIntensity(kEG1_Normal, kDCA_EGMod, 1.0);
 
-	//parameters.setMM_HardwiredRouting(kEG1_Normal, kFilter1_fc);
 
+	//parameters.setMM_HardwiredRouting(kEG1_Normal, kFilter1_fc);
 	/*parameters.setMM_HardwiredRouting(kRotor_X, kOsc1_fo);
 	parameters.setMM_HardwiredRouting(kRotor_X, kOsc2_fo);
 	parameters.setMM_HardwiredRouting(kRotor_X, kOsc3_fo);
 	parameters.setMM_HardwiredRouting(kRotor_X, kOsc4_fo);*/
-
-
-	// --- example of another hardwired routing
-	/*parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
-	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc2_fo);
-	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc3_fo);
-	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc4_fo);*/
 
 	/// LFO2 -> LFO1
 	/*parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_fo);
 
 	/// LFO -> Sample Hold DCA
 	parameters.setMM_HardwiredRouting(kLFO2_Normal, kDCA_SampleHoldMod);
-
 	parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_Shape);*/
 
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 
 	// --- EG3 -> Wave Morph??
-
-	// MOVE TO MOD MATRIX, make new row for joystick
-	// parameters.setMM_HardwiredRouting(kJoystickAC, kFilter1_fc);
 
 	// --- set amp mod default value to prevent silence accidentally
 	parameters.setMM_DestDefaultValue(kDCA_AmpMod, 1.0);
@@ -869,6 +858,37 @@ int SynthEngine::getVoiceIndexToSteal()
 	int index = -1;
 
 	// --- add your heuristic code here to return the index of the voice to steal
+	// Note Protection
+	// - protect all (aka voice stealing off)
+
+	// - protect none
+
+	// - protect lowest
+
+	// - protect highest
+
+
+	// Stealing Priority
+	// - random
+	//if (stealMode == kStealMode_Random)
+	index = rand() % MAX_VOICES;
+
+	// - oldest
+	//else if (stealMode == kStealMode_OldestNote)
+	//check timestamps of each note
+
+
+	// - newest
+	//else if (stealMode == kStealMode_NewestNote)
+	//check timestamps of each note
+
+	// - closest to new note
+	//else if (stealMode == kStealMode_ClosestNote)
+	//check MIDI pitches of each note
+
+	// - quietest note
+	//else if (stealMode == kStealMode_ClosestNote)
+	//check MIDI velocities of each note
 
 	// --- index should always be >= 0
 	return index;

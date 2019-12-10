@@ -875,33 +875,33 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- continuous control: Samp.Hold Mod In
-	piParam = new PluginParameter(controlID::aux1ModIn, "Samp.Hold Mod In", "Units", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam = new PluginParameter(controlID::DCASampleHoldModIn, "Samp.Hold Mod In", "Units", controlVariableType::kDouble, -1.000000, 1.000000, 0.000000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
-	piParam->setBoundVariable(&aux1ModIn, boundVariableType::kDouble);
+	piParam->setBoundVariable(&DCASampleHoldModIn, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
 	// --- discrete control: LFO1
-	piParam = new PluginParameter(controlID::lfo1_to_aux1ModIn, "LFO1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&lfo1_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::lfo1_to_DCASampleHoldModIn, "LFO1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
 	// --- discrete control: LFO2
-	piParam = new PluginParameter(controlID::lfo2_to_aux1ModIn, "LFO2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&lfo2_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::lfo2_to_DCASampleHoldModIn, "LFO2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
 	// --- discrete control: JS. AC
-	piParam = new PluginParameter(controlID::joystickAC_to_aux1ModIn, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&joystickAC_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::joystickAC_to_DCASampleHoldModIn, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
 	// --- discrete control: JS. BD
-	piParam = new PluginParameter(controlID::joystickBD_to_aux1ModIn, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&joystickBD_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::joystickBD_to_DCASampleHoldModIn, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -954,8 +954,8 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX U 1
-	piParam = new PluginParameter(controlID::auxUnipolar1Mod_to_aux1ModIn, "AUX U 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxUnipolar1Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxUnipolar1Mod_to_DCASampleHoldModIn, "AUX U 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar1Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1008,8 +1008,8 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX U 2
-	piParam = new PluginParameter(controlID::auxUnipolar2Mod_to_aux1ModIn, "AUX U 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxUnipolar2Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxUnipolar2Mod_to_DCASampleHoldModIn, "AUX U 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar2Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1062,8 +1062,8 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX U 3
-	piParam = new PluginParameter(controlID::auxUnipolar3Mod_to_aux1ModIn, "AUX U 3", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxUnipolar3Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxUnipolar3Mod_to_DCASampleHoldModIn, "AUX U 3", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar3Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1116,8 +1116,8 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX U 4
-	piParam = new PluginParameter(controlID::auxUnipolar4Mod_to_aux1ModIn, "AUX U 4", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxUnipolar4Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxUnipolar4Mod_to_DCASampleHoldModIn, "AUX U 4", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar4Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1170,8 +1170,8 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX U 5
-	piParam = new PluginParameter(controlID::auxUnipolar5Mod_to_aux1ModIn, "AUX U 5", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxUnipolar5Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxUnipolar5Mod_to_DCASampleHoldModIn, "AUX U 5", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar5Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1224,8 +1224,8 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX U 6
-	piParam = new PluginParameter(controlID::auxUnipolar6Mod_to_aux1ModIn, "AUX U 6", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxUnipolar6Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxUnipolar6Mod_to_DCASampleHoldModIn, "AUX U 6", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar6Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1278,8 +1278,8 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX B 1
-	piParam = new PluginParameter(controlID::auxBipolar1Mod_to_aux1ModIn, "AUX B 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxBipolar1Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxBipolar1Mod_to_DCASampleHoldModIn, "AUX B 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxBipolar1Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1332,8 +1332,8 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX B 2
-	piParam = new PluginParameter(controlID::auxBipolar2Mod_to_aux1ModIn, "AUX B 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxBipolar2Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxBipolar2Mod_to_DCASampleHoldModIn, "AUX B 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxBipolar2Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1386,8 +1386,8 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX B 3
-	piParam = new PluginParameter(controlID::auxBipolar3Mod_to_aux1ModIn, "AUX B 3", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxBipolar3Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxBipolar3Mod_to_DCASampleHoldModIn, "AUX B 3", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxBipolar3Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1440,20 +1440,20 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- discrete control: AUX B 4
-	piParam = new PluginParameter(controlID::auxBipolar4Mod_to_aux1ModIn, "AUX B 4", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&auxBipolar4Mod_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::auxBipolar4Mod_to_DCASampleHoldModIn, "AUX B 4", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxBipolar4Mod_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
 	// --- discrete control: EG1
-	piParam = new PluginParameter(controlID::eg1_to_aux1ModIn, "EG1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&eg1_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::eg1_to_DCASampleHoldModIn, "EG1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
 	// --- discrete control: EG2
-	piParam = new PluginParameter(controlID::eg2_to_aux1ModIn, "EG2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
-	piParam->setBoundVariable(&eg2_to_aux1ModIn, boundVariableType::kInt);
+	piParam = new PluginParameter(controlID::eg2_to_DCASampleHoldModIn, "EG2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_DCASampleHoldModIn, boundVariableType::kInt);
 	piParam->setIsDiscreteSwitch(true);
 	addPluginParameter(piParam);
 
@@ -1483,6 +1483,479 @@ bool PluginCore::initPluginParameters()
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&lfo2ShapeSplitModIn, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG 1 Attack In
+	piParam = new PluginParameter(controlID::eg1AttackModIn, "EG 1 Attack In", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1AttackModIn, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG 1 Hold In
+	piParam = new PluginParameter(controlID::eg1HoldModIn, "EG 1 Hold In", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1HoldModIn, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG 1 Decay In
+	piParam = new PluginParameter(controlID::eg1DecayModIn, "EG 1 Decay In", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1DecayModIn, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG 1 Sus In
+	piParam = new PluginParameter(controlID::eg1SustainModIn, "EG 1 Sus In", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1SustainModIn, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: EG 1 Rel In
+	piParam = new PluginParameter(controlID::eg1ReleaseModIn, "EG 1 Rel In", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&eg1ReleaseModIn, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Unison Detune In
+	piParam = new PluginParameter(controlID::unisonDetuneModIn, "Unison Detune In", "", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&unisonDetuneModIn, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_lfo1Shape, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_lfo1Shape, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 1
+	piParam = new PluginParameter(controlID::eg1_to_lfo1Shape, "EG 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_lfo1Shape, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_lfo1Shape, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_lfo1Shape, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX U 1
+	piParam = new PluginParameter(controlID::auxUnipolar1Mod_to_lfo1Shape, "AUX U 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar1Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX U 2
+	piParam = new PluginParameter(controlID::auxUnipolar2Mod_to_lfo1Shape, "AUX U 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar2Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX U 3
+	piParam = new PluginParameter(controlID::auxUnipolar3Mod_to_lfo1Shape, "AUX U 3", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar3Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX U 4
+	piParam = new PluginParameter(controlID::auxUnipolar4Mod_to_lfo1Shape, "AUX U 4", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar4Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX U 5
+	piParam = new PluginParameter(controlID::auxUnipolar5Mod_to_lfo1Shape, "AUX U 5", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar5Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX U 6
+	piParam = new PluginParameter(controlID::auxUnipolar6Mod_to_lfo1Shape, "AUX U 6", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxUnipolar6Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX B 1
+	piParam = new PluginParameter(controlID::auxBipolar1Mod_to_lfo1Shape, "AUX B 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxBipolar1Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX B 2
+	piParam = new PluginParameter(controlID::auxBipolar2Mod_to_lfo1Shape, "AUX B 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxBipolar2Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX B 3
+	piParam = new PluginParameter(controlID::auxBipolar3Mod_to_lfo1Shape, "AUX B 3", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxBipolar3Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: AUX B 4
+	piParam = new PluginParameter(controlID::auxBipolar4Mod_to_lfo1Shape, "AUX B 4", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&auxBipolar4Mod_to_lfo1Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_unisonDetune, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_unisonDetune, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_unisonDetune, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_unisonDetune, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 1
+	piParam = new PluginParameter(controlID::eg1_to_unisonDetune, "EG 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1_to_unisonDetune, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_unisonDetune, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_unisonDetune, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_unisonDetune, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_unisonDetune, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_unisonDetune, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_unisonDetune, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_lfo1ShapeSplit, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_lfo1ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_lfo1ShapeSplit, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_lfo1ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 1
+	piParam = new PluginParameter(controlID::eg1_to_lfo1ShapeSplit, "EG 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1_to_lfo1ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_lfo1ShapeSplit, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_lfo1ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_lfo1ShapeSplit, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_lfo1ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_lfo1ShapeSplit, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_lfo1ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_lfo2Shape, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_lfo2Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_lfo2Shape, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_lfo2Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 1
+	piParam = new PluginParameter(controlID::eg1_to_lfo2Shape, "EG 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1_to_lfo2Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_lfo2Shape, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_lfo2Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_lfo2Shape, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_lfo2Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_lfo2Shape, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_lfo2Shape, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_lfo2ShapeSplit, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_lfo2ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_lfo2ShapeSplit, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_lfo2ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 1
+	piParam = new PluginParameter(controlID::eg1_to_lfo2ShapeSplit, "EG 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg1_to_lfo2ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_lfo2ShapeSplit, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_lfo2ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_lfo2ShapeSplit, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_lfo2ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_lfo2ShapeSplit, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_lfo2ShapeSplit, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_eg1Attack, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_eg1Attack, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_eg1Attack, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_eg1Attack, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_eg1Attack, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_eg1Attack, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_eg1Attack, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_eg1Attack, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_eg1Attack, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_eg1Attack, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_eg1Hold, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_eg1Hold, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_eg1Hold, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_eg1Hold, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_eg1Hold, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_eg1Hold, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_eg1Hold, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_eg1Hold, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_eg1Hold, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_eg1Hold, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_eg1Decay, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_eg1Decay, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_eg1Decay, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_eg1Decay, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_eg1Decay, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_eg1Decay, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_eg1Decay, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_eg1Decay, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_eg1Decay, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_eg1Decay, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_eg1Sustain, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_eg1Sustain, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_eg1Sustain, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_eg1Sustain, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_eg1Sustain, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_eg1Sustain, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_eg1Sustain, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_eg1Sustain, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_eg1Sustain, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_eg1Sustain, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 1
+	piParam = new PluginParameter(controlID::lfo1_to_eg1Release, "LFO 1", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo1_to_eg1Release, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: LFO 2
+	piParam = new PluginParameter(controlID::lfo2_to_eg1Release, "LFO 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&lfo2_to_eg1Release, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: EG 2
+	piParam = new PluginParameter(controlID::eg2_to_eg1Release, "EG 2", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&eg2_to_eg1Release, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. AC
+	piParam = new PluginParameter(controlID::joystickAC_to_eg1Release, "JS. AC", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickAC_to_eg1Release, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- discrete control: JS. BD
+	piParam = new PluginParameter(controlID::joystickBD_to_eg1Release, "JS. BD", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&joystickBD_to_eg1Release, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Key Selection
+	piParam = new PluginParameter(controlID::temperamentKeySelection, "Key Selection", "", controlVariableType::kInt, 0.000000, 11.000000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&temperamentKeySelection, boundVariableType::kInt);
+	addPluginParameter(piParam);
+
+	// --- discrete control: Osc1 Model
+	piParam = new PluginParameter(controlID::osc1ExciterMode, "Osc1 Model", "None,Noise,Waveform", "None");
+	piParam->setBoundVariable(&osc1ExciterMode, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter1 Attack
+	piParam = new PluginParameter(controlID::exciter1Attack_msec, "Exciter1 Attack", "mSec", controlVariableType::kDouble, 0.000000, 500.000000, 100.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter1Attack_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter1 Hold
+	piParam = new PluginParameter(controlID::exciter1Hold_msec, "Exciter1 Hold", "msec", controlVariableType::kDouble, 0.000000, 5000.000000, 250.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter1Hold_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Exciter 1 Release
+	piParam = new PluginParameter(controlID::exciter1Release_msec, "Exciter 1 Release", "mSec", controlVariableType::kDouble, 0.000000, 5000.000000, 1000.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&exciter1Release_msec, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Tube 1 Decay
+	piParam = new PluginParameter(controlID::resonator1Decay, "Tube 1 Decay", "", controlVariableType::kDouble, 0.750000, 1.000000, 1.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&resonator1Decay, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
 	// --- Aux Attributes
@@ -2114,30 +2587,30 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::auxBipolar4ModOut, auxAttribute);
 
-	// --- controlID::aux1ModIn
+	// --- controlID::DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
-	setParamAuxAttribute(controlID::aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::DCASampleHoldModIn, auxAttribute);
 
-	// --- controlID::lfo1_to_aux1ModIn
+	// --- controlID::lfo1_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::lfo1_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::lfo1_to_DCASampleHoldModIn, auxAttribute);
 
-	// --- controlID::lfo2_to_aux1ModIn
+	// --- controlID::lfo2_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::lfo2_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::lfo2_to_DCASampleHoldModIn, auxAttribute);
 
-	// --- controlID::joystickAC_to_aux1ModIn
+	// --- controlID::joystickAC_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::joystickAC_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::joystickAC_to_DCASampleHoldModIn, auxAttribute);
 
-	// --- controlID::joystickBD_to_aux1ModIn
+	// --- controlID::joystickBD_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::joystickBD_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::joystickBD_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxUnipolar1Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2179,10 +2652,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxUnipolar1Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxUnipolar1Mod_to_aux1ModIn
+	// --- controlID::auxUnipolar1Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxUnipolar1Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxUnipolar1Mod_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxUnipolar2Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2224,10 +2697,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxUnipolar2Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxUnipolar2Mod_to_aux1ModIn
+	// --- controlID::auxUnipolar2Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxUnipolar2Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxUnipolar2Mod_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxUnipolar3Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2269,10 +2742,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxUnipolar3Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxUnipolar3Mod_to_aux1ModIn
+	// --- controlID::auxUnipolar3Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxUnipolar3Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxUnipolar3Mod_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxUnipolar4Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2314,10 +2787,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxUnipolar4Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxUnipolar4Mod_to_aux1ModIn
+	// --- controlID::auxUnipolar4Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxUnipolar4Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxUnipolar4Mod_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxUnipolar5Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2359,10 +2832,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxUnipolar5Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxUnipolar5Mod_to_aux1ModIn
+	// --- controlID::auxUnipolar5Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxUnipolar5Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxUnipolar5Mod_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxUnipolar6Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2404,10 +2877,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxUnipolar6Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxUnipolar6Mod_to_aux1ModIn
+	// --- controlID::auxUnipolar6Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxUnipolar6Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxUnipolar6Mod_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxBipolar1Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2449,10 +2922,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxBipolar1Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxBipolar1Mod_to_aux1ModIn
+	// --- controlID::auxBipolar1Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxBipolar1Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxBipolar1Mod_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxBipolar2Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2494,10 +2967,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxBipolar2Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxBipolar2Mod_to_aux1ModIn
+	// --- controlID::auxBipolar2Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxBipolar2Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxBipolar2Mod_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxBipolar3Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2539,10 +3012,10 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxBipolar3Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxBipolar3Mod_to_aux1ModIn
+	// --- controlID::auxBipolar3Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxBipolar3Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxBipolar3Mod_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::auxBipolar4Mod_to_osc1Fo
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2584,20 +3057,20 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.setUintAttribute(1073741827);
 	setParamAuxAttribute(controlID::auxBipolar4Mod_to_filter2Q, auxAttribute);
 
-	// --- controlID::auxBipolar4Mod_to_aux1ModIn
+	// --- controlID::auxBipolar4Mod_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::auxBipolar4Mod_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::auxBipolar4Mod_to_DCASampleHoldModIn, auxAttribute);
 
-	// --- controlID::eg1_to_aux1ModIn
+	// --- controlID::eg1_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::eg1_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::eg1_to_DCASampleHoldModIn, auxAttribute);
 
-	// --- controlID::eg2_to_aux1ModIn
+	// --- controlID::eg2_to_DCASampleHoldModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(1073741827);
-	setParamAuxAttribute(controlID::eg2_to_aux1ModIn, auxAttribute);
+	setParamAuxAttribute(controlID::eg2_to_DCASampleHoldModIn, auxAttribute);
 
 	// --- controlID::lfo1ShapeModIn
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
@@ -2618,6 +3091,391 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::lfo2ShapeSplitModIn, auxAttribute);
+
+	// --- controlID::eg1AttackModIn
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1AttackModIn, auxAttribute);
+
+	// --- controlID::eg1HoldModIn
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1HoldModIn, auxAttribute);
+
+	// --- controlID::eg1DecayModIn
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1DecayModIn, auxAttribute);
+
+	// --- controlID::eg1SustainModIn
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1SustainModIn, auxAttribute);
+
+	// --- controlID::eg1ReleaseModIn
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::eg1ReleaseModIn, auxAttribute);
+
+	// --- controlID::unisonDetuneModIn
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::unisonDetuneModIn, auxAttribute);
+
+	// --- controlID::lfo1_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::lfo2_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::eg1_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg1_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::eg2_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::joystickAC_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::joystickBD_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickBD_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxUnipolar1Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxUnipolar1Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxUnipolar2Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxUnipolar2Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxUnipolar3Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxUnipolar3Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxUnipolar4Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxUnipolar4Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxUnipolar5Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxUnipolar5Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxUnipolar6Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxUnipolar6Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxBipolar1Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxBipolar1Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxBipolar2Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxBipolar2Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxBipolar3Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxBipolar3Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::auxBipolar4Mod_to_lfo1Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::auxBipolar4Mod_to_lfo1Shape, auxAttribute);
+
+	// --- controlID::lfo1_to_unisonDetune
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_unisonDetune, auxAttribute);
+
+	// --- controlID::lfo2_to_unisonDetune
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_unisonDetune, auxAttribute);
+
+	// --- controlID::eg1_to_unisonDetune
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg1_to_unisonDetune, auxAttribute);
+
+	// --- controlID::eg2_to_unisonDetune
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_unisonDetune, auxAttribute);
+
+	// --- controlID::joystickAC_to_unisonDetune
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_unisonDetune, auxAttribute);
+
+	// --- controlID::joystickBD_to_unisonDetune
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickBD_to_unisonDetune, auxAttribute);
+
+	// --- controlID::lfo1_to_lfo1ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_lfo1ShapeSplit, auxAttribute);
+
+	// --- controlID::lfo2_to_lfo1ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_lfo1ShapeSplit, auxAttribute);
+
+	// --- controlID::eg1_to_lfo1ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg1_to_lfo1ShapeSplit, auxAttribute);
+
+	// --- controlID::eg2_to_lfo1ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_lfo1ShapeSplit, auxAttribute);
+
+	// --- controlID::joystickAC_to_lfo1ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_lfo1ShapeSplit, auxAttribute);
+
+	// --- controlID::joystickBD_to_lfo1ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickBD_to_lfo1ShapeSplit, auxAttribute);
+
+	// --- controlID::lfo1_to_lfo2Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_lfo2Shape, auxAttribute);
+
+	// --- controlID::lfo2_to_lfo2Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_lfo2Shape, auxAttribute);
+
+	// --- controlID::eg1_to_lfo2Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg1_to_lfo2Shape, auxAttribute);
+
+	// --- controlID::eg2_to_lfo2Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_lfo2Shape, auxAttribute);
+
+	// --- controlID::joystickAC_to_lfo2Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_lfo2Shape, auxAttribute);
+
+	// --- controlID::joystickBD_to_lfo2Shape
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickBD_to_lfo2Shape, auxAttribute);
+
+	// --- controlID::lfo1_to_lfo2ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_lfo2ShapeSplit, auxAttribute);
+
+	// --- controlID::lfo2_to_lfo2ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_lfo2ShapeSplit, auxAttribute);
+
+	// --- controlID::eg1_to_lfo2ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg1_to_lfo2ShapeSplit, auxAttribute);
+
+	// --- controlID::eg2_to_lfo2ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_lfo2ShapeSplit, auxAttribute);
+
+	// --- controlID::joystickAC_to_lfo2ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_lfo2ShapeSplit, auxAttribute);
+
+	// --- controlID::joystickBD_to_lfo2ShapeSplit
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickBD_to_lfo2ShapeSplit, auxAttribute);
+
+	// --- controlID::lfo1_to_eg1Attack
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_eg1Attack, auxAttribute);
+
+	// --- controlID::lfo2_to_eg1Attack
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_eg1Attack, auxAttribute);
+
+	// --- controlID::joystickAC_to_eg1Attack
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_eg1Attack, auxAttribute);
+
+	// --- controlID::joystickBD_to_eg1Attack
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741824);
+	setParamAuxAttribute(controlID::joystickBD_to_eg1Attack, auxAttribute);
+
+	// --- controlID::eg2_to_eg1Attack
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_eg1Attack, auxAttribute);
+
+	// --- controlID::lfo1_to_eg1Hold
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_eg1Hold, auxAttribute);
+
+	// --- controlID::lfo2_to_eg1Hold
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_eg1Hold, auxAttribute);
+
+	// --- controlID::eg2_to_eg1Hold
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_eg1Hold, auxAttribute);
+
+	// --- controlID::joystickAC_to_eg1Hold
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_eg1Hold, auxAttribute);
+
+	// --- controlID::joystickBD_to_eg1Hold
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickBD_to_eg1Hold, auxAttribute);
+
+	// --- controlID::lfo1_to_eg1Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_eg1Decay, auxAttribute);
+
+	// --- controlID::lfo2_to_eg1Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_eg1Decay, auxAttribute);
+
+	// --- controlID::eg2_to_eg1Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_eg1Decay, auxAttribute);
+
+	// --- controlID::joystickAC_to_eg1Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_eg1Decay, auxAttribute);
+
+	// --- controlID::joystickBD_to_eg1Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickBD_to_eg1Decay, auxAttribute);
+
+	// --- controlID::lfo1_to_eg1Sustain
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_eg1Sustain, auxAttribute);
+
+	// --- controlID::lfo2_to_eg1Sustain
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_eg1Sustain, auxAttribute);
+
+	// --- controlID::eg2_to_eg1Sustain
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_eg1Sustain, auxAttribute);
+
+	// --- controlID::joystickAC_to_eg1Sustain
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_eg1Sustain, auxAttribute);
+
+	// --- controlID::joystickBD_to_eg1Sustain
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickBD_to_eg1Sustain, auxAttribute);
+
+	// --- controlID::lfo1_to_eg1Release
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo1_to_eg1Release, auxAttribute);
+
+	// --- controlID::lfo2_to_eg1Release
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::lfo2_to_eg1Release, auxAttribute);
+
+	// --- controlID::eg2_to_eg1Release
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::eg2_to_eg1Release, auxAttribute);
+
+	// --- controlID::joystickAC_to_eg1Release
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickAC_to_eg1Release, auxAttribute);
+
+	// --- controlID::joystickBD_to_eg1Release
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741827);
+	setParamAuxAttribute(controlID::joystickBD_to_eg1Release, auxAttribute);
+
+	// --- controlID::temperamentKeySelection
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::temperamentKeySelection, auxAttribute);
+
+	// --- controlID::osc1ExciterMode
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(805306368);
+	setParamAuxAttribute(controlID::osc1ExciterMode, auxAttribute);
+
+	// --- controlID::exciter1Attack_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter1Attack_msec, auxAttribute);
+
+	// --- controlID::exciter1Hold_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter1Hold_msec, auxAttribute);
+
+	// --- controlID::exciter1Release_msec
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::exciter1Release_msec, auxAttribute);
+
+	// --- controlID::resonator1Decay
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::resonator1Decay, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -2742,6 +3600,7 @@ void PluginCore::updateParameters()
 	//en...rs->oscillator1Shape = 0.5;
 	engineParams.voiceParameters->osc1Parameters->oscillatorWaveformIndex = osc1Waveform;
 	engineParams.voiceParameters->osc1Parameters->oscillatorBankIndex = osc1BankIndex;
+	//engineParams.voiceParameters->osc1Parameters->keyNoteNumber = keySelection;
 	engineParams.voiceParameters->osc2Parameters->oscillatorWaveformIndex = osc2Waveform;
 	engineParams.voiceParameters->osc2Parameters->oscillatorBankIndex = osc2BankIndex;
 	engineParams.voiceParameters->osc3Parameters->oscillatorWaveformIndex = osc3Waveform;
@@ -2753,15 +3612,15 @@ void PluginCore::updateParameters()
 
 	/// EG1 Parameters
 
-	engineParams.voiceParameters->ampEGParameters->delayTime_mSec = eg1DelayTime_mSec;
-	engineParams.voiceParameters->ampEGParameters->attackTime_mSec = eg1AttackTime_mSec;
-	engineParams.voiceParameters->ampEGParameters->holdTime_mSec = eg1HoldTime_mSec;
-	engineParams.voiceParameters->ampEGParameters->decayTime_mSec = eg1DecayTime_mSec;
-	engineParams.voiceParameters->ampEGParameters->sustainLevel = eg1SustainLevel;
-	engineParams.voiceParameters->ampEGParameters->releaseTime_mSec = eg1ReleaseTime_mSec;
-	engineParams.voiceParameters->ampEGParameters->egContourType = convertIntToEnum(eg1Mode, egType);
-	engineParams.voiceParameters->ampEGParameters->autoRetrigger = eg1AutoRetrigger;
-	engineParams.voiceParameters->ampEGParameters->manualRetrigger = eg1ManualTrigger;
+	engineParams.voiceParameters->EG1Parameters->delayTime_mSec = eg1DelayTime_mSec;
+	engineParams.voiceParameters->EG1Parameters->attackTime_mSec = eg1AttackTime_mSec;
+	engineParams.voiceParameters->EG1Parameters->holdTime_mSec = eg1HoldTime_mSec;
+	engineParams.voiceParameters->EG1Parameters->decayTime_mSec = eg1DecayTime_mSec;
+	engineParams.voiceParameters->EG1Parameters->sustainLevel = eg1SustainLevel;
+	engineParams.voiceParameters->EG1Parameters->releaseTime_mSec = eg1ReleaseTime_mSec;
+	engineParams.voiceParameters->EG1Parameters->egContourType = convertIntToEnum(eg1Mode, egType);
+	engineParams.voiceParameters->EG1Parameters->autoRetrigger = eg1AutoRetrigger;
+	engineParams.voiceParameters->EG1Parameters->manualRetrigger = eg1ManualTrigger;
 
 	/// MOOG FILTER Parameters
 
@@ -2772,32 +3631,451 @@ void PluginCore::updateParameters()
 
 	/// MOD MATRIX Routings
 
+	// --- Source Intensities
+
 	engineParams.setMM_SourceMasterIntensity(kLFO1_Normal, lfo1Amplitude);
 	engineParams.setMM_SourceMasterIntensity(kLFO2_Normal, lfo2Amplitude);
 	engineParams.setMM_SourceMasterIntensity(kEG1_Normal, eg1ModOut);
 	engineParams.setMM_SourceMasterIntensity(kEG2_Normal, eg2ModOut);
 	engineParams.setMM_SourceMasterIntensity(kJoystickAC, joystickACModOut);
 	engineParams.setMM_SourceMasterIntensity(kJoystickBD, joystickBDModOut);
-	//engineParams.setMM_SourceMasterIntensity();
-	/*engineParams.setMM_SourceMasterIntensity();
-	engineParams.setMM_SourceMasterIntensity();
-	engineParams.setMM_SourceMasterIntensity();
-	engineParams.setMM_SourceMasterIntensity();
-	engineParams.setMM_SourceMasterIntensity();
-	engineParams.setMM_SourceMasterIntensity();
-	engineParams.setMM_SourceMasterIntensity();
-	engineParams.setMM_SourceMasterIntensity();
-	engineParams.setMM_SourceMasterIntensity();*/
+	engineParams.setMM_SourceMasterIntensity(kAuxUnipolarModOut1, auxUnipolar1ModOut);
+	engineParams.setMM_SourceMasterIntensity(kAuxUnipolarModOut2, auxUnipolar2ModOut);
+	engineParams.setMM_SourceMasterIntensity(kAuxUnipolarModOut3, auxUnipolar3ModOut);
+	engineParams.setMM_SourceMasterIntensity(kAuxUnipolarModOut4, auxUnipolar4ModOut);
+	engineParams.setMM_SourceMasterIntensity(kAuxUnipolarModOut5, auxUnipolar5ModOut);
+	engineParams.setMM_SourceMasterIntensity(kAuxUnipolarModOut6, auxUnipolar6ModOut);
+	engineParams.setMM_SourceMasterIntensity(kAuxBipolarModOut1, auxUnipolar1ModOut);
+	engineParams.setMM_SourceMasterIntensity(kAuxBipolarModOut2, auxUnipolar2ModOut);
+	engineParams.setMM_SourceMasterIntensity(kAuxBipolarModOut3, auxUnipolar3ModOut);
+	engineParams.setMM_SourceMasterIntensity(kAuxBipolarModOut4, auxUnipolar4ModOut);
 
 
-	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc1_fo, lfo1_to_osc1Fo);
-	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc2_fo, lfo1_to_osc2Fo);
-	engineParams.setMM_ChannelEnable(kEG1_Normal, kOsc1_fo, eg1_to_osc1Fo);
+	// --- Destination Intensities
 
+	// Oscillators
 	engineParams.setMM_DestMasterIntensity(kOsc1_fo, osc1FoModIn);
+	engineParams.setMM_DestMasterIntensity(kOsc1_Shape, osc1ShapeModIn);
 	engineParams.setMM_DestMasterIntensity(kOsc2_fo, osc2FoModIn);
+	engineParams.setMM_DestMasterIntensity(kOsc2_Shape, osc2ShapeModIn);
+
+	// LFO's
+	engineParams.setMM_DestMasterIntensity(kLFO1_Shape, lfo1ShapeModIn);
+	engineParams.setMM_DestMasterIntensity(kLFO1_ShapeSplit, lfo1ShapeSplitModIn);
+	engineParams.setMM_DestMasterIntensity(kLFO2_Shape, lfo2ShapeModIn);
+	engineParams.setMM_DestMasterIntensity(kLFO2_ShapeSplit, lfo2ShapeSplitModIn);
+
+	// EG's
+	engineParams.setMM_DestMasterIntensity(kEG1_Attack, eg1AttackModIn);
+	engineParams.setMM_DestMasterIntensity(kEG1_Hold, eg1HoldModIn);
+	engineParams.setMM_DestMasterIntensity(kEG1_Decay, eg1DecayModIn);
+	engineParams.setMM_DestMasterIntensity(kEG1_Sustain, eg1SustainModIn);
+	engineParams.setMM_DestMasterIntensity(kEG1_Release, eg1ReleaseModIn);
+
+	// Filters
+	engineParams.setMM_DestMasterIntensity(kFilter1_fc, filter1FoModIn);
+	engineParams.setMM_DestMasterIntensity(kFilter1_Q, filter1QModIn);
+	engineParams.setMM_DestMasterIntensity(kFilter2_fc, filter2FoModIn);
+	engineParams.setMM_DestMasterIntensity(kFilter2_Q, filter2QModIn);
+
+	// DCA
+	engineParams.setMM_DestMasterIntensity(kDCA_SampleHoldMod, DCASampleHoldModIn); //param name needs changing (along with all routing's)
+
+	// Globals
+	engineParams.setMM_DestMasterIntensity(kUnisonDetune, unisonDetuneModIn);
+	
+
+
+
+
+	// --- Routings (On/Off Switches)
+
+	// -- Oscillators
+	// OSC 1
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc1_fo, lfo1_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kOsc1_fo, lfo2_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kOsc1_fo, eg1_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kOsc1_fo, eg2_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kOsc1_fo, joystickAC_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kOsc1_fo, joystickBD_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kOsc1_fo, auxUnipolar1Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kOsc1_fo, auxUnipolar2Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kOsc1_fo, auxUnipolar3Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kOsc1_fo, auxUnipolar4Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kOsc1_fo, auxUnipolar5Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kOsc1_fo, auxUnipolar6Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kOsc1_fo, auxBipolar1Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kOsc1_fo, auxBipolar2Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kOsc1_fo, auxBipolar3Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kOsc1_fo, auxBipolar4Mod_to_osc1Fo);
+
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc1_Shape, lfo1_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kOsc1_Shape, lfo2_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kOsc1_Shape, eg1_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kOsc1_Shape, eg2_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kOsc1_Shape, joystickAC_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kOsc1_Shape, joystickBD_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kOsc1_Shape, auxUnipolar1Mod_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kOsc1_Shape, auxUnipolar2Mod_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kOsc1_Shape, auxUnipolar3Mod_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kOsc1_Shape, auxUnipolar4Mod_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kOsc1_Shape, auxUnipolar5Mod_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kOsc1_Shape, auxUnipolar6Mod_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kOsc1_Shape, auxBipolar1Mod_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kOsc1_Shape, auxBipolar2Mod_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kOsc1_Shape, auxBipolar3Mod_to_osc1Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kOsc1_Shape, auxBipolar4Mod_to_osc1Shape);
+
+	//OSC 2
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc2_fo, lfo1_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kOsc2_fo, lfo2_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kOsc2_fo, eg1_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kOsc2_fo, eg2_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kOsc2_fo, joystickAC_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kOsc2_fo, joystickBD_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kOsc2_fo, auxUnipolar1Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kOsc2_fo, auxUnipolar2Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kOsc2_fo, auxUnipolar3Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kOsc2_fo, auxUnipolar4Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kOsc2_fo, auxUnipolar5Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kOsc2_fo, auxUnipolar6Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kOsc2_fo, auxBipolar1Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kOsc2_fo, auxBipolar2Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kOsc2_fo, auxBipolar3Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kOsc2_fo, auxBipolar4Mod_to_osc2Fo);
+
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kOsc2_Shape, lfo1_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kOsc2_Shape, lfo2_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kOsc2_Shape, eg1_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kOsc2_Shape, eg2_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kOsc2_Shape, joystickAC_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kOsc2_Shape, joystickBD_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kOsc2_Shape, auxUnipolar1Mod_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kOsc2_Shape, auxUnipolar2Mod_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kOsc2_Shape, auxUnipolar3Mod_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kOsc2_Shape, auxUnipolar4Mod_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kOsc2_Shape, auxUnipolar5Mod_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kOsc2_Shape, auxUnipolar6Mod_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kOsc2_Shape, auxBipolar1Mod_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kOsc2_Shape, auxBipolar2Mod_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kOsc2_Shape, auxBipolar3Mod_to_osc2Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kOsc2_Shape, auxBipolar4Mod_to_osc2Shape);
+
+	// -- LFO's
+	// LFO 1
+	/*engineParams.setMM_ChannelEnable(kLFO1_Normal, kLFO1_fo, lfo1_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kLFO1_fo, lfo2_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kLFO1_fo, eg1_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kLFO1_fo, eg2_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kLFO1_fo, joystickAC_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kLFO1_fo, joystickBD_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kLFO1_fo, auxUnipolar1Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kLFO1_fo, auxUnipolar2Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kLFO1_fo, auxUnipolar3Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kLFO1_fo, auxUnipolar4Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kLFO1_fo, auxUnipolar5Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kLFO1_fo, auxUnipolar6Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kLFO1_fo, auxBipolar1Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kLFO1_fo, auxBipolar2Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kLFO1_fo, auxBipolar3Mod_to_osc1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kLFO1_fo, auxBipolar4Mod_to_osc1Fo);*/
+
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kLFO1_Shape, lfo1_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kLFO1_Shape, lfo2_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kLFO1_Shape, eg1_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kLFO1_Shape, eg2_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kLFO1_Shape, joystickAC_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kLFO1_Shape, joystickBD_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kLFO1_Shape, auxUnipolar1Mod_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kLFO1_Shape, auxUnipolar2Mod_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kLFO1_Shape, auxUnipolar3Mod_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kLFO1_Shape, auxUnipolar4Mod_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kLFO1_Shape, auxUnipolar5Mod_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kLFO1_Shape, auxUnipolar6Mod_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kLFO1_Shape, auxBipolar1Mod_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kLFO1_Shape, auxBipolar2Mod_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kLFO1_Shape, auxBipolar3Mod_to_lfo1Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kLFO1_Shape, auxBipolar4Mod_to_lfo1Shape);
+
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kLFO1_ShapeSplit, lfo1_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kLFO1_ShapeSplit, lfo2_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kLFO1_ShapeSplit, eg1_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kLFO1_ShapeSplit, eg2_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kLFO1_ShapeSplit, joystickAC_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kLFO1_ShapeSplit, joystickBD_to_lfo1ShapeSplit);
+	/*engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kLFO1_ShapeSplit, auxUnipolar1Mod_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kLFO1_ShapeSplit, auxUnipolar2Mod_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kLFO1_ShapeSplit, auxUnipolar3Mod_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kLFO1_ShapeSplit, auxUnipolar4Mod_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kLFO1_ShapeSplit, auxUnipolar5Mod_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kLFO1_ShapeSplit, auxUnipolar6Mod_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kLFO1_ShapeSplit, auxBipolar1Mod_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kLFO1_ShapeSplit, auxBipolar2Mod_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kLFO1_ShapeSplit, auxBipolar3Mod_to_lfo1ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kLFO1_ShapeSplit, auxBipolar4Mod_to_lfo1ShapeSplit);*/
+
+	//LFO 2
+	/*engineParams.setMM_ChannelEnable(kLFO1_Normal, kLFO2_fo, lfo1_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kLFO2_fo, lfo2_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kLFO2_fo, eg1_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kLFO2_fo, eg2_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kLFO2_fo, joystickAC_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kLFO2_fo, joystickBD_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kLFO2_fo, auxUnipolar1Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kLFO2_fo, auxUnipolar2Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kLFO2_fo, auxUnipolar3Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kLFO2_fo, auxUnipolar4Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kLFO2_fo, auxUnipolar5Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kLFO2_fo, auxUnipolar6Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kLFO2_fo, auxBipolar1Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kLFO2_fo, auxBipolar2Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kLFO2_fo, auxBipolar3Mod_to_osc2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kLFO2_fo, auxBipolar4Mod_to_osc2Fo);*/
+
+
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kLFO2_Shape, lfo1_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kLFO2_Shape, lfo2_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kLFO2_Shape, eg1_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kLFO2_Shape, eg2_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kLFO2_Shape, joystickAC_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kLFO2_Shape, joystickBD_to_lfo2Shape);
+	/*engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kLFO2_Shape, auxUnipolar1Mod_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kLFO2_Shape, auxUnipolar2Mod_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kLFO2_Shape, auxUnipolar3Mod_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kLFO2_Shape, auxUnipolar4Mod_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kLFO2_Shape, auxUnipolar5Mod_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kLFO2_Shape, auxUnipolar6Mod_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kLFO2_Shape, auxBipolar1Mod_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kLFO2_Shape, auxBipolar2Mod_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kLFO2_Shape, auxBipolar3Mod_to_lfo2Shape);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kLFO2_Shape, auxBipolar4Mod_to_lfo2Shape);*/
+
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kLFO2_ShapeSplit, lfo1_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kLFO2_ShapeSplit, lfo2_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kLFO2_ShapeSplit, eg1_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kLFO2_ShapeSplit, eg2_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kLFO2_ShapeSplit, joystickAC_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kLFO2_ShapeSplit, joystickBD_to_lfo2ShapeSplit);
+	/*engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kLFO2_ShapeSplit, auxUnipolar1Mod_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kLFO2_ShapeSplit, auxUnipolar2Mod_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kLFO2_ShapeSplit, auxUnipolar3Mod_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kLFO2_ShapeSplit, auxUnipolar4Mod_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kLFO2_ShapeSplit, auxUnipolar5Mod_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kLFO2_ShapeSplit, auxUnipolar6Mod_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kLFO2_ShapeSplit, auxBipolar1Mod_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kLFO2_ShapeSplit, auxBipolar2Mod_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kLFO2_ShapeSplit, auxBipolar3Mod_to_lfo2ShapeSplit);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kLFO2_ShapeSplit, auxBipolar4Mod_to_lfo2ShapeSplit);*/
+
+
+	// -- EG's
+
+	//EG1 Attack
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kEG1_Attack, lfo1_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kEG1_Attack, lfo2_to_eg1Attack);
+	//engineParams.setMM_ChannelEnable(kEG1_Normal, kEG1_Attack, eg1_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kEG1_Attack, eg2_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kEG1_Attack, joystickAC_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kEG1_Attack, joystickBD_to_eg1Attack);
+	/*engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kEG1_Attack, auxUnipolar1Mod_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kEG1_Attack, auxUnipolar2Mod_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kEG1_Attack, auxUnipolar3Mod_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kEG1_Attack, auxUnipolar4Mod_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kEG1_Attack, auxUnipolar5Mod_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kEG1_Attack, auxUnipolar6Mod_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kEG1_Attack, auxBipolar1Mod_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kEG1_Attack, auxBipolar2Mod_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kEG1_Attack, auxBipolar3Mod_to_eg1Attack);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kEG1_Attack, auxBipolar4Mod_to_eg1Attack);*/
+
+	//EG1 Hold
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kEG1_Hold, lfo1_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kEG1_Hold, lfo2_to_eg1Hold);
+	//engineParams.setMM_ChannelEnable(kEG1_Normal, kEG1_Hold, eg1_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kEG1_Hold, eg2_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kEG1_Hold, joystickAC_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kEG1_Hold, joystickBD_to_eg1Hold);
+	/*engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kEG1_Hold, auxUnipolar1Mod_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kEG1_Hold, auxUnipolar2Mod_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kEG1_Hold, auxUnipolar3Mod_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kEG1_Hold, auxUnipolar4Mod_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kEG1_Hold, auxUnipolar5Mod_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kEG1_Hold, auxUnipolar6Mod_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kEG1_Hold, auxBipolar1Mod_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kEG1_Hold, auxBipolar2Mod_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kEG1_Hold, auxBipolar3Mod_to_eg1Hold);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kEG1_Hold, auxBipolar4Mod_to_eg1Hold);*/
+
+	//EG1 Decay
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kEG1_Decay, lfo1_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kEG1_Decay, lfo2_to_eg1Decay);
+	//engineParams.setMM_ChannelEnable(kEG1_Normal, kEG1_Decay, eg1_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kEG1_Decay, eg2_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kEG1_Decay, joystickAC_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kEG1_Decay, joystickBD_to_eg1Decay);
+	/*engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kEG1_Decay, auxUnipolar1Mod_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kEG1_Decay, auxUnipolar2Mod_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kEG1_Decay, auxUnipolar3Mod_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kEG1_Decay, auxUnipolar4Mod_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kEG1_Decay, auxUnipolar5Mod_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kEG1_Decay, auxUnipolar6Mod_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kEG1_Decay, auxBipolar1Mod_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kEG1_Decay, auxBipolar2Mod_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kEG1_Decay, auxBipolar3Mod_to_eg1Decay);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kEG1_Decay, auxBipolar4Mod_to_eg1Decay);*/
+
+	//EG1 Sustain
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kEG1_Sustain, lfo1_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kEG1_Sustain, lfo2_to_eg1Sustain);
+	//engineParams.setMM_ChannelEnable(kEG1_Normal, kEG1_Sustain, eg1_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kEG1_Sustain, eg2_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kEG1_Sustain, joystickAC_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kEG1_Sustain, joystickBD_to_eg1Sustain);
+	/*engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kEG1_Sustain, auxUnipolar1Mod_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kEG1_Sustain, auxUnipolar2Mod_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kEG1_Sustain, auxUnipolar3Mod_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kEG1_Sustain, auxUnipolar4Mod_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kEG1_Sustain, auxUnipolar5Mod_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kEG1_Sustain, auxUnipolar6Mod_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kEG1_Sustain, auxBipolar1Mod_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kEG1_Sustain, auxBipolar2Mod_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kEG1_Sustain, auxBipolar3Mod_to_eg1Sustain);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kEG1_Sustain, auxBipolar4Mod_to_eg1Sustain);*/
+
+	//EG1 Release
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kEG1_Release, lfo1_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kEG1_Release, lfo2_to_eg1Release);
+	//engineParams.setMM_ChannelEnable(kEG1_Normal, kEG1_Release, eg1_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kEG1_Release, eg2_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kEG1_Release, joystickAC_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kEG1_Release, joystickBD_to_eg1Release);
+	/*engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kEG1_Release, auxUnipolar1Mod_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kEG1_Release, auxUnipolar2Mod_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kEG1_Release, auxUnipolar3Mod_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kEG1_Release, auxUnipolar4Mod_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kEG1_Release, auxUnipolar5Mod_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kEG1_Release, auxUnipolar6Mod_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kEG1_Release, auxBipolar1Mod_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kEG1_Release, auxBipolar2Mod_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kEG1_Release, auxBipolar3Mod_to_eg1Release);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kEG1_Release, auxBipolar4Mod_to_eg1Release);*/
+
+
+	// -- Filters
+	//Filter 1
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kFilter1_fc, lfo1_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kFilter1_fc, lfo2_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kFilter1_fc, eg1_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kFilter1_fc, eg2_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kFilter1_fc, joystickAC_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kFilter1_fc, joystickBD_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kFilter1_fc, auxUnipolar1Mod_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kFilter1_fc, auxUnipolar2Mod_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kFilter1_fc, auxUnipolar3Mod_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kFilter1_fc, auxUnipolar4Mod_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kFilter1_fc, auxUnipolar5Mod_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kFilter1_fc, auxUnipolar6Mod_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kFilter1_fc, auxBipolar1Mod_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kFilter1_fc, auxBipolar2Mod_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kFilter1_fc, auxBipolar3Mod_to_filter1Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kFilter1_fc, auxBipolar4Mod_to_filter1Fo);
+
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kFilter1_Q, lfo1_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kFilter1_Q, lfo2_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kFilter1_Q, eg1_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kFilter1_Q, eg2_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kFilter1_Q, joystickAC_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kFilter1_Q, joystickBD_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kFilter1_Q, auxUnipolar1Mod_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kFilter1_Q, auxUnipolar2Mod_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kFilter1_Q, auxUnipolar3Mod_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kFilter1_Q, auxUnipolar4Mod_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kFilter1_Q, auxUnipolar5Mod_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kFilter1_Q, auxUnipolar6Mod_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kFilter1_Q, auxBipolar1Mod_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kFilter1_Q, auxBipolar2Mod_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kFilter1_Q, auxBipolar3Mod_to_filter1Q);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kFilter1_Q, auxBipolar4Mod_to_filter1Q);
+
+	//Filter 2
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kFilter2_fc, lfo1_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kFilter2_fc, lfo2_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kFilter2_fc, eg1_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kFilter2_fc, eg2_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kFilter2_fc, joystickAC_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kFilter2_fc, joystickBD_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kFilter2_fc, auxUnipolar1Mod_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kFilter2_fc, auxUnipolar2Mod_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kFilter2_fc, auxUnipolar3Mod_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kFilter2_fc, auxUnipolar4Mod_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kFilter2_fc, auxUnipolar5Mod_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kFilter2_fc, auxUnipolar6Mod_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kFilter2_fc, auxBipolar1Mod_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kFilter2_fc, auxBipolar2Mod_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kFilter2_fc, auxBipolar3Mod_to_filter2Fo);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kFilter2_fc, auxBipolar4Mod_to_filter2Fo);
+
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kFilter2_Q, lfo1_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kFilter2_Q, lfo2_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kFilter2_Q, eg1_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kFilter2_Q, eg2_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kFilter2_Q, joystickAC_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kFilter2_Q, joystickBD_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kFilter2_Q, auxUnipolar1Mod_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kFilter2_Q, auxUnipolar2Mod_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kFilter2_Q, auxUnipolar3Mod_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kFilter2_Q, auxUnipolar4Mod_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kFilter2_Q, auxUnipolar5Mod_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kFilter2_Q, auxUnipolar6Mod_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kFilter2_Q, auxBipolar1Mod_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kFilter2_Q, auxBipolar2Mod_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kFilter2_Q, auxBipolar3Mod_to_filter2Q);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kFilter2_Q, auxBipolar4Mod_to_filter2Q);
+
+	
+	// -- DCA
+	
+	//SampleHoldMod
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kDCA_SampleHoldMod, lfo1_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kDCA_SampleHoldMod, lfo2_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kDCA_SampleHoldMod, eg1_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kDCA_SampleHoldMod, eg2_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kDCA_SampleHoldMod, joystickAC_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kDCA_SampleHoldMod, joystickBD_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kDCA_SampleHoldMod, auxUnipolar1Mod_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kDCA_SampleHoldMod, auxUnipolar2Mod_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kDCA_SampleHoldMod, auxUnipolar3Mod_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kDCA_SampleHoldMod, auxUnipolar4Mod_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kDCA_SampleHoldMod, auxUnipolar5Mod_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kDCA_SampleHoldMod, auxUnipolar6Mod_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kDCA_SampleHoldMod, auxBipolar1Mod_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kDCA_SampleHoldMod, auxBipolar2Mod_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kDCA_SampleHoldMod, auxBipolar3Mod_to_DCASampleHoldModIn);
+	engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kDCA_SampleHoldMod, auxBipolar4Mod_to_DCASampleHoldModIn);
+
+
+	// -- Globals
+	//Unison Detune
+	engineParams.setMM_ChannelEnable(kLFO1_Normal, kDCA_SampleHoldMod, lfo1_to_unisonDetune);
+	engineParams.setMM_ChannelEnable(kLFO2_Normal, kDCA_SampleHoldMod, lfo2_to_unisonDetune);
+	engineParams.setMM_ChannelEnable(kEG1_Normal, kDCA_SampleHoldMod, eg1_to_unisonDetune);
+	engineParams.setMM_ChannelEnable(kEG2_Normal, kDCA_SampleHoldMod, eg2_to_unisonDetune);
+	engineParams.setMM_ChannelEnable(kJoystickAC, kDCA_SampleHoldMod, joystickAC_to_unisonDetune);
+	engineParams.setMM_ChannelEnable(kJoystickBD, kDCA_SampleHoldMod, joystickBD_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxUnipolarModOut1, kDCA_SampleHoldMod, auxUnipolar1Mod_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxUnipolarModOut2, kDCA_SampleHoldMod, auxUnipolar2Mod_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxUnipolarModOut3, kDCA_SampleHoldMod, auxUnipolar3Mod_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxUnipolarModOut4, kDCA_SampleHoldMod, auxUnipolar4Mod_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxUnipolarModOut5, kDCA_SampleHoldMod, auxUnipolar5Mod_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxUnipolarModOut6, kDCA_SampleHoldMod, auxUnipolar6Mod_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxBipolarModOut1, kDCA_SampleHoldMod, auxBipolar1Mod_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxBipolarModOut2, kDCA_SampleHoldMod, auxBipolar2Mod_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxBipolarModOut3, kDCA_SampleHoldMod, auxBipolar3Mod_to_unisonDetune);
+	//engineParams.setMM_ChannelEnable(kAuxBipolarModOut4, kDCA_SampleHoldMod, auxBipolar4Mod_to_unisonDetune);
+
 
 	engineParams.mode = convertIntToEnum(mode, synthMode);
+	//engineParams.temperament = temperamentList;
 	engineParams.masterUnisonDetune_Cents = unisonDetune_Cents;
 
 	
@@ -3204,7 +4482,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::eg2Mode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::mode, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::unisonDetune_Cents, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1ModOut, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1ModOut, 1.000000);
 	setPresetParameter(preset->presetParameters, controlID::eg1_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo2Amplitude, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::eg2ModOut, 0.000000);
@@ -3273,11 +4551,11 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar2ModOut, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar3ModOut, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar4ModOut, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::aux1ModIn, 0.000000);
-	setPresetParameter(preset->presetParameters, controlID::lfo1_to_aux1ModIn, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::lfo2_to_aux1ModIn, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_aux1ModIn, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::DCASampleHoldModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_DCASampleHoldModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_DCASampleHoldModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_DCASampleHoldModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar1Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar1Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar1Mod_to_osc2Fo, -0.000000);
@@ -3286,7 +4564,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar1Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar1Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar1Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxUnipolar1Mod_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar1Mod_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar2Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar2Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar2Mod_to_osc2Fo, -0.000000);
@@ -3295,7 +4573,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar2Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar2Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar2Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxUnipolar2Mod_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar2Mod_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar3Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar3Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar3Mod_to_osc2Fo, -0.000000);
@@ -3304,7 +4582,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar3Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar3Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar3Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxUnipolar3Mod_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar3Mod_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar4Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar4Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar4Mod_to_osc2Fo, -0.000000);
@@ -3313,7 +4591,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar4Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar4Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar4Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxUnipolar4Mod_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar4Mod_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar5Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar5Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar5Mod_to_osc2Fo, -0.000000);
@@ -3322,7 +4600,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar5Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar5Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar5Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxUnipolar5Mod_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar5Mod_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar6Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar6Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar6Mod_to_osc2Fo, -0.000000);
@@ -3331,7 +4609,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar6Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar6Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxUnipolar6Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxUnipolar6Mod_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar6Mod_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar1Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar1Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar1Mod_to_osc2Fo, -0.000000);
@@ -3340,7 +4618,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar1Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar1Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar1Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxBipolar1Mod_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxBipolar1Mod_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar2Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar2Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar2Mod_to_osc2Fo, -0.000000);
@@ -3349,7 +4627,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar2Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar2Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar2Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxBipolar2Mod_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxBipolar2Mod_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar3Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar3Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar3Mod_to_osc2Fo, -0.000000);
@@ -3358,7 +4636,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar3Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar3Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar3Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxBipolar3Mod_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxBipolar3Mod_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar4Mod_to_osc1Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar4Mod_to_osc1Shape, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar4Mod_to_osc2Fo, -0.000000);
@@ -3367,13 +4645,90 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar4Mod_to_filter1Q, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar4Mod_to_filter2Fo, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::auxBipolar4Mod_to_filter2Q, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::auxBipolar4Mod_to_aux1ModIn, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg1_to_aux1ModIn, -0.000000);
-	setPresetParameter(preset->presetParameters, controlID::eg2_to_aux1ModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxBipolar4Mod_to_DCASampleHoldModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1_to_DCASampleHoldModIn, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_DCASampleHoldModIn, -0.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo1ShapeModIn, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo1ShapeSplitModIn, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo2ShapeModIn, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::lfo2ShapeSplitModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1AttackModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1HoldModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1DecayModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1SustainModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1ReleaseModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::unisonDetuneModIn, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar1Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar2Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar3Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar4Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar5Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxUnipolar6Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxBipolar1Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxBipolar2Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxBipolar3Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::auxBipolar4Mod_to_lfo1Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_unisonDetune, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_unisonDetune, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1_to_unisonDetune, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_unisonDetune, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_unisonDetune, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_unisonDetune, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_lfo1ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_lfo1ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1_to_lfo1ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_lfo1ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_lfo1ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_lfo1ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_lfo2Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_lfo2Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1_to_lfo2Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_lfo2Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_lfo2Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_lfo2Shape, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_lfo2ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_lfo2ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg1_to_lfo2ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_lfo2ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_lfo2ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_lfo2ShapeSplit, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_eg1Attack, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_eg1Attack, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_eg1Attack, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_eg1Attack, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_eg1Attack, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_eg1Hold, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_eg1Hold, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_eg1Hold, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_eg1Hold, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_eg1Hold, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_eg1Decay, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_eg1Decay, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_eg1Decay, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_eg1Decay, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_eg1Decay, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_eg1Sustain, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_eg1Sustain, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_eg1Sustain, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_eg1Sustain, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_eg1Sustain, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo1_to_eg1Release, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::lfo2_to_eg1Release, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::eg2_to_eg1Release, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickAC_to_eg1Release, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::joystickBD_to_eg1Release, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::temperamentKeySelection, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::osc1ExciterMode, -0.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter1Attack_msec, 100.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter1Hold_msec, 250.000000);
+	setPresetParameter(preset->presetParameters, controlID::exciter1Release_msec, 1000.000000);
+	setPresetParameter(preset->presetParameters, controlID::resonator1Decay, 1.000000);
 	addPreset(preset);
 
 

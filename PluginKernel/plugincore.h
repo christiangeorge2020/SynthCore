@@ -146,11 +146,11 @@ enum controlID {
 	auxBipolar2ModOut = 300,
 	auxBipolar3ModOut = 310,
 	auxBipolar4ModOut = 320,
-	aux1ModIn = 169,
-	lfo1_to_aux1ModIn = 179,
-	lfo2_to_aux1ModIn = 189,
-	joystickAC_to_aux1ModIn = 219,
-	joystickBD_to_aux1ModIn = 229,
+	DCASampleHoldModIn = 169,
+	lfo1_to_DCASampleHoldModIn = 179,
+	lfo2_to_DCASampleHoldModIn = 189,
+	joystickAC_to_DCASampleHoldModIn = 219,
+	joystickBD_to_DCASampleHoldModIn = 229,
 	auxUnipolar1Mod_to_osc1Fo = 231,
 	auxUnipolar1Mod_to_osc1Shape = 232,
 	auxUnipolar1Mod_to_osc2Fo = 233,
@@ -159,7 +159,7 @@ enum controlID {
 	auxUnipolar1Mod_to_filter1Q = 236,
 	auxUnipolar1Mod_to_filter2Fo = 237,
 	auxUnipolar1Mod_to_filter2Q = 238,
-	auxUnipolar1Mod_to_aux1ModIn = 239,
+	auxUnipolar1Mod_to_DCASampleHoldModIn = 239,
 	auxUnipolar2Mod_to_osc1Fo = 241,
 	auxUnipolar2Mod_to_osc1Shape = 242,
 	auxUnipolar2Mod_to_osc2Fo = 243,
@@ -168,7 +168,7 @@ enum controlID {
 	auxUnipolar2Mod_to_filter1Q = 246,
 	auxUnipolar2Mod_to_filter2Fo = 247,
 	auxUnipolar2Mod_to_filter2Q = 248,
-	auxUnipolar2Mod_to_aux1ModIn = 249,
+	auxUnipolar2Mod_to_DCASampleHoldModIn = 249,
 	auxUnipolar3Mod_to_osc1Fo = 251,
 	auxUnipolar3Mod_to_osc1Shape = 252,
 	auxUnipolar3Mod_to_osc2Fo = 253,
@@ -177,7 +177,7 @@ enum controlID {
 	auxUnipolar3Mod_to_filter1Q = 256,
 	auxUnipolar3Mod_to_filter2Fo = 257,
 	auxUnipolar3Mod_to_filter2Q = 258,
-	auxUnipolar3Mod_to_aux1ModIn = 259,
+	auxUnipolar3Mod_to_DCASampleHoldModIn = 259,
 	auxUnipolar4Mod_to_osc1Fo = 261,
 	auxUnipolar4Mod_to_osc1Shape = 262,
 	auxUnipolar4Mod_to_osc2Fo = 263,
@@ -186,7 +186,7 @@ enum controlID {
 	auxUnipolar4Mod_to_filter1Q = 266,
 	auxUnipolar4Mod_to_filter2Fo = 267,
 	auxUnipolar4Mod_to_filter2Q = 268,
-	auxUnipolar4Mod_to_aux1ModIn = 269,
+	auxUnipolar4Mod_to_DCASampleHoldModIn = 269,
 	auxUnipolar5Mod_to_osc1Fo = 271,
 	auxUnipolar5Mod_to_osc1Shape = 272,
 	auxUnipolar5Mod_to_osc2Fo = 273,
@@ -195,7 +195,7 @@ enum controlID {
 	auxUnipolar5Mod_to_filter1Q = 276,
 	auxUnipolar5Mod_to_filter2Fo = 277,
 	auxUnipolar5Mod_to_filter2Q = 278,
-	auxUnipolar5Mod_to_aux1ModIn = 279,
+	auxUnipolar5Mod_to_DCASampleHoldModIn = 279,
 	auxUnipolar6Mod_to_osc1Fo = 281,
 	auxUnipolar6Mod_to_osc1Shape = 282,
 	auxUnipolar6Mod_to_osc2Fo = 283,
@@ -204,7 +204,7 @@ enum controlID {
 	auxUnipolar6Mod_to_filter1Q = 286,
 	auxUnipolar6Mod_to_filter2Fo = 287,
 	auxUnipolar6Mod_to_filter2Q = 288,
-	auxUnipolar6Mod_to_aux1ModIn = 289,
+	auxUnipolar6Mod_to_DCASampleHoldModIn = 289,
 	auxBipolar1Mod_to_osc1Fo = 291,
 	auxBipolar1Mod_to_osc1Shape = 292,
 	auxBipolar1Mod_to_osc2Fo = 293,
@@ -213,7 +213,7 @@ enum controlID {
 	auxBipolar1Mod_to_filter1Q = 296,
 	auxBipolar1Mod_to_filter2Fo = 297,
 	auxBipolar1Mod_to_filter2Q = 298,
-	auxBipolar1Mod_to_aux1ModIn = 299,
+	auxBipolar1Mod_to_DCASampleHoldModIn = 299,
 	auxBipolar2Mod_to_osc1Fo = 301,
 	auxBipolar2Mod_to_osc1Shape = 302,
 	auxBipolar2Mod_to_osc2Fo = 303,
@@ -222,7 +222,7 @@ enum controlID {
 	auxBipolar2Mod_to_filter1Q = 306,
 	auxBipolar2Mod_to_filter2Fo = 307,
 	auxBipolar2Mod_to_filter2Q = 308,
-	auxBipolar2Mod_to_aux1ModIn = 309,
+	auxBipolar2Mod_to_DCASampleHoldModIn = 309,
 	auxBipolar3Mod_to_osc1Fo = 311,
 	auxBipolar3Mod_to_osc1Shape = 312,
 	auxBipolar3Mod_to_osc2Fo = 313,
@@ -231,7 +231,7 @@ enum controlID {
 	auxBipolar3Mod_to_filter1Q = 316,
 	auxBipolar3Mod_to_filter2Fo = 317,
 	auxBipolar3Mod_to_filter2Q = 318,
-	auxBipolar3Mod_to_aux1ModIn = 319,
+	auxBipolar3Mod_to_DCASampleHoldModIn = 319,
 	auxBipolar4Mod_to_osc1Fo = 321,
 	auxBipolar4Mod_to_osc1Shape = 322,
 	auxBipolar4Mod_to_osc2Fo = 323,
@@ -240,13 +240,90 @@ enum controlID {
 	auxBipolar4Mod_to_filter1Q = 326,
 	auxBipolar4Mod_to_filter2Fo = 327,
 	auxBipolar4Mod_to_filter2Q = 328,
-	auxBipolar4Mod_to_aux1ModIn = 329,
-	eg1_to_aux1ModIn = 199,
-	eg2_to_aux1ModIn = 209,
+	auxBipolar4Mod_to_DCASampleHoldModIn = 329,
+	eg1_to_DCASampleHoldModIn = 199,
+	eg2_to_DCASampleHoldModIn = 209,
 	lfo1ShapeModIn = 341,
 	lfo1ShapeSplitModIn = 342,
 	lfo2ShapeModIn = 343,
-	lfo2ShapeSplitModIn = 344
+	lfo2ShapeSplitModIn = 344,
+	eg1AttackModIn = 345,
+	eg1HoldModIn = 346,
+	eg1DecayModIn = 347,
+	eg1SustainModIn = 348,
+	eg1ReleaseModIn = 349,
+	unisonDetuneModIn = 340,
+	lfo1_to_lfo1Shape = 351,
+	lfo2_to_lfo1Shape = 361,
+	eg1_to_lfo1Shape = 371,
+	eg2_to_lfo1Shape = 381,
+	joystickAC_to_lfo1Shape = 391,
+	joystickBD_to_lfo1Shape = 401,
+	auxUnipolar1Mod_to_lfo1Shape = 411,
+	auxUnipolar2Mod_to_lfo1Shape = 421,
+	auxUnipolar3Mod_to_lfo1Shape = 431,
+	auxUnipolar4Mod_to_lfo1Shape = 441,
+	auxUnipolar5Mod_to_lfo1Shape = 451,
+	auxUnipolar6Mod_to_lfo1Shape = 461,
+	auxBipolar1Mod_to_lfo1Shape = 471,
+	auxBipolar2Mod_to_lfo1Shape = 481,
+	auxBipolar3Mod_to_lfo1Shape = 491,
+	auxBipolar4Mod_to_lfo1Shape = 501,
+	lfo1_to_unisonDetune = 350,
+	lfo2_to_unisonDetune = 360,
+	eg1_to_unisonDetune = 370,
+	eg2_to_unisonDetune = 380,
+	joystickAC_to_unisonDetune = 390,
+	joystickBD_to_unisonDetune = 400,
+	lfo1_to_lfo1ShapeSplit = 352,
+	lfo2_to_lfo1ShapeSplit = 362,
+	eg1_to_lfo1ShapeSplit = 372,
+	eg2_to_lfo1ShapeSplit = 382,
+	joystickAC_to_lfo1ShapeSplit = 392,
+	joystickBD_to_lfo1ShapeSplit = 402,
+	lfo1_to_lfo2Shape = 353,
+	lfo2_to_lfo2Shape = 363,
+	eg1_to_lfo2Shape = 373,
+	eg2_to_lfo2Shape = 383,
+	joystickAC_to_lfo2Shape = 393,
+	joystickBD_to_lfo2Shape = 403,
+	lfo1_to_lfo2ShapeSplit = 354,
+	lfo2_to_lfo2ShapeSplit = 364,
+	eg1_to_lfo2ShapeSplit = 374,
+	eg2_to_lfo2ShapeSplit = 384,
+	joystickAC_to_lfo2ShapeSplit = 394,
+	joystickBD_to_lfo2ShapeSplit = 404,
+	lfo1_to_eg1Attack = 355,
+	lfo2_to_eg1Attack = 365,
+	joystickAC_to_eg1Attack = 395,
+	joystickBD_to_eg1Attack = 405,
+	eg2_to_eg1Attack = 385,
+	lfo1_to_eg1Hold = 356,
+	lfo2_to_eg1Hold = 366,
+	eg2_to_eg1Hold = 386,
+	joystickAC_to_eg1Hold = 396,
+	joystickBD_to_eg1Hold = 406,
+	lfo1_to_eg1Decay = 357,
+	lfo2_to_eg1Decay = 367,
+	eg2_to_eg1Decay = 387,
+	joystickAC_to_eg1Decay = 397,
+	joystickBD_to_eg1Decay = 407,
+	lfo1_to_eg1Sustain = 358,
+	lfo2_to_eg1Sustain = 368,
+	eg2_to_eg1Sustain = 388,
+	joystickAC_to_eg1Sustain = 398,
+	joystickBD_to_eg1Sustain = 408,
+	lfo1_to_eg1Release = 359,
+	lfo2_to_eg1Release = 369,
+	eg2_to_eg1Release = 389,
+	joystickAC_to_eg1Release = 399,
+	joystickBD_to_eg1Release = 409,
+	temperamentKeySelection = 39,
+	osc1ExciterMode = 80,
+	exciter1Attack_msec = 81,
+	exciter1Hold_msec = 82,
+	exciter1Release_msec = 83,
+	resonator1Decay = 84
 };
 
 	// **--0x0F1F--**
@@ -410,11 +487,22 @@ private:
 	double auxBipolar2ModOut = 0.0;
 	double auxBipolar3ModOut = 0.0;
 	double auxBipolar4ModOut = 0.0;
-	double aux1ModIn = 0.0;
+	double DCASampleHoldModIn = 0.0;
 	double lfo1ShapeModIn = 0.0;
 	double lfo1ShapeSplitModIn = 0.0;
 	double lfo2ShapeModIn = 0.0;
 	double lfo2ShapeSplitModIn = 0.0;
+	double eg1AttackModIn = 0.0;
+	double eg1HoldModIn = 0.0;
+	double eg1DecayModIn = 0.0;
+	double eg1SustainModIn = 0.0;
+	double eg1ReleaseModIn = 0.0;
+	double unisonDetuneModIn = 0.0;
+	int temperamentKeySelection = 0;
+	double exciter1Attack_msec = 0.0;
+	double exciter1Hold_msec = 0.0;
+	double exciter1Release_msec = 0.0;
+	double resonator1Decay = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
@@ -630,17 +718,17 @@ private:
 	int joystickBD_to_filter2Q = 0;
 	enum class joystickBD_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_filter2QEnum::SWITCH_OFF, joystickBD_to_filter2Q)) etc... 
 
-	int lfo1_to_aux1ModIn = 0;
-	enum class lfo1_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_aux1ModInEnum::SWITCH_OFF, lfo1_to_aux1ModIn)) etc... 
+	int lfo1_to_DCASampleHoldModIn = 0;
+	enum class lfo1_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_DCASampleHoldModInEnum::SWITCH_OFF, lfo1_to_DCASampleHoldModIn)) etc... 
 
-	int lfo2_to_aux1ModIn = 0;
-	enum class lfo2_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_aux1ModInEnum::SWITCH_OFF, lfo2_to_aux1ModIn)) etc... 
+	int lfo2_to_DCASampleHoldModIn = 0;
+	enum class lfo2_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_DCASampleHoldModInEnum::SWITCH_OFF, lfo2_to_DCASampleHoldModIn)) etc... 
 
-	int joystickAC_to_aux1ModIn = 0;
-	enum class joystickAC_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_aux1ModInEnum::SWITCH_OFF, joystickAC_to_aux1ModIn)) etc... 
+	int joystickAC_to_DCASampleHoldModIn = 0;
+	enum class joystickAC_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_DCASampleHoldModInEnum::SWITCH_OFF, joystickAC_to_DCASampleHoldModIn)) etc... 
 
-	int joystickBD_to_aux1ModIn = 0;
-	enum class joystickBD_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_aux1ModInEnum::SWITCH_OFF, joystickBD_to_aux1ModIn)) etc... 
+	int joystickBD_to_DCASampleHoldModIn = 0;
+	enum class joystickBD_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_DCASampleHoldModInEnum::SWITCH_OFF, joystickBD_to_DCASampleHoldModIn)) etc... 
 
 	int auxUnipolar1Mod_to_osc1Fo = 0;
 	enum class auxUnipolar1Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar1Mod_to_osc1Fo)) etc... 
@@ -666,8 +754,8 @@ private:
 	int auxUnipolar1Mod_to_filter2Q = 0;
 	enum class auxUnipolar1Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar1Mod_to_filter2Q)) etc... 
 
-	int auxUnipolar1Mod_to_aux1ModIn = 0;
-	enum class auxUnipolar1Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar1Mod_to_aux1ModIn)) etc... 
+	int auxUnipolar1Mod_to_DCASampleHoldModIn = 0;
+	enum class auxUnipolar1Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxUnipolar1Mod_to_DCASampleHoldModIn)) etc... 
 
 	int auxUnipolar2Mod_to_osc1Fo = 0;
 	enum class auxUnipolar2Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar2Mod_to_osc1Fo)) etc... 
@@ -693,8 +781,8 @@ private:
 	int auxUnipolar2Mod_to_filter2Q = 0;
 	enum class auxUnipolar2Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar2Mod_to_filter2Q)) etc... 
 
-	int auxUnipolar2Mod_to_aux1ModIn = 0;
-	enum class auxUnipolar2Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar2Mod_to_aux1ModIn)) etc... 
+	int auxUnipolar2Mod_to_DCASampleHoldModIn = 0;
+	enum class auxUnipolar2Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxUnipolar2Mod_to_DCASampleHoldModIn)) etc... 
 
 	int auxUnipolar3Mod_to_osc1Fo = 0;
 	enum class auxUnipolar3Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar3Mod_to_osc1Fo)) etc... 
@@ -720,8 +808,8 @@ private:
 	int auxUnipolar3Mod_to_filter2Q = 0;
 	enum class auxUnipolar3Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar3Mod_to_filter2Q)) etc... 
 
-	int auxUnipolar3Mod_to_aux1ModIn = 0;
-	enum class auxUnipolar3Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar3Mod_to_aux1ModIn)) etc... 
+	int auxUnipolar3Mod_to_DCASampleHoldModIn = 0;
+	enum class auxUnipolar3Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxUnipolar3Mod_to_DCASampleHoldModIn)) etc... 
 
 	int auxUnipolar4Mod_to_osc1Fo = 0;
 	enum class auxUnipolar4Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar4Mod_to_osc1Fo)) etc... 
@@ -747,8 +835,8 @@ private:
 	int auxUnipolar4Mod_to_filter2Q = 0;
 	enum class auxUnipolar4Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar4Mod_to_filter2Q)) etc... 
 
-	int auxUnipolar4Mod_to_aux1ModIn = 0;
-	enum class auxUnipolar4Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar4Mod_to_aux1ModIn)) etc... 
+	int auxUnipolar4Mod_to_DCASampleHoldModIn = 0;
+	enum class auxUnipolar4Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxUnipolar4Mod_to_DCASampleHoldModIn)) etc... 
 
 	int auxUnipolar5Mod_to_osc1Fo = 0;
 	enum class auxUnipolar5Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar5Mod_to_osc1Fo)) etc... 
@@ -774,8 +862,8 @@ private:
 	int auxUnipolar5Mod_to_filter2Q = 0;
 	enum class auxUnipolar5Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar5Mod_to_filter2Q)) etc... 
 
-	int auxUnipolar5Mod_to_aux1ModIn = 0;
-	enum class auxUnipolar5Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar5Mod_to_aux1ModIn)) etc... 
+	int auxUnipolar5Mod_to_DCASampleHoldModIn = 0;
+	enum class auxUnipolar5Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxUnipolar5Mod_to_DCASampleHoldModIn)) etc... 
 
 	int auxUnipolar6Mod_to_osc1Fo = 0;
 	enum class auxUnipolar6Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_osc1FoEnum::SWITCH_OFF, auxUnipolar6Mod_to_osc1Fo)) etc... 
@@ -801,8 +889,8 @@ private:
 	int auxUnipolar6Mod_to_filter2Q = 0;
 	enum class auxUnipolar6Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_filter2QEnum::SWITCH_OFF, auxUnipolar6Mod_to_filter2Q)) etc... 
 
-	int auxUnipolar6Mod_to_aux1ModIn = 0;
-	enum class auxUnipolar6Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_aux1ModInEnum::SWITCH_OFF, auxUnipolar6Mod_to_aux1ModIn)) etc... 
+	int auxUnipolar6Mod_to_DCASampleHoldModIn = 0;
+	enum class auxUnipolar6Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxUnipolar6Mod_to_DCASampleHoldModIn)) etc... 
 
 	int auxBipolar1Mod_to_osc1Fo = 0;
 	enum class auxBipolar1Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_osc1FoEnum::SWITCH_OFF, auxBipolar1Mod_to_osc1Fo)) etc... 
@@ -828,8 +916,8 @@ private:
 	int auxBipolar1Mod_to_filter2Q = 0;
 	enum class auxBipolar1Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_filter2QEnum::SWITCH_OFF, auxBipolar1Mod_to_filter2Q)) etc... 
 
-	int auxBipolar1Mod_to_aux1ModIn = 0;
-	enum class auxBipolar1Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_aux1ModInEnum::SWITCH_OFF, auxBipolar1Mod_to_aux1ModIn)) etc... 
+	int auxBipolar1Mod_to_DCASampleHoldModIn = 0;
+	enum class auxBipolar1Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxBipolar1Mod_to_DCASampleHoldModIn)) etc... 
 
 	int auxBipolar2Mod_to_osc1Fo = 0;
 	enum class auxBipolar2Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_osc1FoEnum::SWITCH_OFF, auxBipolar2Mod_to_osc1Fo)) etc... 
@@ -855,8 +943,8 @@ private:
 	int auxBipolar2Mod_to_filter2Q = 0;
 	enum class auxBipolar2Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_filter2QEnum::SWITCH_OFF, auxBipolar2Mod_to_filter2Q)) etc... 
 
-	int auxBipolar2Mod_to_aux1ModIn = 0;
-	enum class auxBipolar2Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_aux1ModInEnum::SWITCH_OFF, auxBipolar2Mod_to_aux1ModIn)) etc... 
+	int auxBipolar2Mod_to_DCASampleHoldModIn = 0;
+	enum class auxBipolar2Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxBipolar2Mod_to_DCASampleHoldModIn)) etc... 
 
 	int auxBipolar3Mod_to_osc1Fo = 0;
 	enum class auxBipolar3Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_osc1FoEnum::SWITCH_OFF, auxBipolar3Mod_to_osc1Fo)) etc... 
@@ -882,8 +970,8 @@ private:
 	int auxBipolar3Mod_to_filter2Q = 0;
 	enum class auxBipolar3Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_filter2QEnum::SWITCH_OFF, auxBipolar3Mod_to_filter2Q)) etc... 
 
-	int auxBipolar3Mod_to_aux1ModIn = 0;
-	enum class auxBipolar3Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_aux1ModInEnum::SWITCH_OFF, auxBipolar3Mod_to_aux1ModIn)) etc... 
+	int auxBipolar3Mod_to_DCASampleHoldModIn = 0;
+	enum class auxBipolar3Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxBipolar3Mod_to_DCASampleHoldModIn)) etc... 
 
 	int auxBipolar4Mod_to_osc1Fo = 0;
 	enum class auxBipolar4Mod_to_osc1FoEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_osc1FoEnum::SWITCH_OFF, auxBipolar4Mod_to_osc1Fo)) etc... 
@@ -909,14 +997,212 @@ private:
 	int auxBipolar4Mod_to_filter2Q = 0;
 	enum class auxBipolar4Mod_to_filter2QEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_filter2QEnum::SWITCH_OFF, auxBipolar4Mod_to_filter2Q)) etc... 
 
-	int auxBipolar4Mod_to_aux1ModIn = 0;
-	enum class auxBipolar4Mod_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_aux1ModInEnum::SWITCH_OFF, auxBipolar4Mod_to_aux1ModIn)) etc... 
+	int auxBipolar4Mod_to_DCASampleHoldModIn = 0;
+	enum class auxBipolar4Mod_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_DCASampleHoldModInEnum::SWITCH_OFF, auxBipolar4Mod_to_DCASampleHoldModIn)) etc... 
 
-	int eg1_to_aux1ModIn = 0;
-	enum class eg1_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_aux1ModInEnum::SWITCH_OFF, eg1_to_aux1ModIn)) etc... 
+	int eg1_to_DCASampleHoldModIn = 0;
+	enum class eg1_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_DCASampleHoldModInEnum::SWITCH_OFF, eg1_to_DCASampleHoldModIn)) etc... 
 
-	int eg2_to_aux1ModIn = 0;
-	enum class eg2_to_aux1ModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_aux1ModInEnum::SWITCH_OFF, eg2_to_aux1ModIn)) etc... 
+	int eg2_to_DCASampleHoldModIn = 0;
+	enum class eg2_to_DCASampleHoldModInEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_DCASampleHoldModInEnum::SWITCH_OFF, eg2_to_DCASampleHoldModIn)) etc... 
+
+	int lfo1_to_lfo1Shape = 0;
+	enum class lfo1_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_lfo1ShapeEnum::SWITCH_OFF, lfo1_to_lfo1Shape)) etc... 
+
+	int lfo2_to_lfo1Shape = 0;
+	enum class lfo2_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_lfo1ShapeEnum::SWITCH_OFF, lfo2_to_lfo1Shape)) etc... 
+
+	int eg1_to_lfo1Shape = 0;
+	enum class eg1_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_lfo1ShapeEnum::SWITCH_OFF, eg1_to_lfo1Shape)) etc... 
+
+	int eg2_to_lfo1Shape = 0;
+	enum class eg2_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_lfo1ShapeEnum::SWITCH_OFF, eg2_to_lfo1Shape)) etc... 
+
+	int joystickAC_to_lfo1Shape = 0;
+	enum class joystickAC_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_lfo1ShapeEnum::SWITCH_OFF, joystickAC_to_lfo1Shape)) etc... 
+
+	int joystickBD_to_lfo1Shape = 0;
+	enum class joystickBD_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_lfo1ShapeEnum::SWITCH_OFF, joystickBD_to_lfo1Shape)) etc... 
+
+	int auxUnipolar1Mod_to_lfo1Shape = 0;
+	enum class auxUnipolar1Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar1Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxUnipolar1Mod_to_lfo1Shape)) etc... 
+
+	int auxUnipolar2Mod_to_lfo1Shape = 0;
+	enum class auxUnipolar2Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar2Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxUnipolar2Mod_to_lfo1Shape)) etc... 
+
+	int auxUnipolar3Mod_to_lfo1Shape = 0;
+	enum class auxUnipolar3Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar3Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxUnipolar3Mod_to_lfo1Shape)) etc... 
+
+	int auxUnipolar4Mod_to_lfo1Shape = 0;
+	enum class auxUnipolar4Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar4Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxUnipolar4Mod_to_lfo1Shape)) etc... 
+
+	int auxUnipolar5Mod_to_lfo1Shape = 0;
+	enum class auxUnipolar5Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar5Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxUnipolar5Mod_to_lfo1Shape)) etc... 
+
+	int auxUnipolar6Mod_to_lfo1Shape = 0;
+	enum class auxUnipolar6Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxUnipolar6Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxUnipolar6Mod_to_lfo1Shape)) etc... 
+
+	int auxBipolar1Mod_to_lfo1Shape = 0;
+	enum class auxBipolar1Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar1Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxBipolar1Mod_to_lfo1Shape)) etc... 
+
+	int auxBipolar2Mod_to_lfo1Shape = 0;
+	enum class auxBipolar2Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar2Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxBipolar2Mod_to_lfo1Shape)) etc... 
+
+	int auxBipolar3Mod_to_lfo1Shape = 0;
+	enum class auxBipolar3Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar3Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxBipolar3Mod_to_lfo1Shape)) etc... 
+
+	int auxBipolar4Mod_to_lfo1Shape = 0;
+	enum class auxBipolar4Mod_to_lfo1ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(auxBipolar4Mod_to_lfo1ShapeEnum::SWITCH_OFF, auxBipolar4Mod_to_lfo1Shape)) etc... 
+
+	int lfo1_to_unisonDetune = 0;
+	enum class lfo1_to_unisonDetuneEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_unisonDetuneEnum::SWITCH_OFF, lfo1_to_unisonDetune)) etc... 
+
+	int lfo2_to_unisonDetune = 0;
+	enum class lfo2_to_unisonDetuneEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_unisonDetuneEnum::SWITCH_OFF, lfo2_to_unisonDetune)) etc... 
+
+	int eg1_to_unisonDetune = 0;
+	enum class eg1_to_unisonDetuneEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_unisonDetuneEnum::SWITCH_OFF, eg1_to_unisonDetune)) etc... 
+
+	int eg2_to_unisonDetune = 0;
+	enum class eg2_to_unisonDetuneEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_unisonDetuneEnum::SWITCH_OFF, eg2_to_unisonDetune)) etc... 
+
+	int joystickAC_to_unisonDetune = 0;
+	enum class joystickAC_to_unisonDetuneEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_unisonDetuneEnum::SWITCH_OFF, joystickAC_to_unisonDetune)) etc... 
+
+	int joystickBD_to_unisonDetune = 0;
+	enum class joystickBD_to_unisonDetuneEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_unisonDetuneEnum::SWITCH_OFF, joystickBD_to_unisonDetune)) etc... 
+
+	int lfo1_to_lfo1ShapeSplit = 0;
+	enum class lfo1_to_lfo1ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_lfo1ShapeSplitEnum::SWITCH_OFF, lfo1_to_lfo1ShapeSplit)) etc... 
+
+	int lfo2_to_lfo1ShapeSplit = 0;
+	enum class lfo2_to_lfo1ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_lfo1ShapeSplitEnum::SWITCH_OFF, lfo2_to_lfo1ShapeSplit)) etc... 
+
+	int eg1_to_lfo1ShapeSplit = 0;
+	enum class eg1_to_lfo1ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_lfo1ShapeSplitEnum::SWITCH_OFF, eg1_to_lfo1ShapeSplit)) etc... 
+
+	int eg2_to_lfo1ShapeSplit = 0;
+	enum class eg2_to_lfo1ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_lfo1ShapeSplitEnum::SWITCH_OFF, eg2_to_lfo1ShapeSplit)) etc... 
+
+	int joystickAC_to_lfo1ShapeSplit = 0;
+	enum class joystickAC_to_lfo1ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_lfo1ShapeSplitEnum::SWITCH_OFF, joystickAC_to_lfo1ShapeSplit)) etc... 
+
+	int joystickBD_to_lfo1ShapeSplit = 0;
+	enum class joystickBD_to_lfo1ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_lfo1ShapeSplitEnum::SWITCH_OFF, joystickBD_to_lfo1ShapeSplit)) etc... 
+
+	int lfo1_to_lfo2Shape = 0;
+	enum class lfo1_to_lfo2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_lfo2ShapeEnum::SWITCH_OFF, lfo1_to_lfo2Shape)) etc... 
+
+	int lfo2_to_lfo2Shape = 0;
+	enum class lfo2_to_lfo2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_lfo2ShapeEnum::SWITCH_OFF, lfo2_to_lfo2Shape)) etc... 
+
+	int eg1_to_lfo2Shape = 0;
+	enum class eg1_to_lfo2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_lfo2ShapeEnum::SWITCH_OFF, eg1_to_lfo2Shape)) etc... 
+
+	int eg2_to_lfo2Shape = 0;
+	enum class eg2_to_lfo2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_lfo2ShapeEnum::SWITCH_OFF, eg2_to_lfo2Shape)) etc... 
+
+	int joystickAC_to_lfo2Shape = 0;
+	enum class joystickAC_to_lfo2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_lfo2ShapeEnum::SWITCH_OFF, joystickAC_to_lfo2Shape)) etc... 
+
+	int joystickBD_to_lfo2Shape = 0;
+	enum class joystickBD_to_lfo2ShapeEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_lfo2ShapeEnum::SWITCH_OFF, joystickBD_to_lfo2Shape)) etc... 
+
+	int lfo1_to_lfo2ShapeSplit = 0;
+	enum class lfo1_to_lfo2ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_lfo2ShapeSplitEnum::SWITCH_OFF, lfo1_to_lfo2ShapeSplit)) etc... 
+
+	int lfo2_to_lfo2ShapeSplit = 0;
+	enum class lfo2_to_lfo2ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_lfo2ShapeSplitEnum::SWITCH_OFF, lfo2_to_lfo2ShapeSplit)) etc... 
+
+	int eg1_to_lfo2ShapeSplit = 0;
+	enum class eg1_to_lfo2ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg1_to_lfo2ShapeSplitEnum::SWITCH_OFF, eg1_to_lfo2ShapeSplit)) etc... 
+
+	int eg2_to_lfo2ShapeSplit = 0;
+	enum class eg2_to_lfo2ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_lfo2ShapeSplitEnum::SWITCH_OFF, eg2_to_lfo2ShapeSplit)) etc... 
+
+	int joystickAC_to_lfo2ShapeSplit = 0;
+	enum class joystickAC_to_lfo2ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_lfo2ShapeSplitEnum::SWITCH_OFF, joystickAC_to_lfo2ShapeSplit)) etc... 
+
+	int joystickBD_to_lfo2ShapeSplit = 0;
+	enum class joystickBD_to_lfo2ShapeSplitEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_lfo2ShapeSplitEnum::SWITCH_OFF, joystickBD_to_lfo2ShapeSplit)) etc... 
+
+	int lfo1_to_eg1Attack = 0;
+	enum class lfo1_to_eg1AttackEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_eg1AttackEnum::SWITCH_OFF, lfo1_to_eg1Attack)) etc... 
+
+	int lfo2_to_eg1Attack = 0;
+	enum class lfo2_to_eg1AttackEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_eg1AttackEnum::SWITCH_OFF, lfo2_to_eg1Attack)) etc... 
+
+	int joystickAC_to_eg1Attack = 0;
+	enum class joystickAC_to_eg1AttackEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_eg1AttackEnum::SWITCH_OFF, joystickAC_to_eg1Attack)) etc... 
+
+	int joystickBD_to_eg1Attack = 0;
+	enum class joystickBD_to_eg1AttackEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_eg1AttackEnum::SWITCH_OFF, joystickBD_to_eg1Attack)) etc... 
+
+	int eg2_to_eg1Attack = 0;
+	enum class eg2_to_eg1AttackEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_eg1AttackEnum::SWITCH_OFF, eg2_to_eg1Attack)) etc... 
+
+	int lfo1_to_eg1Hold = 0;
+	enum class lfo1_to_eg1HoldEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_eg1HoldEnum::SWITCH_OFF, lfo1_to_eg1Hold)) etc... 
+
+	int lfo2_to_eg1Hold = 0;
+	enum class lfo2_to_eg1HoldEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_eg1HoldEnum::SWITCH_OFF, lfo2_to_eg1Hold)) etc... 
+
+	int eg2_to_eg1Hold = 0;
+	enum class eg2_to_eg1HoldEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_eg1HoldEnum::SWITCH_OFF, eg2_to_eg1Hold)) etc... 
+
+	int joystickAC_to_eg1Hold = 0;
+	enum class joystickAC_to_eg1HoldEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_eg1HoldEnum::SWITCH_OFF, joystickAC_to_eg1Hold)) etc... 
+
+	int joystickBD_to_eg1Hold = 0;
+	enum class joystickBD_to_eg1HoldEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_eg1HoldEnum::SWITCH_OFF, joystickBD_to_eg1Hold)) etc... 
+
+	int lfo1_to_eg1Decay = 0;
+	enum class lfo1_to_eg1DecayEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_eg1DecayEnum::SWITCH_OFF, lfo1_to_eg1Decay)) etc... 
+
+	int lfo2_to_eg1Decay = 0;
+	enum class lfo2_to_eg1DecayEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_eg1DecayEnum::SWITCH_OFF, lfo2_to_eg1Decay)) etc... 
+
+	int eg2_to_eg1Decay = 0;
+	enum class eg2_to_eg1DecayEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_eg1DecayEnum::SWITCH_OFF, eg2_to_eg1Decay)) etc... 
+
+	int joystickAC_to_eg1Decay = 0;
+	enum class joystickAC_to_eg1DecayEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_eg1DecayEnum::SWITCH_OFF, joystickAC_to_eg1Decay)) etc... 
+
+	int joystickBD_to_eg1Decay = 0;
+	enum class joystickBD_to_eg1DecayEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_eg1DecayEnum::SWITCH_OFF, joystickBD_to_eg1Decay)) etc... 
+
+	int lfo1_to_eg1Sustain = 0;
+	enum class lfo1_to_eg1SustainEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_eg1SustainEnum::SWITCH_OFF, lfo1_to_eg1Sustain)) etc... 
+
+	int lfo2_to_eg1Sustain = 0;
+	enum class lfo2_to_eg1SustainEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_eg1SustainEnum::SWITCH_OFF, lfo2_to_eg1Sustain)) etc... 
+
+	int eg2_to_eg1Sustain = 0;
+	enum class eg2_to_eg1SustainEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_eg1SustainEnum::SWITCH_OFF, eg2_to_eg1Sustain)) etc... 
+
+	int joystickAC_to_eg1Sustain = 0;
+	enum class joystickAC_to_eg1SustainEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_eg1SustainEnum::SWITCH_OFF, joystickAC_to_eg1Sustain)) etc... 
+
+	int joystickBD_to_eg1Sustain = 0;
+	enum class joystickBD_to_eg1SustainEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_eg1SustainEnum::SWITCH_OFF, joystickBD_to_eg1Sustain)) etc... 
+
+	int lfo1_to_eg1Release = 0;
+	enum class lfo1_to_eg1ReleaseEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo1_to_eg1ReleaseEnum::SWITCH_OFF, lfo1_to_eg1Release)) etc... 
+
+	int lfo2_to_eg1Release = 0;
+	enum class lfo2_to_eg1ReleaseEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(lfo2_to_eg1ReleaseEnum::SWITCH_OFF, lfo2_to_eg1Release)) etc... 
+
+	int eg2_to_eg1Release = 0;
+	enum class eg2_to_eg1ReleaseEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(eg2_to_eg1ReleaseEnum::SWITCH_OFF, eg2_to_eg1Release)) etc... 
+
+	int joystickAC_to_eg1Release = 0;
+	enum class joystickAC_to_eg1ReleaseEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickAC_to_eg1ReleaseEnum::SWITCH_OFF, joystickAC_to_eg1Release)) etc... 
+
+	int joystickBD_to_eg1Release = 0;
+	enum class joystickBD_to_eg1ReleaseEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(joystickBD_to_eg1ReleaseEnum::SWITCH_OFF, joystickBD_to_eg1Release)) etc... 
+
+	int osc1ExciterMode = 0;
+	enum class osc1ExciterModeEnum { None,Noise,Waveform };	// to compare: if(compareEnumToInt(osc1ExciterModeEnum::None, osc1ExciterMode)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables
