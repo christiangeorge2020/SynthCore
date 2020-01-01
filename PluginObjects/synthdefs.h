@@ -70,6 +70,8 @@ const double pitchShiftTable[kPitchShiftTableLength] = {
 // --- this is just for easy indexing of the output array
 enum { LEFT_CHANNEL, RIGHT_CHANNEL }; // can add more channels as needed
 
+enum class ScaleMode { kNone, kIonian, kDorian, kPhrygian, kLydian, kMixolydian, kAeolian, kLocrian };
+
 enum class ModRouting { None, LFO1_Fo, LFO1_Shape, Rhythmic_Breaks, Both };
 								
 // --- constants: this is the number of possible modulation inputs (move to synthdefs.h)
@@ -1091,6 +1093,8 @@ struct SynthOscParameters
 
 		exciterInput = params.exciterInput;
 
+		scaleSelect = params.scaleSelect;
+
 		resonatorDecay = params.resonatorDecay;
 
 		return *this;
@@ -1112,6 +1116,8 @@ struct SynthOscParameters
 
 	double pulseWidth_Pct = 50.0;		// sqr wave only
 	double outputAmplitude = 1.0;		// raw value, NOT dB
+
+	ScaleMode scaleSelect = ScaleMode::kNone;
 	
 	double oscillatorShape = 0.0;		// [-1, +1]
 	double morphModulation = 0.0;		// [0, +1]

@@ -1317,6 +1317,11 @@ void PluginCore::updateParameters()
 	engineParams.mode = convertIntToEnum(mode, synthMode);
 	engineParams.masterUnisonDetune_Cents = unisonDetune_Cents;
 
+	engineParams.voiceParameters->osc1Parameters->scaleSelect = convertIntToEnum(scaleMode, ScaleMode);
+	engineParams.voiceParameters->osc2Parameters->scaleSelect = convertIntToEnum(scaleMode, ScaleMode);
+	engineParams.voiceParameters->osc3Parameters->scaleSelect = convertIntToEnum(scaleMode, ScaleMode);
+	engineParams.voiceParameters->osc4Parameters->scaleSelect = convertIntToEnum(scaleMode, ScaleMode);
+
 
 	// Physical Modeling
 	engineParams.voiceParameters->osc1Parameters->exciterInput = convertIntToEnum(osc1ExciterMode, ExciterMode);
@@ -1688,6 +1693,7 @@ bool PluginCore::initPluginPresets()
 	PresetInfo* preset = nullptr;
 
 	// --- Preset: Factory Preset
+
 	preset = new PresetInfo(index++, "Factory Preset");
 	initPresetParameters(preset->presetParameters);
 	setPresetParameter(preset->presetParameters, controlID::lfo1Waveform, -0.000000);
